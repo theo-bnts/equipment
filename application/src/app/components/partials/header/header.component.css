@@ -1,22 +1,17 @@
 .navbar {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
   background-color: #0097B1;
-  padding: 15px 20px;
-  border-radius: 0 0 20px 20px;
-  position: relative;
+  padding: 10px 30px;
+  border-radius: 0 0 30px 30px;
 }
 
-.navbar-text {
+.navbar > span {
   color: white;
-  font-size: 32px;
-  font-family: 'KoHo', sans-serif;
+  font-size: 1.5em;
 }
 
-.navbar-logo {
-  position: absolute;
-  right: 20px;
-  width: 60px;
-  height: auto;
+.navbar > img {
+  width: 40px;
 }
