@@ -3,7 +3,8 @@
   align-items: center;
   justify-content: space-between;
   background-color: #0097B1;
-  padding: 10px 30px;
+  padding: 0 30px;
+  min-height: 7.5vh;
   border-radius: 0 0 30px 30px;
 }
 

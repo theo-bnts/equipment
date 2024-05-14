@@ -1,4 +1,10 @@
 .login-page {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+  height: 92.5vh;
+}
+
+.login-page > img {
+  max-width: 200px;
 }
