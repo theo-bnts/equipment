@@ -4,11 +4,11 @@ services:
   mongodb:
     image: mongo:7.0
     restart: unless-stopped
-    container_name: angular_mangodb
+    container_name: angular_mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
-      MONGO_INITDB_DATABASE: projet
+      MONGO_INITDB_DATABASE: project
     ports:
       - "27017:27017"
     volumes:
