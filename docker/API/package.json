@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src/ --ext .js",
+    "format": "eslint --fix src/ --ext .js",
+    "debug": "npm install && nodemon",
+    "start": "npm install && node src/index.js"
+  },
+  "dependencies": {
+    "auth-header": "1",
+    "axios": "1",
+    "desm": "1",
+    "dotenv": "16",
+    "express": "4",
+    "express-validator": "7",
+    "glob": "10",
+    "mongoose": "8",
+    "nodemailer": "6"
+  },
+  "devDependencies": {
+    "eslint": "8",
+    "eslint-config-airbnb-base": "15",
+    "eslint-plugin-import": "2",
+    "nodemon": "3"
+  }
+}
