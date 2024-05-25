@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  express:
+    restart: always
+    container_name: angular_express
+    image: node:20
+    volumes:
+      - ./package.json:/app/package.json
+      - ./.env:/app/.env
+      - ../../API/:/app/src/
+    working_dir: /app
+    command: npm run debug
+    ports:
+      - "8082:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
