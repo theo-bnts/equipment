@@ -1,18 +1,18 @@
 import 'dotenv/config';
 
-import { email_address, password } from '../../../../middlewares/schemas.js';
-import Security from '../../../../entities/tools/Security.js';
-import Token from '../../../../entities/Token.js';
-import User from '../../../../entities/User.js';
+import { email_address, password } from '../../../middlewares/schemas.js';
+import Security from '../../../entities/tools/Security.js';
+import Token from '../../../entities/Token.js';
+import User from '../../../entities/User.js';
 
 export default function route(app) {
   app.post(
-    '/account/security/token',
+    '/account/token',
     [
       email_address,
       password,
     ],
-    async (req, res, next) => {
+    async (req, res) => {
       const { email_address: emailAddress, password } = req.body;
 
       if (!await User.isEmailAddressInserted(emailAddress)) {
