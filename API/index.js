@@ -26,23 +26,14 @@ app.use((req, res, next) => {
 const routesPath = join(import.meta.url, 'routes');
 const routeFiles = glob.sync(`${routesPath}/**/*.js`);
 
-(async () => {
-  for (const file of routeFiles) {
-    const module = await import(file)
-    module.default(app);
-    console.log(`${file} loaded`);
+for (const file of routeFiles) {
+  const module = await import(file)
+  module.default(app);
+  console.log(`${file} loaded`);
+}
+
+app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, (error) => {
+  if (error) {
+    throw error;
   }
-
-  app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res
-      .status(500)
-      .send({ errors: [{ type: 'INTERNAL_SERVER_ERROR', msg: err.message }] });
-  });
-
-  app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, (error) => {
-    if (error) {
-      throw error;
-    }
-  });
-})();
+});
