@@ -9,19 +9,19 @@ export default function route(app) {
   app.post(
     '/account/token',
     [
-      email_address,
-      password,
+      email_address('user.'),
+      password('user.'),
     ],
     async (req, res) => {
-      if (!await User.isEmailAddressInserted(req.body.email_address)) {
+      if (!await User.emailAddressExists(req.body.user.email_address)) {
         return res
           .status(401)
-          .send({ errors: [{ msg: 'EMAIL_ADDRESS_NOT_FOUND' }] });
+          .send({ errors: [{ msg: 'USER_EMAIL_ADDRESS_NOT_FOUND' }] });
       }
 
-      const user = await User.fromEmailAddress(req.body.email_address);
+      const user = await User.fromEmailAddress(req.body.user.email_address);
 
-      if (!user.isValidPassword(req.body.password)) {
+      if (!user.isValidPassword(req.body.user.password)) {
         return res
           .status(403)
           .send({ errors: [{ msg: 'INVALID_PASSWORD' }] });
