@@ -10,6 +10,12 @@ class RoleType {
     this.Name = name;
   }
 
+  format() {
+    return {
+      name: this.Name,
+    };
+  }
+
   static async fromId(id) {
     const role = await DatabasePool
       .getConnection()

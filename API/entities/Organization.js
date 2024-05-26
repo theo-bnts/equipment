@@ -10,6 +10,12 @@ class Organization {
     this.Name = name;
   }
 
+  format() {
+    return {
+      name: this.Name,
+    };
+  }
+
   static async fromId(id) {
     const organization = await DatabasePool
       .getConnection()

@@ -44,6 +44,14 @@ class Token {
       );
   }
 
+  format() {
+    return {
+      value: this.Value,
+      expiration: this.Expiration,
+      user: this.User.format(),
+    };
+  }
+
   static async isValidValue(value) {
     const token = await DatabasePool
       .getConnection()

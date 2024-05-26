@@ -38,14 +38,9 @@ export default function route(app) {
 
       await token.insert();
 
-      const formattedToken = {
-        value: token.Value,
-        expiration: token.Expiration,
-      };
-
       return res
         .send({
-          datas: formattedToken,
+          datas: token.format(),
         });
     }
   );
