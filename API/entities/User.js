@@ -40,7 +40,7 @@ class User {
   }
 
   async insert() {
-    await DatabasePool
+    const result = await DatabasePool
       .getConnection()
       .collection('user')
       .insertOne({
@@ -51,6 +51,8 @@ class User {
         last_name: this.LastName,
         id_role_type: this.Role.Id,
       });
+
+    this.Id = result.insertedId;
   }
 
   async update() {
@@ -70,6 +72,13 @@ class User {
           },
         },
       );
+  }
+
+  async delete() {
+    await DatabasePool
+      .getConnection()
+      .collection('user')
+      .deleteOne({ _id: this.Id });
   }
 
   format() {

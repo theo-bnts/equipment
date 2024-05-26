@@ -8,7 +8,7 @@ export async function authentificate(req, res, next) {
   if (!await Token.isValidValue(authorization.token)) {
     return res
       .status(401)
-      .send({ errors: [{ type: 'INVALID_TOKEN' }] });
+      .send({ errors: [{ msg: 'INVALID_TOKEN' }] });
   }
 
   const token = await Token.fromValue(authorization.token);
@@ -16,7 +16,7 @@ export async function authentificate(req, res, next) {
   if (token.Expiration < new Date()) {
     return res
       .status(403)
-      .send({ errors: [{ type: 'EXPIRED_TOKEN' }] });
+      .send({ errors: [{ msg: 'EXPIRED_TOKEN' }] });
   }
 
   req.token = token;
@@ -24,10 +24,10 @@ export async function authentificate(req, res, next) {
 }
 
 export async function administrator(req, res, next) {
-  if (req.token.User.Role.Name !== 'Administrateur') {
+  if (!req.token.User.Role.isAdministrator()) {
     return res
       .status(403)
-      .send({ errors: [{ type: 'NOT_ADMINISTRATOR' }] });
+      .send({ errors: [{ msg: 'NOT_ADMINISTRATOR' }] });
   }
 
   next();

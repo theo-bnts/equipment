@@ -13,20 +13,18 @@ export default function route(app) {
       password,
     ],
     async (req, res) => {
-      const { email_address: emailAddress, password } = req.body;
-
-      if (!await User.isEmailAddressInserted(emailAddress)) {
+      if (!await User.isEmailAddressInserted(req.body.email_address)) {
         return res
           .status(401)
-          .send({ errors: [{ type: 'EMAIL_ADDRESS_NOT_FOUND' }] });
+          .send({ errors: [{ msg: 'EMAIL_ADDRESS_NOT_FOUND' }] });
       }
 
-      const user = await User.fromEmailAddress(emailAddress);
+      const user = await User.fromEmailAddress(req.body.email_address);
 
-      if (!user.isValidPassword(password)) {
+      if (!user.isValidPassword(req.body.password)) {
         return res
           .status(403)
-          .send({ errors: [{ type: 'INVALID_PASSWORD' }] });
+          .send({ errors: [{ msg: 'INVALID_PASSWORD' }] });
       }
 
       const token = new Token(

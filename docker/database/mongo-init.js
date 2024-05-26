@@ -334,7 +334,7 @@ db.equipment.insertMany([
 ]);
 
 db.user.insertMany([
-    { _id: 1, email_address: 'frederic.furst@u-picardie.fr', password_hash: '62670b97dd4abc773a8a83d5cf77a57316721511e299112e6bdb01012aab8bb8d22ef20a74d40791dc25982f4a82522c908ea65b3e4d2fdfa1d366eab1c1283c', password_hash_salt: 'c1510d7abd6d2b776c358579029d15242754ded0b175652e6303f0fab5a8dfbb655d86ee4440a529ff639546b9f4caf138defa3bed16bcbc175d22c4cbf78665', first_name: 'Frédéric', last_name: 'Furst', id_role_type: 1 },
+    { _id: 1, email_address: 'frederic.furst@u-picardie.fr', password_hash: '62670b97dd4abc773a8a83d5cf77a57316721511e299112e6bdb01012aab8bb8d22ef20a74d40791dc25982f4a82522c908ea65b3e4d2fdfa1d366eab1c1283c', password_hash_salt: 'c1510d7abd6d2b776c358579029d15242754ded0b175652e6303f0fab5a8dfbb655d86ee4440a529ff639546b9f4caf138defa3bed16bcbc175d22c4cbf78665', first_name: 'Frédéric', last_name: 'Fürst', id_role_type: 1 },
     { _id: 2, email_address: 'theo.bontemps@etud.u-picardie.fr', password_hash: '5aa326e72e2e6b9cb146a11348718f2210bddaa92b987959a5170e8521a37c34728ca199d96261713037a9bcddc9d80f2a680e9217f01c37ceb8994b370e5e8e', password_hash_salt: '02fffac693893ca2a123efc392f04a04240f3a4cd6750789bc9ca06ac2ae28a923775bebbb58bcdaa6a0dbe1cb496665bd355f311939e246c315140ca023de2c', first_name: 'Théo', last_name: 'Bontemps', id_role_type: 2 },
     { _id: 3, email_address: 'dorian.descamps@etud.u-picardie.fr', password_hash: '86099dcaccefe1cf9c0bf773e0155a86ab8e2430b91287996b259c4f65a429d67685bed385dc459ade88322225a33e25f7bd2e6213d7ec6a0b41fdb782985e78', password_hash_salt: '574a8d3b175ecf785a8a1b47ac95c05675b41bd820407b260a567eb2e404d5c2684746e3ea1916963b54beebfb575b8bfb8b371a81353caaa5af2fea5c67c1e2', first_name: 'Dorian', last_name: 'Descamps', id_role_type: 2 },
 ]);

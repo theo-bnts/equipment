@@ -18,7 +18,7 @@ class Token {
   }
 
   async insert() {
-    await DatabasePool
+    const result = await DatabasePool
       .getConnection()
       .collection('token')
       .insertOne({
@@ -26,6 +26,8 @@ class Token {
         expiration: this.Expiration,
         id_user: this.User.Id,
       });
+
+    this.Id = result.insertedId;
   }
 
   async update() {
