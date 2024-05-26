@@ -15,11 +15,30 @@ class UserOrganization {
     this.Organization = organization;
   }
 
+  async insert() {
+    const result = await DatabasePool
+      .getConnection()
+      .collection('user_organization')
+      .insertOne({
+        id_user: this.User.Id,
+        id_organization: this.Organization.Id,
+      });
+
+    this.Id = result.insertedId;
+  }
+
   format() {
     return {
       user: this.User.format(),
       organization: this.Organization.format(),
     };
+  }
+
+  static async exists(user, organization) {
+    return await DatabasePool
+      .getConnection()
+      .collection('user_organization')
+      .findOne({ id_user: user.Id, id_organization: organization.Id }) !== null;
   }
 
   static async fromId(id) {

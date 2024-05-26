@@ -11,16 +11,16 @@ export default function route(app) {
       authorization,
       authentificate,
       administrator,
-      email_address,
+      email_address('user.'),
     ],
     async (req, res) => {
-      if (!await User.isEmailAddressInserted(req.body.email_address)) {
+      if (!await User.emailAddressExists(req.body.user.email_address)) {
         return res
           .status(404)
-          .send({ errors: { msg: 'EMAIL_ADDRESS_NOT_FOUND' } });
+          .send({ errors: { msg: 'USER_EMAIL_ADDRESS_NOT_FOUND' } });
       }
 
-      const user = await User.fromEmailAddress(req.body.email_address);
+      const user = await User.fromEmailAddress(req.body.user.email_address);
 
       if (user.Role.isAdministrator()) {
         return res

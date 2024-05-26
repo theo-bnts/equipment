@@ -8,33 +8,33 @@ export default function route(app) {
   app.post(
     '/account/password',
     [
-      email_address,
-      old_password,
-      password,
+      email_address('user.'),
+      old_password('user.'),
+      password('user.'),
     ],
     async (req, res) => {
-      if (!await User.isEmailAddressInserted(req.body.email_address)) {
+      if (!await User.emailAddressExists(req.body.user.email_address)) {
         return res
           .status(401)
-          .send({ errors: [{ msg: 'EMAIL_ADDRESS_NOT_FOUND' }] });
+          .send({ errors: [{ msg: 'USER_EMAIL_ADDRESS_NOT_FOUND' }] });
       }
 
-      const user = await User.fromEmailAddress(req.body.email_address);
+      const user = await User.fromEmailAddress(req.body.user.email_address);
 
-      if (!user.isValidPassword(req.body.old_password)) {
+      if (!user.isValidPassword(req.body.user.old_password)) {
         return res
           .status(403)
           .send({ errors: [{ msg: 'INVALID_OLD_PASSWORD' }] });
       }
 
-      if (Security.hashPassword(req.body.password, user.PasswordHashSalt) === user.PasswordHash) {
+      if (Security.hashPassword(req.body.user.password, user.PasswordHashSalt) === user.PasswordHash) {
         return res
           .status(403)
           .send({ errors: [{ msg: 'SAME_PASSWORD' }] });
       }
 
       user.PasswordHashSalt = Security.generateSaltValue();
-      user.PasswordHash = Security.hashPassword(req.body.password, user.PasswordHashSalt);
+      user.PasswordHash = Security.hashPassword(req.body.user.password, user.PasswordHashSalt);
 
       await user.update();
 

@@ -90,13 +90,11 @@ class User {
     };
   }
 
-  static async isEmailAddressInserted(emailAddress) {
-    const user = await DatabasePool
+  static async emailAddressExists(emailAddress) {
+    return await DatabasePool
       .getConnection()
       .collection('user')
-      .findOne({ email_address: emailAddress });
-    
-    return user !== null;
+      .findOne({ email_address: emailAddress }) !== null;
   }
 
   static async fromId(id) {
