@@ -15,17 +15,24 @@ class UserOrganization {
     this.Organization = organization;
   }
 
+  format() {
+    return {
+      user: this.User.format(),
+      organization: this.Organization.format(),
+    };
+  }
+
   static async fromId(id) {
     const userOrganization = await DatabasePool
       .getConnection()
       .collection('user_organization')
       .findOne({ _id: id });
 
-    const user = await User.fromId(userOrganization.id_user);
-
-    const organization = await Organization.fromId(userOrganization.id_organization);
-
-    return new UserOrganization(userOrganization._id, user, organization);
+    return new UserOrganization(
+      userOrganization._id,
+      await User.fromId(userOrganization.id_user),
+      await Organization.fromId(userOrganization.id_organization),
+    );
   }
 
   static async all(user) {

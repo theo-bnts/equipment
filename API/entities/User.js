@@ -72,6 +72,15 @@ class User {
       );
   }
 
+  format() {
+    return {
+      email_address: this.EmailAddress,
+      first_name: this.FirstName,
+      last_name: this.LastName,
+      role: this.Role.format(),
+    };
+  }
+
   static async isEmailAddressInserted(emailAddress) {
     const user = await DatabasePool
       .getConnection()
