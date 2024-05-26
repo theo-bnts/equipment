@@ -121,7 +121,7 @@ class User {
       .getConnection()
       .collection('user')
       .findOne({ email_address: emailAddress });
-    
+
     return new User(
       user._id,
       user.email_address,
