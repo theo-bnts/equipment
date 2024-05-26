@@ -169,8 +169,12 @@ db.createCollection('equipment_loan', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['loan_date', 'return_date', 'id_equipment_loan_state_type', 'id_loan_room', 'id_user', 'id_equipment'],
+            required: ['id_state_type', 'loan_date', 'return_date', 'id_loan_room', 'id_user', 'id_equipment'],
             properties: {
+                id_state_type: {
+                    bsonType: 'int',
+                    description: 'must be an integer and is required'
+                },
                 loan_date: {
                     bsonType: 'date',
                     description: 'must be a date and is required'
@@ -178,10 +182,6 @@ db.createCollection('equipment_loan', {
                 return_date: {
                     bsonType: 'date',
                     description: 'must be a date and is required'
-                },
-                id_equipment_loan_state_type: {
-                    bsonType: 'int',
-                    description: 'must be an integer and is required'
                 },
                 id_loan_room: {
                     bsonType: 'int',
@@ -261,7 +261,7 @@ db.equipment_reference.createIndex({ 'id_equipment_type': 1 });
 db.equipment.createIndex({ 'id_stockage_room': 1 });
 db.equipment.createIndex({ 'id_equipment_reference': 1 });
 db.user.createIndex({ 'id_role_type': 1 });
-db.equipment_loan.createIndex({ 'id_equipment_loan_state_type': 1 });
+db.equipment_loan.createIndex({ 'id_state_type': 1 });
 db.equipment_loan.createIndex({ 'id_loan_room': 1 });
 db.equipment_loan.createIndex({ 'id_user': 1 });
 db.equipment_loan.createIndex({ 'id_organization': 1 });
@@ -340,11 +340,11 @@ db.user.insertMany([
 ]);
 
 db.equipment_loan.insertMany([
-    { _id: 1, loan_date: new Date('2023-01-01'), return_date: new Date('2023-01-10'), id_equipment_loan_state_type: 3, id_loan_room: 3, id_user: 2, id_organization: 1, id_equipment: 1 },
-    { _id: 2, loan_date: new Date('2023-01-15'), return_date: new Date('2023-01-20'), id_equipment_loan_state_type: 1, id_loan_room: 4, id_user: 3, id_organization: 2, id_equipment: 2 },
-    { _id: 3, loan_date: new Date('2023-02-01'), return_date: new Date('2023-02-10'), id_equipment_loan_state_type: 4, id_loan_room: 5, id_user: 4, id_organization: 3, id_equipment: 3 },
-    { _id: 4, loan_date: new Date('2023-02-05'), return_date: new Date('2023-02-15'), id_equipment_loan_state_type: 2, id_loan_room: 6, id_user: 5, id_organization: 4, id_equipment: 4 },
-    { _id: 5, loan_date: new Date('2023-03-01'), return_date: new Date('2023-03-05'), id_equipment_loan_state_type: 3, id_loan_room: 7, id_user: 2, id_organization: 2, id_equipment: 5 }
+    { _id: 1, id_state_type: 3, loan_date: new Date('2023-01-01'), return_date: new Date('2023-01-10'), id_loan_room: 3, id_user: 2, id_organization: 1, id_equipment: 1 },
+    { _id: 2, id_state_type: 1, loan_date: new Date('2023-01-15'), return_date: new Date('2023-01-20'), id_loan_room: 4, id_user: 3, id_organization: 2, id_equipment: 2 },
+    { _id: 3, id_state_type: 4, loan_date: new Date('2023-02-01'), return_date: new Date('2023-02-10'), id_loan_room: 5, id_user: 4, id_organization: 3, id_equipment: 3 },
+    { _id: 4, id_state_type: 2, loan_date: new Date('2023-02-05'), return_date: new Date('2023-02-15'), id_loan_room: 6, id_user: 5, id_organization: 4, id_equipment: 4 },
+    { _id: 5, id_state_type: 3, loan_date: new Date('2023-03-01'), return_date: new Date('2023-03-05'), id_loan_room: 7, id_user: 2, id_organization: 2, id_equipment: 5 }
 ]);
 
 db.user_organization.insertMany([

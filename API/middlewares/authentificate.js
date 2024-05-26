@@ -4,8 +4,8 @@ import Token from '../entities/Token.js';
 
 export async function authentificate(req, res, next) {
   const authorization = authHeader.parse(req.header('authorization'));
-  
-  if (!Token.isValidValue(authorization.token)) {
+
+  if (!await Token.isValidValue(authorization.token)) {
     return res
       .status(401)
       .send({ errors: [{ type: 'INVALID_TOKEN' }] });
