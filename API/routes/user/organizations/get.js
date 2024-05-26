@@ -16,7 +16,7 @@ export default function route(app) {
 
       return res
         .send({
-          datas: userOrganizations.map(userOrganization => userOrganization.format()),
+          datas: userOrganizations.map(userOrganization => userOrganization.Organization.format()),
         });
     }
   );

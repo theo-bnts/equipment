@@ -1,11 +1,14 @@
 import DatabasePool from './tools/DatabasePool.js';
 import Equipment from './Equipment.js';
+import EquipmentLoanStateType from './EquipmentLoanStateType.js';
 import Organization from './Organization.js';
 import Room from './Room.js';
 import User from './User.js';
 
 class EquipmentLoan {
   Id;
+
+  State;
 
   LoanDate;
 
@@ -19,8 +22,9 @@ class EquipmentLoan {
 
   Room;
 
-  constructor(id, loanDate, returnDate, user, organization, equipment, room) {
+  constructor(id, state, loanDate, returnDate, user, organization, equipment, room) {
     this.Id = id;
+    this.State = state;
     this.LoanDate = loanDate;
     this.ReturnDate = returnDate;
     this.User = user;
@@ -31,6 +35,7 @@ class EquipmentLoan {
 
   format() {
     return {
+      state: this.State.format(),
       loan_date: this.LoanDate,
       return_date: this.ReturnDate,
       user: this.User.format(),
@@ -48,6 +53,7 @@ class EquipmentLoan {
 
     return new EquipmentLoan(
       equipmentLoan._id,
+      await EquipmentLoanStateType.fromId(equipmentLoan.id_state_type),
       equipmentLoan.loan_date,
       equipmentLoan.return_date,
       await User.fromId(equipmentLoan.id_user),
@@ -67,6 +73,7 @@ class EquipmentLoan {
     return Promise.all(equipmentLoans.map(async (equipmentLoan) => {
       return new EquipmentLoan(
         equipmentLoan._id,
+        await EquipmentLoanStateType.fromId(equipmentLoan.id_state_type),
         equipmentLoan.loan_date,
         equipmentLoan.return_date,
         await User.fromId(equipmentLoan.id_user),
@@ -87,6 +94,7 @@ class EquipmentLoan {
     return Promise.all(equipmentLoans.map(async (equipmentLoan) => {
       return new EquipmentLoan(
         equipmentLoan._id,
+        await EquipmentLoanStateType.fromId(equipmentLoan.id_state_type),
         equipmentLoan.loan_date,
         equipmentLoan.return_date,
         user,
