@@ -10,10 +10,6 @@ class RoleType {
     this.Name = name;
   }
 
-  isAdministrator() {
-    return this.Name === 'Administrateur';
-  }
-
   format() {
     return {
       name: this.Name,

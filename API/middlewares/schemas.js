@@ -15,14 +15,14 @@ const createValidationRule = (field, validations, prefix = '') => {
 };
 
 const validationRules = {
-  authorization: () => [
+  header_authorization: () => [
     header('authorization')
       .isString()
       .withMessage('Authorization header must be a string')
       .matches(new RegExp('^' + process.env.TOKEN_TYPE + ' [a-f0-9]{' + process.env.TOKEN_LENGTH + '}$'))
       .withMessage('Authorization header must be in the correct format')
   ],
-  email_address: prefix => createValidationRule(
+  body_email_address: prefix => createValidationRule(
     'email_address',
     [
       body(prefix + 'email_address')
@@ -33,7 +33,7 @@ const validationRules = {
     ],
     prefix
   ),
-  password: prefix => createValidationRule(
+  body_password: prefix => createValidationRule(
     'password',
     [
       body(prefix + 'password')
@@ -44,7 +44,7 @@ const validationRules = {
     ],
     prefix
   ),
-  old_password: prefix => createValidationRule(
+  body_old_password: prefix => createValidationRule(
     'old_password',
     [
       body(prefix + 'old_password')
@@ -55,7 +55,7 @@ const validationRules = {
     ],
     prefix
   ),
-  first_name: prefix => createValidationRule(
+  body_first_name: prefix => createValidationRule(
     'first_name',
     [
       body(prefix + 'first_name')
@@ -69,7 +69,7 @@ const validationRules = {
     ],
     prefix
   ),
-  last_name: prefix => createValidationRule(
+  body_last_name: prefix => createValidationRule(
     'last_name',
     [
       body(prefix + 'last_name')
@@ -83,21 +83,36 @@ const validationRules = {
     ],
     prefix
   ),
-  name: prefix => createValidationRule(
+  body_name: prefix => createValidationRule(
     'name',
     [
       body(prefix + 'name')
         .isString()
         .withMessage('Name must be a string')
+        .isLength({ min: 1 })
+        .withMessage('Name must be at least 1 character')
+    ],
+    prefix
+  ),
+  params_name: prefix => createValidationRule(
+    'name',
+    [
+      body(prefix + 'name')
+        .optional()
+        .isString()
+        .withMessage('Category name must be a string')
+        .isLength({ min: 1 })
+        .withMessage('Category name must be at least 1 character')
     ],
     prefix
   ),
 };
 
-export const authorization = [...validationRules.authorization(''), handleValidationErrors];
-export const email_address = (prefix = '') => [...validationRules.email_address(prefix), handleValidationErrors];
-export const password = (prefix = '') => [...validationRules.password(prefix), handleValidationErrors];
-export const old_password = (prefix = '') => [...validationRules.old_password(prefix), handleValidationErrors];
-export const first_name = (prefix = '') => [...validationRules.first_name(prefix), handleValidationErrors];
-export const last_name = (prefix = '') => [...validationRules.last_name(prefix), handleValidationErrors];
-export const name = (prefix = '') => [...validationRules.name(prefix), handleValidationErrors];
+export const header_authorization = [...validationRules.header_authorization(), handleValidationErrors];
+export const body_email_address = (prefix = '') => [...validationRules.body_email_address(prefix), handleValidationErrors];
+export const body_password = (prefix = '') => [...validationRules.body_password(prefix), handleValidationErrors];
+export const body_old_password = (prefix = '') => [...validationRules.body_old_password(prefix), handleValidationErrors];
+export const body_first_name = (prefix = '') => [...validationRules.body_first_name(prefix), handleValidationErrors];
+export const body_last_name = (prefix = '') => [...validationRules.body_last_name(prefix), handleValidationErrors];
+export const body_name = (prefix = '') => [...validationRules.body_name(prefix), handleValidationErrors];
+export const params_name = (prefix = '') => [...validationRules.params_name(prefix), handleValidationErrors];

@@ -277,7 +277,7 @@ const equipmentTypeIds = generateObjectIds(2);
 const organizationIds = generateObjectIds(4);
 const roleTypeIds = generateObjectIds(2);
 const equipmentReferenceIds = generateObjectIds(4);
-const equipmentLoanStateTypeIds = generateObjectIds(4);
+const equipmentLoanStateTypeIds = generateObjectIds(5);
 const userIds = generateObjectIds(3);
 const equipmentIds = generateObjectIds(12);
 const equipmentLoanIds = generateObjectIds(5);
@@ -325,10 +325,11 @@ db.equipment_reference.insertMany([
 ]);
 
 db.equipment_loan_state_type.insertMany([
-    { _id: equipmentLoanStateTypeIds[0], name: 'Disponible' },
-    { _id: equipmentLoanStateTypeIds[1], name: 'Demandé' },
+    { _id: equipmentLoanStateTypeIds[0], name: 'Demandé' },
+    { _id: equipmentLoanStateTypeIds[1], name: 'Refusé' },
     { _id: equipmentLoanStateTypeIds[2], name: 'Emprunté' },
-    { _id: equipmentLoanStateTypeIds[3], name: 'Retour demandé' }
+    { _id: equipmentLoanStateTypeIds[3], name: 'Retour demandé' },
+    { _id: equipmentLoanStateTypeIds[4], name: 'Retourné' }
 ]);
 
 db.equipment.insertMany([
@@ -353,11 +354,11 @@ db.user.insertMany([
 ]);
 
 db.equipment_loan.insertMany([
-    { _id: equipmentLoanIds[0], id_state_type: equipmentLoanStateTypeIds[2], loan_date: new Date('2023-01-01'), return_date: new Date('2023-01-10'), id_loan_room: roomIds[2], id_user: userIds[1], id_organization: organizationIds[0], id_equipment: equipmentIds[0] },
-    { _id: equipmentLoanIds[1], id_state_type: equipmentLoanStateTypeIds[0], loan_date: new Date('2023-01-15'), return_date: new Date('2023-01-20'), id_loan_room: roomIds[3], id_user: userIds[2], id_organization: organizationIds[1], id_equipment: equipmentIds[1] },
-    { _id: equipmentLoanIds[2], id_state_type: equipmentLoanStateTypeIds[3], loan_date: new Date('2023-02-01'), return_date: new Date('2023-02-10'), id_loan_room: roomIds[4], id_user: userIds[2], id_organization: organizationIds[2], id_equipment: equipmentIds[2] },
-    { _id: equipmentLoanIds[3], id_state_type: equipmentLoanStateTypeIds[1], loan_date: new Date('2023-02-05'), return_date: new Date('2023-02-15'), id_loan_room: roomIds[5], id_user: userIds[2], id_organization: organizationIds[3], id_equipment: equipmentIds[3] },
-    { _id: equipmentLoanIds[4], id_state_type: equipmentLoanStateTypeIds[2], loan_date: new Date('2023-03-01'), return_date: new Date('2023-03-05'), id_loan_room: roomIds[6], id_user: userIds[1], id_organization: organizationIds[1], id_equipment: equipmentIds[4] }
+    { _id: equipmentLoanIds[0], id_state_type: equipmentLoanStateTypeIds[1], loan_date: new Date('2023-01-01'), return_date: new Date('2023-01-10'), id_loan_room: roomIds[2], id_user: userIds[1], id_organization: organizationIds[0], id_equipment: equipmentIds[0] },
+    { _id: equipmentLoanIds[1], id_state_type: equipmentLoanStateTypeIds[3], loan_date: new Date('2023-01-15'), return_date: new Date('2023-01-20'), id_loan_room: roomIds[3], id_user: userIds[2], id_organization: organizationIds[1], id_equipment: equipmentIds[1] },
+    { _id: equipmentLoanIds[2], id_state_type: equipmentLoanStateTypeIds[2], loan_date: new Date('2023-02-01'), return_date: new Date('2023-02-10'), id_loan_room: roomIds[4], id_user: userIds[2], id_organization: organizationIds[2], id_equipment: equipmentIds[2] },
+    { _id: equipmentLoanIds[3], id_state_type: equipmentLoanStateTypeIds[0], loan_date: new Date('2023-02-05'), return_date: new Date('2023-02-15'), id_loan_room: roomIds[5], id_user: userIds[2], id_organization: organizationIds[3], id_equipment: equipmentIds[3] },
+    { _id: equipmentLoanIds[4], id_state_type: equipmentLoanStateTypeIds[1], loan_date: new Date('2023-03-01'), return_date: new Date('2023-03-05'), id_loan_room: roomIds[6], id_user: userIds[1], id_organization: organizationIds[1], id_equipment: equipmentIds[4] }
 ]);
 
 db.user_organization.insertMany([

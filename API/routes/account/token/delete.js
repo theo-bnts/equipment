@@ -1,13 +1,13 @@
 import 'dotenv/config';
 
 import { authentificate } from '../../../middlewares/authentificate.js';
-import { authorization } from '../../../middlewares/schemas.js';
+import { header_authorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.delete(
     '/account/token',
     [
-      authorization,
+      header_authorization,
       authentificate,
     ],
     async (req, res) => {

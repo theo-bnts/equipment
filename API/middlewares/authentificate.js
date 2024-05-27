@@ -24,7 +24,7 @@ export async function authentificate(req, res, next) {
 }
 
 export async function administrator(req, res, next) {
-  if (!req.token.User.Role.isAdministrator()) {
+  if (!req.token.User.Role.Name !== 'Administrateur') {
     return res
       .status(403)
       .send({ errors: [{ msg: 'NOT_ADMINISTRATOR' }] });

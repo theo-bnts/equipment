@@ -49,6 +49,22 @@ class EquipmentReference {
       );
     }));
   }
+
+  static async allOfType(equipmentType) {
+    const equipmentReferences = await DatabasePool
+      .getConnection()
+      .collection('equipment_reference')
+      .find({ id_equipment_type: equipmentType.Id })
+      .toArray();
+    
+    return Promise.all(equipmentReferences.map(async (equipmentReference) => {
+      return new EquipmentReference(
+        equipmentReference._id,
+        equipmentReference.name,
+        equipmentType,
+      );
+    }));
+  }
 }
 
 export default EquipmentReference;

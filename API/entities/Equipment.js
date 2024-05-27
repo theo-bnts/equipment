@@ -50,6 +50,22 @@ class Equipment {
       );
     }));
   }
+
+  static async allOfReference(equipmentReference) {
+    const equipments = await DatabasePool
+      .getConnection()
+      .collection('equipment')
+      .find({ id_equipment_reference: equipmentReference.Id })
+      .toArray();
+    
+    return Promise.all(equipments.map(async (equipment) => {
+      return new Equipment(
+        equipment._id,
+        equipmentReference,
+        await Room.fromId(equipment.id_stockage_room),
+      );
+    }));
+  }
 }
 
 export default Equipment;
