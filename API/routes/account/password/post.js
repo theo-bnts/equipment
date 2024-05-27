@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-import { email_address, old_password, password } from '../../../middlewares/schemas.js';
+import { body_email_address, body_old_password, body_password } from '../../../middlewares/schemas.js';
 import Security from '../../../entities/tools/Security.js';
 import User from '../../../entities/User.js';
 
@@ -8,9 +8,9 @@ export default function route(app) {
   app.post(
     '/account/password',
     [
-      email_address('user.'),
-      old_password('user.'),
-      password('user.'),
+      body_email_address('user.'),
+      body_old_password('user.'),
+      body_password('user.'),
     ],
     async (req, res) => {
       if (!await User.emailAddressExists(req.body.user.email_address)) {

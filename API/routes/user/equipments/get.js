@@ -2,13 +2,13 @@ import 'dotenv/config';
 
 import { authentificate } from '../../../middlewares/authentificate.js';
 import EquipmentLoan from '../../../entities/EquipmentLoan.js';
-import { authorization } from '../../../middlewares/schemas.js';
+import { header_authorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.get(
-    '/user/loans',
+    '/user/equipments',
     [
-      authorization,
+      header_authorization,
       authentificate,
     ],
     async (req, res) => {

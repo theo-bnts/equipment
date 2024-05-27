@@ -25,6 +25,15 @@ class EquipmentLoanStateType {
     return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name);
   }
 
+  static async fromName(name) {
+    const equipmentLoanStateType = await DatabasePool
+      .getConnection()
+      .collection('equipment_loan_state_type')
+      .findOne({ name });
+    
+    return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name);
+  }
+
   static async all() {
     const equipmentLoanStateTypes = await DatabasePool
       .getConnection()

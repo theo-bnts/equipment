@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import { authentificate, administrator } from '../../../middlewares/authentificate.js';
 import RoleType from '../../../entities/RoleType.js';
-import { authorization, email_address, password, first_name, last_name, name } from '../../../middlewares/schemas.js';
+import { header_authorization, body_email_address, body_password, body_first_name, body_last_name, body_name } from '../../../middlewares/schemas.js';
 import User from '../../../entities/User.js';
 import Security from '../../../entities/tools/Security.js';
 
@@ -10,20 +10,20 @@ export default function route(app) {
   app.post(
     '/administration/accounts',
     [
-      authorization,
+      header_authorization,
       authentificate,
       administrator,
-      email_address('user.'),
-      password('user.'),
-      first_name('user.'),
-      last_name('user.'),
-      name('user.role.'),
+      body_email_address('user.'),
+      body_password('user.'),
+      body_first_name('user.'),
+      body_last_name('user.'),
+      body_name('user.role.'),
     ],
     async (req, res) => {
       if (await User.emailAddressExists(req.body.user.email_address)) {
         return res
           .status(409)
-          .send({ errors: { msg: 'USER_EMAIL_ADDRESS_ALREADY_USED' } });
+          .send({ errors: [{ msg: 'USER_EMAIL_ADDRESS_ALREADY_USED' }] });
       }
 
       const passwordHashSalt = Security.generateSaltValue();

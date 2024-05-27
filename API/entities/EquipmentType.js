@@ -29,6 +29,15 @@ class EquipmentType {
     return new EquipmentType(equipmentType._id, equipmentType.name, equipmentType.organization_only);
   }
 
+  static async fromName(name) {
+    const equipmentType = await DatabasePool
+      .getConnection()
+      .collection('equipment_type')
+      .findOne({ name });
+
+    return new EquipmentType(equipmentType._id, equipmentType.name, equipmentType.organization_only);
+  }
+
   static async all() {
     const equipmentTypes = await DatabasePool
       .getConnection()

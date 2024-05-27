@@ -84,6 +84,27 @@ class EquipmentLoan {
     }));
   }
 
+  static async allOfStateTypes(stateTypes) {
+    const equipmentLoans = await DatabasePool
+      .getConnection()
+      .collection('equipment_loan')
+      .find({ id_state_type: { $in: stateTypes.map((stateType) => stateType.Id) } })
+      .toArray();
+    
+    return Promise.all(equipmentLoans.map(async (equipmentLoan) => {
+      return new EquipmentLoan(
+        equipmentLoan._id,
+        await EquipmentLoanStateType.fromId(equipmentLoan.id_state_type),
+        equipmentLoan.loan_date,
+        equipmentLoan.return_date,
+        await User.fromId(equipmentLoan.id_user),
+        await Organization.fromId(equipmentLoan.id_organization),
+        await Equipment.fromId(equipmentLoan.id_equipment),
+        await Room.fromId(equipmentLoan.id_loan_room),
+      );
+    }));
+  }
+
   static async allOfUser(user) {
     const equipmentLoans = await DatabasePool
       .getConnection()
