@@ -23,7 +23,7 @@ export default function route(app) {
       if (await User.emailAddressExists(req.body.user.email_address)) {
         return res
           .status(409)
-          .send({ errors: [{ msg: 'USER_EMAIL_ADDRESS_ALREADY_USED' }] });
+          .send({ errors: [{ msg: 'USER_EMAIL_ADDRESS_ALREADY_EXISTS' }] });
       }
 
       const passwordHashSalt = Security.generateSaltValue();

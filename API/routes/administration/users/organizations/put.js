@@ -36,7 +36,7 @@ export default function route(app) {
       if (await UserOrganization.exists(user, organization)) {
         return res
           .status(409)
-          .send({ errors: [{ msg: 'USER_IS_ALREADY_IN_ORGANIZATION' }] });
+          .send({ errors: [{ msg: 'USER_ALREADY_IN_ORGANIZATION' }] });
       }
 
       const userOrganization = new UserOrganization(

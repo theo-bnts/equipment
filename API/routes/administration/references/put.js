@@ -3,7 +3,7 @@ import 'dotenv/config';
 import { authentificate, administrator } from '../../../middlewares/authentificate.js';
 import EquipmentReference from '../../../entities/EquipmentReference.js';
 import EquipmentType from '../../../entities/EquipmentType.js';
-import { header_authorization, body_name, body_code } from '../../../middlewares/schemas.js';
+import { header_authorization, body_name } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.put(
