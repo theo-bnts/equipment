@@ -22,7 +22,7 @@ export default function route(app) {
 
       const user = await User.fromEmailAddress(req.body.user.email_address);
 
-      if (user.Role.Name === 'Administrateur') {
+      if (user.Role.Name === 'ADMINISTRATOR') {
         return res
           .status(403)
           .send({ errors: [{ msg: 'ADMINISTRATOR_ACCOUNT' }] });

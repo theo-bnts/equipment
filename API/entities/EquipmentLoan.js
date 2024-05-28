@@ -34,7 +34,7 @@ class EquipmentLoan {
   }
   
   async isRunning() {
-    const loanedStateType = await EquipmentLoanStateType.fromName('Emprunté');
+    const loanedStateType = await EquipmentLoanStateType.fromName('LOANED');
 
     return this.State.Id === loanedStateType.Id;
   }

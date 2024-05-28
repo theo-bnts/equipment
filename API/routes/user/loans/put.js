@@ -60,7 +60,7 @@ export default function route(app) {
 
       const equipmentLoan = new EquipmentLoan(
         null,
-        await EquipmentLoanStateType.fromName('Demandé'),
+        await EquipmentLoanStateType.fromName('REQUESTED'),
         new Date(),
         new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
         req.Token.User,
