@@ -21,9 +21,9 @@ class Equipment {
 
   async isAvailable() {
     const unvailableStateTypes = [
-      await EquipmentLoanStateType.fromName('Demandé'),
-      await EquipmentLoanStateType.fromName('Emprunté'),
-      await EquipmentLoanStateType.fromName('Retour demandé'),
+      await EquipmentLoanStateType.fromName('REQUESTED'),
+      await EquipmentLoanStateType.fromName('LOANED'),
+      await EquipmentLoanStateType.fromName('RETURN_REQUESTED'),
     ]
 
     return await DatabasePool

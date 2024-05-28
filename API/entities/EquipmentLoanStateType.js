@@ -5,14 +5,18 @@ class EquipmentLoanStateType {
 
   Name;
 
-  constructor(id, name) {
+  DisplayNameFrench;
+
+  constructor(id, name, displayNameFrench) {
     this.Id = id;
     this.Name = name;
+    this.DisplayNameFrench = displayNameFrench;
   }
 
   format() {
     return {
       name: this.Name,
+      display_name_french: this.DisplayNameFrench,
     };
   }
 
@@ -29,7 +33,7 @@ class EquipmentLoanStateType {
       .collection('equipment_loan_state_type')
       .findOne({ _id: id });
 
-    return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name);
+    return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name, equipmentLoanStateType.display_name_french);
   }
 
   static async fromName(name) {
@@ -38,7 +42,7 @@ class EquipmentLoanStateType {
       .collection('equipment_loan_state_type')
       .findOne({ name });
     
-    return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name);
+    return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name, equipmentLoanStateType.display_name_french);
   }
 
   static async all() {
@@ -49,7 +53,7 @@ class EquipmentLoanStateType {
       .toArray();
     
     return equipmentLoanStateTypes.map(async (equipmentLoanStateType) => {
-      return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name);
+      return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name, equipmentLoanStateType.display_name_french);
     });
   }
 }

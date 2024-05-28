@@ -31,7 +31,7 @@ export default function route(app) {
           .send({ errors: [{ msg: 'EQUIPMENT_LOAN_NOT_RUNNING' }] });
       }
 
-      equipmentLoan.State = await EquipmentLoanStateType.fromName('Retour demandé');
+      equipmentLoan.State = await EquipmentLoanStateType.fromName('RETURN_REQUESTED');
 
       await equipmentLoan.update();
 

@@ -66,9 +66,13 @@ db.createCollection('role_type', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['name'],
+            required: ['name', 'display_name_french'],
             properties: {
                 name: {
+                    bsonType: 'string',
+                    description: 'must be a string and is required'
+                },
+                display_name_french: {
                     bsonType: 'string',
                     description: 'must be a string and is required'
                 }
@@ -100,9 +104,13 @@ db.createCollection('equipment_loan_state_type', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['name'],
+            required: ['name', 'display_name_french'],
             properties: {
                 name: {
+                    bsonType: 'string',
+                    description: 'must be a string and is required'
+                },
+                display_name_french: {
                     bsonType: 'string',
                     description: 'must be a string and is required'
                 }
@@ -317,8 +325,8 @@ db.organization.insertMany([
 ]);
 
 db.role_type.insertMany([
-    { _id: roleTypeIds[0], name: 'Administrateur' },
-    { _id: roleTypeIds[1], name: 'Utilisateur' }
+    { _id: roleTypeIds[0], name: 'ADMINISTRATOR', display_name_french: 'Administrateur' },
+    { _id: roleTypeIds[1], name: 'USER', display_name_french: 'Utilisateur' }
 ]);
 
 db.equipment_reference.insertMany([
@@ -329,11 +337,11 @@ db.equipment_reference.insertMany([
 ]);
 
 db.equipment_loan_state_type.insertMany([
-    { _id: equipmentLoanStateTypeIds[0], name: 'Demandé' },
-    { _id: equipmentLoanStateTypeIds[1], name: 'Refusé' },
-    { _id: equipmentLoanStateTypeIds[2], name: 'Emprunté' },
-    { _id: equipmentLoanStateTypeIds[3], name: 'Retour demandé' },
-    { _id: equipmentLoanStateTypeIds[4], name: 'Retourné' }
+    { _id: equipmentLoanStateTypeIds[0], name: 'REQUESTED', display_name_french: 'Demandé' },
+    { _id: equipmentLoanStateTypeIds[1], name: 'REFUSED', display_name_french: 'Refusé' },
+    { _id: equipmentLoanStateTypeIds[2], name: 'LOANED', display_name_french: 'Emprunté' },
+    { _id: equipmentLoanStateTypeIds[3], name: 'RETURN_REQUESTED', display_name_french: 'Retour demandé' },
+    { _id: equipmentLoanStateTypeIds[4], name: 'RETURNED', display_name_french: 'Retourné' }
 ]);
 
 db.equipment.insertMany([

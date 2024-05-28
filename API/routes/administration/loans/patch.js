@@ -34,9 +34,9 @@ export default function route(app) {
       const equipmentLoan = await EquipmentLoan.fromEquipment(equipment);
 
       if (
-        equipmentLoan.State.Name === 'Demandé' && (req.body.loan.state.name !== 'Emprunté' && req.body.loan.state.name !== 'Refusé')
-        || (equipmentLoan.State.Name === 'Emprunté' && req.body.loan.state.name !== 'Retour demandé')
-        || (equipmentLoan.State.Name === 'Retour demandé' && req.body.loan.state.name !== 'Retourné')
+        equipmentLoan.State.Name === 'REQUESTED' && (req.body.loan.state.name !== 'LOANED' && req.body.loan.state.name !== 'REFUSED')
+        || (equipmentLoan.State.Name === 'LOANED' && req.body.loan.state.name !== 'RETURN_REQUESTED')
+        || (equipmentLoan.State.Name === 'RETURN_REQUESTED' && req.body.loan.state.name !== 'RETURNED')
       ) {
         return res
           .status(409)

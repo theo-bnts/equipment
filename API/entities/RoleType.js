@@ -5,14 +5,18 @@ class RoleType {
 
   Name;
 
-  constructor(id, name) {
+  DisplayNameFrench;
+
+  constructor(id, name, displayNameFrench) {
     this.Id = id;
     this.Name = name;
+    this.DisplayNameFrench = displayNameFrench;
   }
 
   format() {
     return {
       name: this.Name,
+      display_name_french: this.DisplayNameFrench,
     };
   }
 
@@ -22,7 +26,7 @@ class RoleType {
       .collection('role_type')
       .findOne({ _id: id });
 
-    return new RoleType(role._id, role.name);
+    return new RoleType(role._id, role.name, role.display_name_french);
   }
 
   static async fromName(name) {
@@ -31,7 +35,7 @@ class RoleType {
       .collection('role_type')
       .findOne({ name });
 
-    return new RoleType(role._id, role.name);
+    return new RoleType(role._id, role.name, role.display_name_french);
   }
 }
 
