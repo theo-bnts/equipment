@@ -1,17 +1,17 @@
 import 'dotenv/config';
 
-import { authentificate } from '../../../../middlewares/authentificate.js';
-import Equipment from '../../../../entities/Equipment.js';
-import EquipmentLoan from '../../../../entities/EquipmentLoan.js';
-import EquipmentLoanStateType from '../../../../entities/EquipmentLoanStateType.js';
-import Organization from '../../../../entities/Organization.js';
-import Room from '../../../../entities/Room.js';
-import { header_authorization, body_code, body_name } from '../../../../middlewares/schemas.js';
-import UserOrganization from '../../../../entities/UserOrganization.js';
+import { authentificate } from '../../../middlewares/authentificate.js';
+import Equipment from '../../../entities/Equipment.js';
+import EquipmentLoan from '../../../entities/EquipmentLoan.js';
+import EquipmentLoanStateType from '../../../entities/EquipmentLoanStateType.js';
+import Organization from '../../../entities/Organization.js';
+import Room from '../../../entities/Room.js';
+import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
+import UserOrganization from '../../../entities/UserOrganization.js';
 
 export default function route(app) {
-  app.post(
-    '/user/equipments/ask',
+  app.put(
+    '/user/loans',
     [
       header_authorization,
       authentificate,

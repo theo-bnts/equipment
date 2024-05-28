@@ -16,6 +16,13 @@ class EquipmentLoanStateType {
     };
   }
 
+  static async nameExists(name) {
+    return await DatabasePool
+      .getConnection()
+      .collection('equipment_loan_state_type')
+      .findOne({ name }) !== null;
+  }
+
   static async fromId(id) {
     const equipmentLoanStateType = await DatabasePool
       .getConnection()

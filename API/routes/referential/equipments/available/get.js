@@ -1,18 +1,18 @@
 import 'dotenv/config';
 
-import { authentificate } from '../../../middlewares/authentificate.js';
-import Equipment from '../../../entities/Equipment.js';
-import EquipmentType from '../../../entities/EquipmentType.js';
-import EquipmentReference from '../../../entities/EquipmentReference.js';
-import { header_authorization, params_name } from '../../../middlewares/schemas.js';
+import { authentificate } from '../../../../middlewares/authentificate.js';
+import Equipment from '../../../../entities/Equipment.js';
+import EquipmentType from '../../../../entities/EquipmentType.js';
+import EquipmentReference from '../../../../entities/EquipmentReference.js';
+import { header_authorization, params_name } from '../../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.get(
-    '/equipments/available',
+    '/referential/equipments/available',
     [
       header_authorization,
       authentificate,
-      params_name('equipment_type_'),
+      params_name('equipment_type_', true),
     ],
     async (req, res) => {
       let equipments = [];

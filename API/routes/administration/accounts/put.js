@@ -7,7 +7,7 @@ import User from '../../../entities/User.js';
 import Security from '../../../entities/tools/Security.js';
 
 export default function route(app) {
-  app.post(
+  app.put(
     '/administration/accounts',
     [
       header_authorization,

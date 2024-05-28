@@ -7,7 +7,7 @@ import User from '../../../../entities/User.js';
 import UserOrganization from '../../../../entities/UserOrganization.js';
 
 export default function route(app) {
-  app.post(
+  app.put(
     '/administration/users/organizations',
     [
       header_authorization,

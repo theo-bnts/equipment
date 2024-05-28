@@ -48,7 +48,7 @@ class Room {
       .find()
       .toArray();
     
-    return rooms.map(async (room) => {
+    return rooms.map((room) => {
       return new Room(room._id, room.name);
     });
   }
