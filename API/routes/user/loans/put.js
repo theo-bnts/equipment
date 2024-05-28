@@ -48,7 +48,7 @@ export default function route(app) {
         if (!await UserOrganization.exists(req.Token.User, organization)) {
           return res
             .status(403)
-            .send({ errors: [{ msg: 'USER_IS_NOT_IN_ORGANIZATION' }] });
+            .send({ errors: [{ msg: 'USER_NOT_IN_ORGANIZATION' }] });
         }
       }
 
