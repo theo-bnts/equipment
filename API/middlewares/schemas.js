@@ -1,4 +1,4 @@
-import { validationResult, header, body } from 'express-validator';
+import { validationResult, header, body, query } from 'express-validator';
 
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -127,10 +127,22 @@ const validationRules = {
     isOptional,
     prefix
   ),
-  params_name: (prefix, isOptional = false) => createValidationRule(
+  query_email_address: (prefix, isOptional = false) => createValidationRule(
+    'email_address',
+    [
+      query(prefix + 'email_address')
+        .isEmail()
+        .withMessage('Email address must be valid')
+        .isLength({ max: parseInt(process.env.USER_EMAIL_ADDRESS_MAX_LENGTH, 10) })
+        .withMessage('Email address must be at most ' + process.env.USER_EMAIL_ADDRESS_MAX_LENGTH + ' characters')
+    ],
+    isOptional,
+    prefix
+  ),
+  query_name: (prefix, isOptional = false) => createValidationRule(
     'name',
     [
-      body(prefix + 'name')
+      query(prefix + 'name')
         .isString()
         .withMessage('Category name must be a string')
         .isLength({ min: 1 })
@@ -150,4 +162,5 @@ export const body_last_name = (prefix = '', isOptional = false) => [...validatio
 export const body_name = (prefix = '', isOptional = false) => [...validationRules.body_name(prefix, isOptional), handleValidationErrors];
 export const body_code = (prefix = '', isOptional = false) => [...validationRules.body_code(prefix, isOptional), handleValidationErrors];
 export const body_organization_only = (prefix = '', isOptional = false) => [...validationRules.body_organization_only(prefix, isOptional), handleValidationErrors];
-export const params_name = (prefix = '', isOptional = false) => [...validationRules.params_name(prefix, isOptional), handleValidationErrors];
+export const query_email_address = (prefix = '', isOptional = false) => [...validationRules.query_email_address(prefix, isOptional), handleValidationErrors];
+export const query_name = (prefix = '', isOptional = false) => [...validationRules.query_name(prefix, isOptional), handleValidationErrors];
