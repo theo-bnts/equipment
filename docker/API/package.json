@@ -11,6 +11,7 @@
   "dependencies": {
     "auth-header": "1",
     "axios": "1",
+    "cors": "2",
     "desm": "1",
     "dotenv": "16",
     "express": "4",

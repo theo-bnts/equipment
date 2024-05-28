@@ -3,12 +3,15 @@ import 'dotenv/config';
 import express from 'express';
 import { join } from 'desm';
 import { glob } from 'glob';
+import cors from 'cors';
 
 import DatabasePool from './entities/tools/DatabasePool.js';
 
 DatabasePool.Instance = new DatabasePool();
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -27,7 +30,7 @@ const routesPath = join(import.meta.url, 'routes');
 const routeFiles = glob.sync(`${routesPath}/**/*.js`);
 
 for (const file of routeFiles) {
-  const module = await import(file)
+  const module = await import(file);
   module.default(app);
   console.log(`${file} loaded`);
 }
@@ -36,4 +39,6 @@ app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, (error) => {
   if (error) {
     throw error;
   }
+
+  console.log(`Server running at http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
 });
