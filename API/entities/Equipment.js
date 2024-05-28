@@ -47,6 +47,13 @@ class Equipment {
       });
   }
 
+  async delete() {
+    await DatabasePool
+      .getConnection()
+      .collection('equipment')
+      .deleteOne({ _id: this.Id });
+  }
+
   format() {
     return {
       code: this.Code,
