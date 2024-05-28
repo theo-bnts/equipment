@@ -5,7 +5,7 @@ class EquipmentLoanStateType {
 
   Name;
 
-  constructor(id, name,) {
+  constructor(id, name) {
     this.Id = id;
     this.Name = name;
   }

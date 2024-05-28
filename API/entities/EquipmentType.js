@@ -20,6 +20,13 @@ class EquipmentType {
     };
   }
 
+  static async nameExists(name) {
+    return await DatabasePool
+      .getConnection()
+      .collection('equipment_type')
+      .findOne({ name }) !== null;
+  }
+
   static async fromId(id) {
     const equipmentType = await DatabasePool
       .getConnection()

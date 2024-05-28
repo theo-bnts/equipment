@@ -19,13 +19,13 @@ export default function route(app) {
     async (req, res) => {
       if (!await User.emailAddressExists(req.body.user.email_address)) {
         return res
-          .status(404)
+          .status(409)
           .send({ errors: [{ msg: 'USER_EMAIL_ADDRESS_NOT_FOUND' }] });
       }
 
       if (!await Organization.nameExists(req.body.organization.name)) {
         return res
-          .status(404)
+          .status(409)
           .send({ errors: [{ msg: 'ORGANIZATION_NAME_NOT_FOUND' }] });
       }
 
@@ -36,7 +36,7 @@ export default function route(app) {
       if (await UserOrganization.exists(user, organization)) {
         return res
           .status(409)
-          .send({ errors: [{ msg: 'USER_ORGANIZATION_ALREADY_EXISTS' }] });
+          .send({ errors: [{ msg: 'USER_IS_ALREADY_IN_ORGANIZATION' }] });
       }
 
       const userOrganization = new UserOrganization(

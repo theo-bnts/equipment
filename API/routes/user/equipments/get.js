@@ -12,7 +12,7 @@ export default function route(app) {
       authentificate,
     ],
     async (req, res) => {
-      const equipmentLoans = await EquipmentLoan.allOfUser(req.token.User);
+      const equipmentLoans = await EquipmentLoan.allOfUser(req.Token.User);
 
       return res
         .send({

@@ -16,12 +16,28 @@ class Room {
     };
   }
 
+  static async nameExists(name) {
+    return await DatabasePool
+      .getConnection()
+      .collection('room')
+      .findOne({ name }) !== null;
+  }
+
   static async fromId(id) {
     const room = await DatabasePool
       .getConnection()
       .collection('room')
       .findOne({ _id: id });
 
+    return new Room(room._id, room.name);
+  }
+
+  static async fromName(name) {
+    const room = await DatabasePool
+      .getConnection()
+      .collection('room')
+      .findOne({ name });
+    
     return new Room(room._id, room.name);
   }
 
