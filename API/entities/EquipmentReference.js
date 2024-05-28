@@ -45,6 +45,13 @@ class EquipmentReference {
       .findOne({ name }) !== null;
   }
 
+  static async typeExists(equipmentType) {
+    return await DatabasePool
+      .getConnection()
+      .collection('equipment_reference')
+      .findOne({ id_equipment_type: equipmentType.Id }) !== null;
+  }
+
   static async fromId(id) {
     const equipmentReference = await DatabasePool
       .getConnection()

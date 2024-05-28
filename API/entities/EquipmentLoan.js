@@ -91,6 +91,14 @@ class EquipmentLoan {
     };
   }
 
+  static async equipmentExists(equipment) {
+    return await DatabasePool
+      .getConnection()
+      .collection('equipment_loan')
+      .find({ id_equipment: equipment.Id })
+      .count() > 0;
+  }
+
   static async fromId(id) {
     const equipmentLoan = await DatabasePool
       .getConnection()
