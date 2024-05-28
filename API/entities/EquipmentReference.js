@@ -14,6 +14,23 @@ class EquipmentReference {
     this.EquipmentType = equipmentType;
   }
 
+  async insert() {
+    await DatabasePool
+      .getConnection()
+      .collection('equipment_reference')
+      .insertOne({
+        name: this.Name,
+        id_equipment_type: this.EquipmentType.Id,
+      });
+  }
+
+  async delete() {
+    await DatabasePool
+      .getConnection()
+      .collection('equipment_reference')
+      .deleteOne({ _id: this.Id });
+  }
+
   format() {
     return {
       name: this.Name,
