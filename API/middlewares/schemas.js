@@ -117,6 +117,16 @@ const validationRules = {
     isOptional,
     prefix
   ),
+  body_organization_only: (prefix, isOptional = false) => createValidationRule(
+    'organization_only',
+    [
+      body(prefix + 'organization_only')
+        .isBoolean()
+        .withMessage('Organization only must be a boolean')
+    ],
+    isOptional,
+    prefix
+  ),
   params_name: (prefix, isOptional = false) => createValidationRule(
     'name',
     [
@@ -139,4 +149,5 @@ export const body_first_name = (prefix = '', isOptional = false) => [...validati
 export const body_last_name = (prefix = '', isOptional = false) => [...validationRules.body_last_name(prefix, isOptional), handleValidationErrors];
 export const body_name = (prefix = '', isOptional = false) => [...validationRules.body_name(prefix, isOptional), handleValidationErrors];
 export const body_code = (prefix = '', isOptional = false) => [...validationRules.body_code(prefix, isOptional), handleValidationErrors];
+export const body_organization_only = (prefix = '', isOptional = false) => [...validationRules.body_organization_only(prefix, isOptional), handleValidationErrors];
 export const params_name = (prefix = '', isOptional = false) => [...validationRules.params_name(prefix, isOptional), handleValidationErrors];

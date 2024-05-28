@@ -13,6 +13,23 @@ class EquipmentType {
     this.OrganizationOnly = organizationOnly;
   }
 
+  async insert() {
+    await DatabasePool
+      .getConnection()
+      .collection('equipment_type')
+      .insertOne({
+        name: this.Name,
+        organization_only: this.OrganizationOnly,
+      });
+  }
+
+  async delete() {
+    await DatabasePool
+      .getConnection()
+      .collection('equipment_type')
+      .deleteOne({ _id: this.Id });
+  }
+
   format() {
     return {
       name: this.Name,
