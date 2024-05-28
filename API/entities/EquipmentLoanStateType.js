@@ -33,7 +33,11 @@ class EquipmentLoanStateType {
       .collection('equipment_loan_state_type')
       .findOne({ _id: id });
 
-    return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name, equipmentLoanStateType.display_name_french);
+    return new EquipmentLoanStateType(
+      equipmentLoanStateType._id,
+      equipmentLoanStateType.name,
+      equipmentLoanStateType.display_name_french
+    );
   }
 
   static async fromName(name) {
@@ -42,7 +46,11 @@ class EquipmentLoanStateType {
       .collection('equipment_loan_state_type')
       .findOne({ name });
     
-    return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name, equipmentLoanStateType.display_name_french);
+    return new EquipmentLoanStateType(
+      equipmentLoanStateType._id,
+      equipmentLoanStateType.name,
+      equipmentLoanStateType.display_name_french
+    );
   }
 
   static async all() {
@@ -52,8 +60,12 @@ class EquipmentLoanStateType {
       .find()
       .toArray();
     
-    return equipmentLoanStateTypes.map(async (equipmentLoanStateType) => {
-      return new EquipmentLoanStateType(equipmentLoanStateType._id, equipmentLoanStateType.name, equipmentLoanStateType.display_name_french);
+    return equipmentLoanStateTypes.map((equipmentLoanStateType) => {
+      return new EquipmentLoanStateType(
+        equipmentLoanStateType._id,
+        equipmentLoanStateType.name,
+        equipmentLoanStateType.display_name_french
+      );
     });
   }
 }

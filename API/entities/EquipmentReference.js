@@ -101,7 +101,7 @@ class EquipmentReference {
       .find({ id_equipment_type: equipmentType.Id })
       .toArray();
     
-    return Promise.all(equipmentReferences.map(async (equipmentReference) => {
+    return Promise.all(equipmentReferences.map((equipmentReference) => {
       return new EquipmentReference(
         equipmentReference._id,
         equipmentReference.name,
