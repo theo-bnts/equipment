@@ -45,7 +45,7 @@ export default function route(app) {
 
         organization = await Organization.fromName(req.body.organization.name);
 
-        if (!await UserOrganization.exists(req.Token.User, organization)) {
+        if (!await UserOrganization.userAndOrganizationExists(req.Token.User, organization)) {
           return res
             .status(403)
             .send({ errors: [{ msg: 'USER_NOT_IN_ORGANIZATION' }] });

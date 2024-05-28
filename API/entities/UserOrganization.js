@@ -27,6 +27,13 @@ class UserOrganization {
     this.Id = result.insertedId;
   }
 
+  async delete() {
+    await DatabasePool
+      .getConnection()
+      .collection('user_organization')
+      .deleteOne({ _id: this.Id });
+  }
+
   format() {
     return {
       user: this.User.format(),
@@ -34,7 +41,7 @@ class UserOrganization {
     };
   }
 
-  static async exists(user, organization) {
+  static async userAndOrganizationExists(user, organization) {
     return await DatabasePool
       .getConnection()
       .collection('user_organization')
@@ -51,6 +58,19 @@ class UserOrganization {
       userOrganization._id,
       await User.fromId(userOrganization.id_user),
       await Organization.fromId(userOrganization.id_organization),
+    );
+  }
+
+  static async fromUserAndOrganization(user, organization) {
+    const userOrganization = await DatabasePool
+      .getConnection()
+      .collection('user_organization')
+      .findOne({ id_user: user.Id, id_organization: organization.Id });
+
+    return new UserOrganization(
+      userOrganization._id,
+      user,
+      organization,
     );
   }
 
