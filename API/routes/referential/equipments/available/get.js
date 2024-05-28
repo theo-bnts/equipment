@@ -4,7 +4,7 @@ import { authentificate } from '../../../../middlewares/authentificate.js';
 import Equipment from '../../../../entities/Equipment.js';
 import EquipmentType from '../../../../entities/EquipmentType.js';
 import EquipmentReference from '../../../../entities/EquipmentReference.js';
-import { header_authorization, params_name } from '../../../../middlewares/schemas.js';
+import { header_authorization, query_name } from '../../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.get(
@@ -12,7 +12,7 @@ export default function route(app) {
     [
       header_authorization,
       authentificate,
-      params_name('equipment_type_', true),
+      query_name('equipment_type_', true),
     ],
     async (req, res) => {
       let equipments = [];
