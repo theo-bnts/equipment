@@ -36,6 +36,17 @@ class Equipment {
       .count() === 0;
   }
 
+  async insert() {
+    await DatabasePool
+      .getConnection()
+      .collection('equipment')
+      .insertOne({
+        code: this.Code,
+        id_equipment_reference: this.EquipmentReference.Id,
+        id_stockage_room: this.StockageRoom.Id,
+      });
+  }
+
   format() {
     return {
       code: this.Code,

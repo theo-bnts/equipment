@@ -21,12 +21,32 @@ class EquipmentReference {
     };
   }
 
+  static async nameExists(name) {
+    return await DatabasePool
+      .getConnection()
+      .collection('equipment_reference')
+      .findOne({ name }) !== null;
+  }
+
   static async fromId(id) {
     const equipmentReference = await DatabasePool
       .getConnection()
       .collection('equipment_reference')
       .findOne({ _id: id });
 
+    return new EquipmentReference(
+      equipmentReference._id,
+      equipmentReference.name,
+      await EquipmentType.fromId(equipmentReference.id_equipment_type),
+    );
+  }
+
+  static async fromName(name) {
+    const equipmentReference = await DatabasePool
+      .getConnection()
+      .collection('equipment_reference')
+      .findOne({ name });
+    
     return new EquipmentReference(
       equipmentReference._id,
       equipmentReference.name,
