@@ -69,7 +69,7 @@ class EquipmentType {
       .find()
       .toArray();
     
-    return equipmentTypes.map(async (equipmentType) => {
+    return equipmentTypes.map((equipmentType) => {
       return new EquipmentType(
         equipmentType._id,
         equipmentType.name,
