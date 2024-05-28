@@ -4,6 +4,7 @@ import EquipmentLoanStateType from './EquipmentLoanStateType.js';
 import Organization from './Organization.js';
 import Room from './Room.js';
 import User from './User.js';
+import { stat } from 'fs';
 
 class EquipmentLoan {
   Id;
@@ -32,14 +33,14 @@ class EquipmentLoan {
     this.Equipment = equipment;
     this.Room = room;
   }
-  
+
   async isRunning() {
     const loanedStateType = await EquipmentLoanStateType.fromName('LOANED');
 
     return this.State.Id === loanedStateType.Id;
   }
 
-  insert() {
+  async insert() {
     const loanData = {
       id_state_type: this.State.Id,
       loan_date: this.LoanDate,
@@ -48,18 +49,18 @@ class EquipmentLoan {
       id_equipment: this.Equipment.Id,
       id_loan_room: this.Room.Id,
     };
-  
+
     if (this.Organization) {
       loanData.id_organization = this.Organization.Id;
     }
-  
-    return DatabasePool
+
+    return await DatabasePool
       .getConnection()
       .collection('equipment_loan')
       .insertOne(loanData);
   }
 
-  update() {
+  async update() {
     const loanData = {
       id_state_type: this.State.Id,
       loan_date: this.LoanDate,
@@ -73,10 +74,17 @@ class EquipmentLoan {
       loanData.id_organization = this.Organization.Id;
     }
 
-    return DatabasePool
+    return await DatabasePool
       .getConnection()
       .collection('equipment_loan')
       .updateOne({ _id: this.Id }, { $set: loanData });
+  }
+
+  async delete() {
+    return await DatabasePool
+      .getConnection()
+      .collection('equipment_loan')
+      .deleteOne({ _id: this.Id });
   }
 
   format() {
@@ -117,7 +125,7 @@ class EquipmentLoan {
     );
   }
 
-  static async fromEquipment(equipment) {
+  static async lastOfEquipment(equipment) {
     const equipmentLoan = await DatabasePool
       .getConnection()
       .collection('equipment_loan')
@@ -141,7 +149,7 @@ class EquipmentLoan {
       .collection('equipment_loan')
       .find()
       .toArray();
-    
+
     return Promise.all(equipmentLoans.map(async (equipmentLoan) => {
       return new EquipmentLoan(
         equipmentLoan._id,
@@ -162,7 +170,7 @@ class EquipmentLoan {
       .collection('equipment_loan')
       .find({ id_state_type: { $in: stateTypes.map((stateType) => stateType.Id) } })
       .toArray();
-    
+
     return Promise.all(equipmentLoans.map(async (equipmentLoan) => {
       return new EquipmentLoan(
         equipmentLoan._id,
@@ -183,7 +191,7 @@ class EquipmentLoan {
       .collection('equipment_loan')
       .find({ id_user: user.Id })
       .toArray();
-    
+
     return Promise.all(equipmentLoans.map(async (equipmentLoan) => {
       return new EquipmentLoan(
         equipmentLoan._id,
@@ -193,6 +201,27 @@ class EquipmentLoan {
         user,
         await Organization.fromId(equipmentLoan.id_organization),
         await Equipment.fromId(equipmentLoan.id_equipment),
+        await Room.fromId(equipmentLoan.id_loan_room),
+      );
+    }));
+  }
+
+  static async allOfEquipment(equipment) {
+    const equipmentLoans = await DatabasePool
+      .getConnection()
+      .collection('equipment_loan')
+      .find({ id_equipment: equipment.Id })
+      .toArray();
+
+    return Promise.all(equipmentLoans.map(async (equipmentLoan) => {
+      return new EquipmentLoan(
+        equipmentLoan._id,
+        await EquipmentLoanStateType.fromId(equipmentLoan.id_state_type),
+        equipmentLoan.loan_date,
+        equipmentLoan.return_date,
+        await User.fromId(equipmentLoan.id_user),
+        await Organization.fromId(equipmentLoan.id_organization),
+        equipment,
         await Room.fromId(equipmentLoan.id_loan_room),
       );
     }));

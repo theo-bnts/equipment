@@ -1,17 +1,17 @@
 import 'dotenv/config';
 
-import { authentificate } from '../../../middlewares/authentificate.js';
+import { administrator, authentificate } from '../../../middlewares/authentificate.js';
 import Equipment from '../../../entities/Equipment.js';
 import EquipmentLoan from '../../../entities/EquipmentLoan.js';
-import EquipmentLoanStateType from '../../../entities/EquipmentLoanStateType.js';
 import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
-  app.patch(
-    '/user/loans',
+  app.delete(
+    '/administration/loans',
     [
       header_authorization,
       authentificate,
+      administrator,
       body_code('equipment.'),
     ],
     async (req, res) => {
@@ -23,17 +23,17 @@ export default function route(app) {
 
       const equipment = await Equipment.fromCode(req.body.equipment.code);
 
-      const equipmentLoan = await EquipmentLoan.lastOfEquipment(equipment);
-
-      if (!await equipmentLoan.isRunning()) {
+      if (!await EquipmentLoan.equipmentExists(equipment)) {
         return res
           .status(409)
-          .send({ errors: [{ msg: 'EQUIPMENT_LOAN_NOT_RUNNING' }] });
+          .send({ errors: [{ msg: 'NO_EQUIPMENT_LOAN' }] });
       }
 
-      equipmentLoan.State = await EquipmentLoanStateType.fromName('RETURN_REQUESTED');
+      const loans = await EquipmentLoan.allOfEquipment(equipment);
 
-      await equipmentLoan.update();
+      for (const loan of loans) {
+        await loan.delete();
+      }
 
       return res
         .status(204)

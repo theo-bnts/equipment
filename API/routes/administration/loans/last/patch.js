@@ -1,14 +1,14 @@
 import 'dotenv/config';
 
-import { administrator, authentificate } from '../../../middlewares/authentificate.js';
-import Equipment from '../../../entities/Equipment.js';
-import EquipmentLoan from '../../../entities/EquipmentLoan.js';
-import EquipmentLoanStateType from '../../../entities/EquipmentLoanStateType.js';
-import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
+import { administrator, authentificate } from '../../../../middlewares/authentificate.js';
+import Equipment from '../../../../entities/Equipment.js';
+import EquipmentLoan from '../../../../entities/EquipmentLoan.js';
+import EquipmentLoanStateType from '../../../../entities/EquipmentLoanStateType.js';
+import { header_authorization, body_code, body_name } from '../../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.patch(
-    '/administration/loans',
+    '/administration/loans/last',
     [
       header_authorization,
       authentificate,
@@ -31,7 +31,7 @@ export default function route(app) {
 
       const equipment = await Equipment.fromCode(req.body.equipment.code);
 
-      const equipmentLoan = await EquipmentLoan.fromEquipment(equipment);
+      const equipmentLoan = await EquipmentLoan.lastOfEquipment(equipment);
 
       if (
         equipmentLoan.State.Name === 'REQUESTED' && (req.body.loan.state.name !== 'LOANED' && req.body.loan.state.name !== 'REFUSED')
