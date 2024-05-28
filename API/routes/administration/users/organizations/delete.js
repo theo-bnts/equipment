@@ -7,7 +7,7 @@ import User from '../../../../entities/User.js';
 import UserOrganization from '../../../../entities/UserOrganization.js';
 
 export default function route(app) {
-  app.put(
+  app.delete(
     '/administration/users/organizations',
     [
       header_authorization,
@@ -33,19 +33,15 @@ export default function route(app) {
 
       const organization = await Organization.fromName(req.body.organization.name);
 
-      if (await UserOrganization.userAndOrganizationExists(user, organization)) {
+      if (!await UserOrganization.userAndOrganizationExists(user, organization)) {
         return res
           .status(409)
-          .send({ errors: [{ msg: 'USER_ALREADY_IN_ORGANIZATION' }] });
+          .send({ errors: [{ msg: 'USER_NOT_IN_ORGANIZATION' }] });
       }
 
-      const userOrganization = new UserOrganization(
-        null,
-        user,
-        organization,
-      );
+      const userOrganization = await UserOrganization.fromUserAndOrganization(user, organization);
 
-      await userOrganization.insert();
+      await userOrganization.delete();
 
       return res
         .status(204)
