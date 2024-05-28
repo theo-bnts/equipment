@@ -1,14 +1,14 @@
 import 'dotenv/config';
 
-import { authentificate } from '../../../../middlewares/authentificate.js';
-import Equipment from '../../../../entities/Equipment.js';
-import EquipmentLoan from '../../../../entities/EquipmentLoan.js';
-import EquipmentLoanStateType from '../../../../entities/EquipmentLoanStateType.js';
-import { header_authorization, body_code, body_name } from '../../../../middlewares/schemas.js';
+import { authentificate } from '../../../middlewares/authentificate.js';
+import Equipment from '../../../entities/Equipment.js';
+import EquipmentLoan from '../../../entities/EquipmentLoan.js';
+import EquipmentLoanStateType from '../../../entities/EquipmentLoanStateType.js';
+import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
-  app.post(
-    '/user/equipments/return',
+  app.patch(
+    '/user/loans',
     [
       header_authorization,
       authentificate,

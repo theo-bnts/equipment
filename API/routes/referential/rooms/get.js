@@ -1,22 +1,22 @@
 import 'dotenv/config';
 
 import { authentificate } from '../../../middlewares/authentificate.js';
-import EquipmentLoan from '../../../entities/EquipmentLoan.js';
+import Room from '../../../entities/Room.js';
 import { header_authorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.get(
-    '/user/equipments',
+    '/referential/rooms',
     [
       header_authorization,
       authentificate,
     ],
     async (req, res) => {
-      const equipmentLoans = await EquipmentLoan.allOfUser(req.Token.User);
+      const rooms = await Room.all();
 
       return res
         .send({
-          datas: equipmentLoans.map(equipmentLoan => equipmentLoan.format()),
+          datas: rooms.map(room => room.format()),
         });
     }
   );
