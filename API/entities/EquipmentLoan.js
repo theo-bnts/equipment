@@ -32,6 +32,12 @@ class EquipmentLoan {
     this.Equipment = equipment;
     this.Room = room;
   }
+  
+  async isRunning() {
+    const loanedStateType = await EquipmentLoanStateType.fromName('Emprunté');
+
+    return this.State.Id === loanedStateType.Id;
+  }
 
   insert() {
     const loanData = {
@@ -53,6 +59,26 @@ class EquipmentLoan {
       .insertOne(loanData);
   }
 
+  update() {
+    const loanData = {
+      id_state_type: this.State.Id,
+      loan_date: this.LoanDate,
+      return_date: this.ReturnDate,
+      id_user: this.User.Id,
+      id_equipment: this.Equipment.Id,
+      id_loan_room: this.Room.Id,
+    };
+
+    if (this.Organization) {
+      loanData.id_organization = this.Organization.Id;
+    }
+
+    return DatabasePool
+      .getConnection()
+      .collection('equipment_loan')
+      .updateOne({ _id: this.Id }, { $set: loanData });
+  }
+
   format() {
     return {
       state: this.State.format(),
@@ -70,6 +96,24 @@ class EquipmentLoan {
       .getConnection()
       .collection('equipment_loan')
       .findOne({ _id: id });
+
+    return new EquipmentLoan(
+      equipmentLoan._id,
+      await EquipmentLoanStateType.fromId(equipmentLoan.id_state_type),
+      equipmentLoan.loan_date,
+      equipmentLoan.return_date,
+      await User.fromId(equipmentLoan.id_user),
+      await Organization.fromId(equipmentLoan.id_organization),
+      await Equipment.fromId(equipmentLoan.id_equipment),
+      await Room.fromId(equipmentLoan.id_loan_room),
+    );
+  }
+
+  static async fromEquipment(equipment) {
+    const equipmentLoan = await DatabasePool
+      .getConnection()
+      .collection('equipment_loan')
+      .findOne({ id_equipment: equipment.Id }, { sort: { loan_date: -1 } });
 
     return new EquipmentLoan(
       equipmentLoan._id,
