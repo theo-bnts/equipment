@@ -16,7 +16,7 @@ export default function route(app) {
     async (req, res) => {
       if (!await User.emailAddressExists(req.body.user.email_address)) {
         return res
-          .status(404)
+          .status(409)
           .send({ errors: [{ msg: 'USER_EMAIL_ADDRESS_NOT_FOUND' }] });
       }
 

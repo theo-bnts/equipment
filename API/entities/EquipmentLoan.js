@@ -33,13 +33,33 @@ class EquipmentLoan {
     this.Room = room;
   }
 
+  insert() {
+    const loanData = {
+      id_state_type: this.State.Id,
+      loan_date: this.LoanDate,
+      return_date: this.ReturnDate,
+      id_user: this.User.Id,
+      id_equipment: this.Equipment.Id,
+      id_loan_room: this.Room.Id,
+    };
+  
+    if (this.Organization) {
+      loanData.id_organization = this.Organization.Id;
+    }
+  
+    return DatabasePool
+      .getConnection()
+      .collection('equipment_loan')
+      .insertOne(loanData);
+  }
+
   format() {
     return {
       state: this.State.format(),
       loan_date: this.LoanDate,
       return_date: this.ReturnDate,
       user: this.User.format(),
-      organization: this.Organization.format(),
+      organization: this.Organization?.format(),
       equipment: this.Equipment.format(),
       room: this.Room.format(),
     };

@@ -13,7 +13,7 @@ export default function route(app) {
     async (req, res) => {
       return res
         .send({
-          datas: req.token.User.format(),
+          datas: req.Token.User.format(),
         });
     },
   );

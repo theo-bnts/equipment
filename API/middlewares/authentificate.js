@@ -19,12 +19,12 @@ export async function authentificate(req, res, next) {
       .send({ errors: [{ msg: 'EXPIRED_TOKEN' }] });
   }
 
-  req.token = token;
+  req.Token = token;
   next();
 }
 
 export async function administrator(req, res, next) {
-  if (!req.token.User.Role.Name !== 'Administrateur') {
+  if (!req.Token.User.Role.Name !== 'Administrateur') {
     return res
       .status(403)
       .send({ errors: [{ msg: 'NOT_ADMINISTRATOR' }] });

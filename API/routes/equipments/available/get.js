@@ -2,8 +2,6 @@ import 'dotenv/config';
 
 import { authentificate } from '../../../middlewares/authentificate.js';
 import Equipment from '../../../entities/Equipment.js';
-import EquipmentLoan from '../../../entities/EquipmentLoan.js';
-import EquipmentLoanStateType from '../../../entities/EquipmentLoanStateType.js';
 import EquipmentType from '../../../entities/EquipmentType.js';
 import EquipmentReference from '../../../entities/EquipmentReference.js';
 import { header_authorization, params_name } from '../../../middlewares/schemas.js';
@@ -20,6 +18,12 @@ export default function route(app) {
       let equipments = [];
 
       if (req.query.equipment_type_name) {
+        if (!await EquipmentType.nameExists(req.query.equipment_type_name)) {
+          return res
+            .status(409)
+            .send({ errors: [{ msg: 'EQUIPMENT_TYPE_NAME_NOT_FOUND' }] });
+        }
+
         const equipmentType = await EquipmentType.fromName(req.query.equipment_type_name);
 
         const equipmentReferences = await EquipmentReference.allOfType(equipmentType);
@@ -33,21 +37,11 @@ export default function route(app) {
         equipments = await Equipment.all();
       }
 
-      const stateTypes = [
-        await EquipmentLoanStateType.fromName('Demandé'),
-        await EquipmentLoanStateType.fromName('Emprunté'),
-        await EquipmentLoanStateType.fromName('Retour demandé'),
-      ];
-
-      const equipmentLoans = await EquipmentLoan.allOfStateTypes(stateTypes);
-
-      equipments = equipments.filter((equipment) => {
-        return !equipmentLoans.some((equipmentLoan) => equipmentLoan.Equipment.Id.equals(equipment.Id));
-      });
+      const availableEquipments = equipments.filter(async (equipment) => await equipment.isAvailable());
 
       return res
         .send({
-          datas: equipments.map(equipment => equipment.format()),
+          datas: availableEquipments.map(equipment => equipment.format()),
         });
     }
   );

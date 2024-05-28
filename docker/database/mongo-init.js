@@ -115,8 +115,12 @@ db.createCollection('equipment', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['id_stockage_room', 'id_equipment_reference'],
+            required: ['code', 'id_stockage_room', 'id_equipment_reference'],
             properties: {
+                reference: {
+                    bsonType: 'string',
+                    description: 'must be a string and is required'
+                },
                 id_stockage_room: {
                     bsonType: 'objectId',
                     description: 'must be an ObjectId and is required'
@@ -333,18 +337,18 @@ db.equipment_loan_state_type.insertMany([
 ]);
 
 db.equipment.insertMany([
-    { _id: equipmentIds[0], id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0] },
-    { _id: equipmentIds[1], id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0] },
-    { _id: equipmentIds[2], id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0] },
-    { _id: equipmentIds[3], id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1] },
-    { _id: equipmentIds[4], id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[2] },
-    { _id: equipmentIds[5], id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[3] },
-    { _id: equipmentIds[6], id_stockage_room: roomIds[1], id_equipment_reference: equipmentReferenceIds[0] },
-    { _id: equipmentIds[7], id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[0] },
-    { _id: equipmentIds[8], id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1] },
-    { _id: equipmentIds[9], id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1] },
-    { _id: equipmentIds[10], id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[2] },
-    { _id: equipmentIds[11], id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3] }
+    { _id: equipmentIds[0], code: 'FR57683', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0] },
+    { _id: equipmentIds[1], code: 'FR88202', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0] },
+    { _id: equipmentIds[2], code: 'FR10983', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1] },
+    { _id: equipmentIds[3], code: 'FR09083', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1] },
+    { _id: equipmentIds[4], code: 'FR20983', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[2] },
+    { _id: equipmentIds[5], code: 'FR30897', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[3] },
+    { _id: equipmentIds[6], code: 'FR54362', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3] },
+    { _id: equipmentIds[7], code: 'FR99208', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[0] },
+    { _id: equipmentIds[8], code: 'FR68248', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1] },
+    { _id: equipmentIds[9], code: 'FR93172', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1] },
+    { _id: equipmentIds[10], code: 'FR08723', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[2] },
+    { _id: equipmentIds[11], code: 'FR78324', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3] }
 ]);
 
 db.user.insertMany([

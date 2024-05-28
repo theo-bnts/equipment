@@ -11,9 +11,9 @@ export default function route(app) {
       authentificate,
     ],
     async (req, res) => {
-      req.token.Expiration = new Date();
+      req.Token.Expiration = new Date();
 
-      await req.token.update();
+      await req.Token.update();
 
       res
         .status(204)

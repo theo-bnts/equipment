@@ -10,8 +10,13 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-const createValidationRule = (field, validations, prefix = '') => {
-  return validations.map(validation => validation.withMessage(validation.builder.fields[0] + ' ' + validation.message).bail());
+const createValidationRule = (field, validations, isOptional = false, prefix = '') => {
+  return validations.map(validation => {
+    if (isOptional) {
+      validation = validation.optional();
+    }
+    return validation.withMessage(validation.builder.fields[0] + ' ' + validation.message).bail();
+  });
 };
 
 const validationRules = {
@@ -22,7 +27,7 @@ const validationRules = {
       .matches(new RegExp('^' + process.env.TOKEN_TYPE + ' [a-f0-9]{' + process.env.TOKEN_LENGTH + '}$'))
       .withMessage('Authorization header must be in the correct format')
   ],
-  body_email_address: prefix => createValidationRule(
+  body_email_address: (prefix, isOptional = false) => createValidationRule(
     'email_address',
     [
       body(prefix + 'email_address')
@@ -31,9 +36,10 @@ const validationRules = {
         .isLength({ max: parseInt(process.env.USER_EMAIL_ADDRESS_MAX_LENGTH, 10) })
         .withMessage('Email address must be at most ' + process.env.USER_EMAIL_ADDRESS_MAX_LENGTH + ' characters')
     ],
+    isOptional,
     prefix
   ),
-  body_password: prefix => createValidationRule(
+  body_password: (prefix, isOptional = false) => createValidationRule(
     'password',
     [
       body(prefix + 'password')
@@ -42,9 +48,10 @@ const validationRules = {
         .isLength({ min: parseInt(process.env.USER_PASSWORD_MIN_LENGTH, 10) })
         .withMessage('Password must be at least ' + process.env.USER_PASSWORD_MIN_LENGTH + ' characters')
     ],
+    isOptional,
     prefix
   ),
-  body_old_password: prefix => createValidationRule(
+  body_old_password: (prefix, isOptional = false) => createValidationRule(
     'old_password',
     [
       body(prefix + 'old_password')
@@ -53,9 +60,10 @@ const validationRules = {
         .isLength({ min: parseInt(process.env.USER_PASSWORD_MIN_LENGTH, 10) })
         .withMessage('Old password must be at least ' + process.env.USER_PASSWORD_MIN_LENGTH + ' characters')
     ],
+    isOptional,
     prefix
   ),
-  body_first_name: prefix => createValidationRule(
+  body_first_name: (prefix, isOptional = false) => createValidationRule(
     'first_name',
     [
       body(prefix + 'first_name')
@@ -67,9 +75,10 @@ const validationRules = {
         })
         .withMessage('First name must be at least ' + process.env.USER_FIRST_NAME_MIN_LENGTH + ' characters and at most ' + process.env.USER_FIRST_NAME_MAX_LENGTH + ' characters')
     ],
+    isOptional,
     prefix
   ),
-  body_last_name: prefix => createValidationRule(
+  body_last_name: (prefix, isOptional = false) => createValidationRule(
     'last_name',
     [
       body(prefix + 'last_name')
@@ -81,9 +90,10 @@ const validationRules = {
         })
         .withMessage('Last name must be at least ' + process.env.USER_LAST_NAME_MIN_LENGTH + ' characters and at most ' + process.env.USER_LAST_NAME_MAX_LENGTH + ' characters')
     ],
+    isOptional,
     prefix
   ),
-  body_name: prefix => createValidationRule(
+  body_name: (prefix, isOptional = false) => createValidationRule(
     'name',
     [
       body(prefix + 'name')
@@ -92,27 +102,41 @@ const validationRules = {
         .isLength({ min: 1 })
         .withMessage('Name must be at least 1 character')
     ],
+    isOptional,
     prefix
   ),
-  params_name: prefix => createValidationRule(
+  body_code: (prefix, isOptional = false) => createValidationRule(
+    'code',
+    [
+      body(prefix + 'code')
+        .isString()
+        .withMessage('Code must be a string')
+        .matches(new RegExp('^FR[0-9]{5}$'))
+        .withMessage('Code must be in the correct format')
+    ],
+    isOptional,
+    prefix
+  ),
+  params_name: (prefix, isOptional = false) => createValidationRule(
     'name',
     [
       body(prefix + 'name')
-        .optional()
         .isString()
         .withMessage('Category name must be a string')
         .isLength({ min: 1 })
         .withMessage('Category name must be at least 1 character')
     ],
+    isOptional,
     prefix
   ),
 };
 
 export const header_authorization = [...validationRules.header_authorization(), handleValidationErrors];
-export const body_email_address = (prefix = '') => [...validationRules.body_email_address(prefix), handleValidationErrors];
-export const body_password = (prefix = '') => [...validationRules.body_password(prefix), handleValidationErrors];
-export const body_old_password = (prefix = '') => [...validationRules.body_old_password(prefix), handleValidationErrors];
-export const body_first_name = (prefix = '') => [...validationRules.body_first_name(prefix), handleValidationErrors];
-export const body_last_name = (prefix = '') => [...validationRules.body_last_name(prefix), handleValidationErrors];
-export const body_name = (prefix = '') => [...validationRules.body_name(prefix), handleValidationErrors];
-export const params_name = (prefix = '') => [...validationRules.params_name(prefix), handleValidationErrors];
+export const body_email_address = (prefix = '', isOptional = false) => [...validationRules.body_email_address(prefix, isOptional), handleValidationErrors];
+export const body_password = (prefix = '', isOptional = false) => [...validationRules.body_password(prefix, isOptional), handleValidationErrors];
+export const body_old_password = (prefix = '', isOptional = false) => [...validationRules.body_old_password(prefix, isOptional), handleValidationErrors];
+export const body_first_name = (prefix = '', isOptional = false) => [...validationRules.body_first_name(prefix, isOptional), handleValidationErrors];
+export const body_last_name = (prefix = '', isOptional = false) => [...validationRules.body_last_name(prefix, isOptional), handleValidationErrors];
+export const body_name = (prefix = '', isOptional = false) => [...validationRules.body_name(prefix, isOptional), handleValidationErrors];
+export const body_code = (prefix = '', isOptional = false) => [...validationRules.body_code(prefix, isOptional), handleValidationErrors];
+export const params_name = (prefix = '', isOptional = false) => [...validationRules.params_name(prefix, isOptional), handleValidationErrors];
