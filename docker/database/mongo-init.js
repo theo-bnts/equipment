@@ -123,7 +123,7 @@ db.createCollection('equipment', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['code', 'id_stockage_room', 'id_equipment_reference'],
+            required: ['code', 'id_stockage_room', 'id_equipment_reference', 'end_of_life_date'],
             properties: {
                 reference: {
                     bsonType: 'string',
@@ -136,6 +136,10 @@ db.createCollection('equipment', {
                 id_equipment_reference: {
                     bsonType: 'objectId',
                     description: 'must be an ObjectId and is required'
+                },
+                end_of_life_date: {
+                    bsonType: 'date',
+                    description: 'must be a date and is required'
                 }
             }
         }
@@ -345,18 +349,18 @@ db.equipment_loan_state_type.insertMany([
 ]);
 
 db.equipment.insertMany([
-    { _id: equipmentIds[0], code: 'FR57683', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0] },
-    { _id: equipmentIds[1], code: 'FR88202', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0] },
-    { _id: equipmentIds[2], code: 'FR10983', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1] },
-    { _id: equipmentIds[3], code: 'FR09083', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1] },
-    { _id: equipmentIds[4], code: 'FR20983', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[2] },
-    { _id: equipmentIds[5], code: 'FR30897', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[3] },
-    { _id: equipmentIds[6], code: 'FR54362', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3] },
-    { _id: equipmentIds[7], code: 'FR99208', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[0] },
-    { _id: equipmentIds[8], code: 'FR68248', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1] },
-    { _id: equipmentIds[9], code: 'FR93172', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1] },
-    { _id: equipmentIds[10], code: 'FR08723', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[2] },
-    { _id: equipmentIds[11], code: 'FR78324', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3] }
+    { _id: equipmentIds[0], code: 'FR57683', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0], end_of_life_date: new Date('2024-07-01') },
+    { _id: equipmentIds[1], code: 'FR88202', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[2], code: 'FR10983', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[3], code: 'FR09083', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1], end_of_life_date: new Date('2024-07-01') },
+    { _id: equipmentIds[4], code: 'FR20983', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[2], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[5], code: 'FR30897', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[3], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[6], code: 'FR54362', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3], end_of_life_date: new Date('2024-07-01') },
+    { _id: equipmentIds[7], code: 'FR99208', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[0], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[8], code: 'FR68248', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[9], code: 'FR93172', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[10], code: 'FR08723', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[2], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[11], code: 'FR78324', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3], end_of_life_date: new Date('2025-01-01') }
 ]);
 
 db.user.insertMany([

@@ -130,6 +130,24 @@ class User {
       await RoleType.fromId(user.id_role_type),
     );
   }
+
+  static async all() {
+    const users = await DatabasePool
+      .getConnection()
+      .collection('user')
+      .find()
+      .toArray();
+
+    return Promise.all(users.map(async (user) => new User(
+      user._id,
+      user.email_address,
+      user.password_hash,
+      user.password_hash_salt,
+      user.first_name,
+      user.last_name,
+      await RoleType.fromId(user.id_role_type),
+    )));
+  }
 }
 
 export default User;
