@@ -21,13 +21,13 @@ export default function route(app) {
           .send({ errors: [{ msg: 'EQUIPMENT_TYPE_NAME_ALREADY_EXISTS' }] });
       }
 
-      const equipmentType = new EquipmentType(
+      const type = new EquipmentType(
         null,
         req.body.type.name,
         req.body.type.organization_only,
       );
 
-      await equipmentType.insert();
+      await type.insert();
 
       return res
         .status(204)
