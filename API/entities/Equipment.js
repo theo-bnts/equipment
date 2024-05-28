@@ -12,11 +12,14 @@ class Equipment {
 
   StockageRoom;
 
-  constructor(id, code, equipmentReference, stockageRoom) {
+  EndOfLifeDate;
+
+  constructor(id, code, equipmentReference, stockageRoom, endOfLifeDate) {
     this.Id = id;
     this.Code = code;
     this.EquipmentReference = equipmentReference;
     this.StockageRoom = stockageRoom;
+    this.EndOfLifeDate = endOfLifeDate;
   }
 
   async isAvailable() {
@@ -44,6 +47,7 @@ class Equipment {
         code: this.Code,
         id_equipment_reference: this.EquipmentReference.Id,
         id_stockage_room: this.StockageRoom.Id,
+        end_of_life_date: this.EndOfLifeDate,
       });
   }
 
@@ -59,6 +63,7 @@ class Equipment {
       code: this.Code,
       equipment_reference: this.EquipmentReference.format(),
       stockage_room: this.StockageRoom.format(),
+      end_of_life_date: this.EndOfLifeDate,
     };
   }
 
@@ -87,6 +92,7 @@ class Equipment {
       equipment.code,
       await EquipmentReference.fromId(equipment.id_equipment_reference),
       await Room.fromId(equipment.id_stockage_room),
+      equipment.end_of_life_date,
     );
   }
 
@@ -101,6 +107,7 @@ class Equipment {
       equipment.code,
       await EquipmentReference.fromId(equipment.id_equipment_reference),
       await Room.fromId(equipment.id_stockage_room),
+      equipment.end_of_life_date,
     );
   }
 
@@ -117,6 +124,7 @@ class Equipment {
         equipment.code,
         await EquipmentReference.fromId(equipment.id_equipment_reference),
         await Room.fromId(equipment.id_stockage_room),
+        equipment.end_of_life_date,
       );
     }));
   }
@@ -134,6 +142,7 @@ class Equipment {
         equipment.code,
         equipmentReference,
         await Room.fromId(equipment.id_stockage_room),
+        equipment.end_of_life_date,
       );
     }));
   }
