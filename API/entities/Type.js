@@ -1,6 +1,6 @@
 import DatabasePool from './tools/DatabasePool.js';
 
-class EquipmentType {
+class Type {
   Id;
 
   Name;
@@ -16,7 +16,7 @@ class EquipmentType {
   async insert() {
     await DatabasePool
       .getConnection()
-      .collection('equipment_type')
+      .collection('type')
       .insertOne({
         name: this.Name,
         organization_only: this.OrganizationOnly,
@@ -26,7 +26,7 @@ class EquipmentType {
   async delete() {
     await DatabasePool
       .getConnection()
-      .collection('equipment_type')
+      .collection('type')
       .deleteOne({ _id: this.Id });
   }
 
@@ -40,43 +40,43 @@ class EquipmentType {
   static async nameExists(name) {
     return await DatabasePool
       .getConnection()
-      .collection('equipment_type')
+      .collection('type')
       .findOne({ name }) !== null;
   }
 
   static async fromId(id) {
-    const equipmentType = await DatabasePool
+    const type = await DatabasePool
       .getConnection()
-      .collection('equipment_type')
+      .collection('type')
       .findOne({ _id: id });
 
-    return new EquipmentType(equipmentType._id, equipmentType.name, equipmentType.organization_only);
+    return new Type(type._id, type.name, type.organization_only);
   }
 
   static async fromName(name) {
-    const equipmentType = await DatabasePool
+    const type = await DatabasePool
       .getConnection()
-      .collection('equipment_type')
+      .collection('type')
       .findOne({ name });
 
-    return new EquipmentType(equipmentType._id, equipmentType.name, equipmentType.organization_only);
+    return new Type(type._id, type.name, type.organization_only);
   }
 
   static async all() {
-    const equipmentTypes = await DatabasePool
+    const types = await DatabasePool
       .getConnection()
-      .collection('equipment_type')
+      .collection('type')
       .find()
       .toArray();
     
-    return equipmentTypes.map((equipmentType) => {
-      return new EquipmentType(
-        equipmentType._id,
-        equipmentType.name,
-        equipmentType.organization_only
+    return types.map((type) => {
+      return new Type(
+        type._id,
+        type.name,
+        type.organization_only
       );
     });
   }
 }
 
-export default EquipmentType;
+export default Type;

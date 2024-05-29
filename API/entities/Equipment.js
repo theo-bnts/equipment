@@ -1,37 +1,37 @@
 import DatabasePool from './tools/DatabasePool.js';
-import EquipmentReference from './EquipmentReference.js';
+import Reference from './Reference.js';
 import Room from './Room.js';
-import EquipmentLoanStateType from './EquipmentLoanStateType.js';
+import StateType from './StateType.js';
 
 class Equipment {
   Id;
 
   Code;
 
-  EquipmentReference;
+  Reference;
 
   StockageRoom;
 
   EndOfLifeDate;
 
-  constructor(id, code, equipmentReference, stockageRoom, endOfLifeDate) {
+  constructor(id, code, reference, stockageRoom, endOfLifeDate) {
     this.Id = id;
     this.Code = code;
-    this.EquipmentReference = equipmentReference;
+    this.Reference = reference;
     this.StockageRoom = stockageRoom;
     this.EndOfLifeDate = endOfLifeDate;
   }
 
   async isAvailable() {
     const unvailableStateTypes = [
-      await EquipmentLoanStateType.fromName('REQUESTED'),
-      await EquipmentLoanStateType.fromName('LOANED'),
-      await EquipmentLoanStateType.fromName('RETURN_REQUESTED'),
+      await StateType.fromName('REQUESTED'),
+      await StateType.fromName('LOANED'),
+      await StateType.fromName('RETURN_REQUESTED'),
     ]
 
     return await DatabasePool
       .getConnection()
-      .collection('equipment_loan')
+      .collection('loan')
       .find({
         id_equipment: this.Id,
         id_state_type: { $in: unvailableStateTypes.map(stateType => stateType.Id) },
@@ -45,7 +45,7 @@ class Equipment {
       .collection('equipment')
       .insertOne({
         code: this.Code,
-        id_equipment_reference: this.EquipmentReference.Id,
+        id_reference: this.Reference.Id,
         id_stockage_room: this.StockageRoom.Id,
         end_of_life_date: this.EndOfLifeDate,
       });
@@ -61,7 +61,7 @@ class Equipment {
   format() {
     return {
       code: this.Code,
-      equipment_reference: this.EquipmentReference.format(),
+      reference: this.Reference.format(),
       stockage_room: this.StockageRoom.format(),
       end_of_life_date: this.EndOfLifeDate,
     };
@@ -74,11 +74,11 @@ class Equipment {
       .findOne({ code }) !== null;
   }
 
-  static async referenceExists(equipmentReference) {
+  static async referenceExists(reference) {
     return await DatabasePool
       .getConnection()
       .collection('equipment')
-      .findOne({ id_equipment_reference: equipmentReference.Id }) !== null;
+      .findOne({ id_reference: reference.Id }) !== null;
   }
 
   static async fromId(id) {
@@ -90,7 +90,7 @@ class Equipment {
     return new Equipment(
       equipment._id,
       equipment.code,
-      await EquipmentReference.fromId(equipment.id_equipment_reference),
+      await Reference.fromId(equipment.id_reference),
       await Room.fromId(equipment.id_stockage_room),
       equipment.end_of_life_date,
     );
@@ -105,7 +105,7 @@ class Equipment {
     return new Equipment(
       equipment._id,
       equipment.code,
-      await EquipmentReference.fromId(equipment.id_equipment_reference),
+      await Reference.fromId(equipment.id_reference),
       await Room.fromId(equipment.id_stockage_room),
       equipment.end_of_life_date,
     );
@@ -122,25 +122,25 @@ class Equipment {
       return new Equipment(
         equipment._id,
         equipment.code,
-        await EquipmentReference.fromId(equipment.id_equipment_reference),
+        await Reference.fromId(equipment.id_reference),
         await Room.fromId(equipment.id_stockage_room),
         equipment.end_of_life_date,
       );
     }));
   }
 
-  static async allOfReference(equipmentReference) {
+  static async allOfReference(reference) {
     const equipments = await DatabasePool
       .getConnection()
       .collection('equipment')
-      .find({ id_equipment_reference: equipmentReference.Id })
+      .find({ id_reference: reference.Id })
       .toArray();
     
     return Promise.all(equipments.map(async (equipment) => {
       return new Equipment(
         equipment._id,
         equipment.code,
-        equipmentReference,
+        reference,
         await Room.fromId(equipment.id_stockage_room),
         equipment.end_of_life_date,
       );

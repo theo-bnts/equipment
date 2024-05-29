@@ -1,7 +1,7 @@
 import 'dotenv/config';
 
 import { administrator, authentificate } from '../../../middlewares/authentificate.js';
-import EquipmentType from '../../../entities/EquipmentType.js';
+import Type from '../../../entities/Type.js';
 import { header_authorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
@@ -13,7 +13,7 @@ export default function route(app) {
       administrator,
     ],
     async (req, res) => {
-      const types = await EquipmentType.all();
+      const types = await Type.all();
 
       return res
         .send({

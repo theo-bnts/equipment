@@ -1,7 +1,7 @@
 import 'dotenv/config';
 
 import { authentificate } from '../../../middlewares/authentificate.js';
-import EquipmentLoan from '../../../entities/EquipmentLoan.js';
+import Loan from '../../../entities/Loan.js';
 import { header_authorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
@@ -12,11 +12,11 @@ export default function route(app) {
       authentificate,
     ],
     async (req, res) => {
-      const equipmentLoans = await EquipmentLoan.allOfUser(req.Token.User);
+      const loans = await Loan.allOfUser(req.Token.User);
 
       return res
         .send({
-          datas: equipmentLoans.map(equipmentLoan => equipmentLoan.format()),
+          datas: loans.map(loan => loan.format()),
         });
     }
   );

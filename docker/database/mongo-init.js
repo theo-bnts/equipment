@@ -1,17 +1,17 @@
 db.createUser(
     {
-        user: 'angular',
-        pwd: 'angular',
+        user: 'equipment',
+        pwd: 'equipment',
         roles: [
             {
                 role: 'readWrite',
-                db: 'project'
+                db: 'equipment'
             }
         ]
     }
 );
 
-db = db.getSiblingDB('project');
+db = db.getSiblingDB('equipment');
 
 db.createCollection('room', {
     validator: {
@@ -28,7 +28,7 @@ db.createCollection('room', {
     }
 });
 
-db.createCollection('equipment_type', {
+db.createCollection('type', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
@@ -81,17 +81,17 @@ db.createCollection('role_type', {
     }
 });
 
-db.createCollection('equipment_reference', {
+db.createCollection('reference', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['name', 'id_equipment_type'],
+            required: ['name', 'id_type'],
             properties: {
                 name: {
                     bsonType: 'string',
                     description: 'must be a string and is required'
                 },
-                id_equipment_type: {
+                id_type: {
                     bsonType: 'objectId',
                     description: 'must be an ObjectId and is required'
                 }
@@ -100,7 +100,7 @@ db.createCollection('equipment_reference', {
     }
 });
 
-db.createCollection('equipment_loan_state_type', {
+db.createCollection('state_type', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
@@ -123,7 +123,7 @@ db.createCollection('equipment', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['code', 'id_stockage_room', 'id_equipment_reference', 'end_of_life_date'],
+            required: ['code', 'id_stockage_room', 'id_reference', 'end_of_life_date'],
             properties: {
                 reference: {
                     bsonType: 'string',
@@ -133,7 +133,7 @@ db.createCollection('equipment', {
                     bsonType: 'objectId',
                     description: 'must be an ObjectId and is required'
                 },
-                id_equipment_reference: {
+                id_reference: {
                     bsonType: 'objectId',
                     description: 'must be an ObjectId and is required'
                 },
@@ -181,11 +181,11 @@ db.createCollection('user', {
     }
 });
 
-db.createCollection('equipment_loan', {
+db.createCollection('loan', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['id_state_type', 'loan_date', 'return_date', 'id_loan_room', 'id_user', 'id_equipment'],
+            required: ['id_state_type', 'loan_date', 'return_date', 'id_room', 'id_user', 'id_equipment'],
             properties: {
                 id_state_type: {
                     bsonType: 'objectId',
@@ -199,7 +199,7 @@ db.createCollection('equipment_loan', {
                     bsonType: 'date',
                     description: 'must be a date and is required'
                 },
-                id_loan_room: {
+                id_room: {
                     bsonType: 'objectId',
                     description: 'must be an ObjectId and is required'
                 },
@@ -263,25 +263,25 @@ db.createCollection('token', {
 });
 
 db.room.createIndex({ 'name': 1 }, { unique: true });
-db.equipment_type.createIndex({ 'name': 1 }, { unique: true });
+db.type.createIndex({ 'name': 1 }, { unique: true });
 db.organization.createIndex({ 'name': 1 }, { unique: true });
 db.role_type.createIndex({ 'name': 1 }, { unique: true });
-db.equipment_reference.createIndex({ 'name': 1 }, { unique: true });
-db.equipment_loan_state_type.createIndex({ 'name': 1 }, { unique: true });
+db.reference.createIndex({ 'name': 1 }, { unique: true });
+db.state_type.createIndex({ 'name': 1 }, { unique: true });
 db.user.createIndex({ 'email_address': 1 }, { unique: true });
 db.user.createIndex({ 'password_hash': 1 }, { unique: true });
 db.user.createIndex({ 'password_hash_salt': 1 }, { unique: true });
 db.token.createIndex({ 'value': 1 }, { unique: true });
 
-db.equipment_reference.createIndex({ 'id_equipment_type': 1 });
+db.reference.createIndex({ 'id_type': 1 });
 db.equipment.createIndex({ 'id_stockage_room': 1 });
-db.equipment.createIndex({ 'id_equipment_reference': 1 });
+db.equipment.createIndex({ 'id_reference': 1 });
 db.user.createIndex({ 'id_role_type': 1 });
-db.equipment_loan.createIndex({ 'id_state_type': 1 });
-db.equipment_loan.createIndex({ 'id_loan_room': 1 });
-db.equipment_loan.createIndex({ 'id_user': 1 });
-db.equipment_loan.createIndex({ 'id_organization': 1 });
-db.equipment_loan.createIndex({ 'id_equipment': 1 });
+db.loan.createIndex({ 'id_state_type': 1 });
+db.loan.createIndex({ 'id_room': 1 });
+db.loan.createIndex({ 'id_user': 1 });
+db.loan.createIndex({ 'id_organization': 1 });
+db.loan.createIndex({ 'id_equipment': 1 });
 db.user_organization.createIndex({ 'id_user': 1 });
 db.user_organization.createIndex({ 'id_organization': 1 });
 db.token.createIndex({ 'id_user': 1 });
@@ -289,14 +289,14 @@ db.token.createIndex({ 'id_user': 1 });
 const generateObjectIds = (count) => Array.from({ length: count }, () => new ObjectId());
 
 const roomIds = generateObjectIds(14);
-const equipmentTypeIds = generateObjectIds(2);
+const typesIds = generateObjectIds(2);
 const organizationIds = generateObjectIds(4);
 const roleTypeIds = generateObjectIds(2);
-const equipmentReferenceIds = generateObjectIds(4);
-const equipmentLoanStateTypeIds = generateObjectIds(5);
+const referenceIds = generateObjectIds(4);
+const stateTypeIds = generateObjectIds(5);
 const userIds = generateObjectIds(3);
 const equipmentIds = generateObjectIds(12);
-const equipmentLoanIds = generateObjectIds(5);
+const loanIds = generateObjectIds(5);
 const userOrganizationIds = generateObjectIds(3);
 
 db.room.insertMany([
@@ -316,9 +316,9 @@ db.room.insertMany([
     { _id: roomIds[13], name: 'UFR de Médecine - M105' }
 ]);
 
-db.equipment_type.insertMany([
-    { _id: equipmentTypeIds[0], name: 'Ordinateur portable', organization_only: false },
-    { _id: equipmentTypeIds[1], name: 'Projecteur', organization_only: true }
+db.type.insertMany([
+    { _id: typesIds[0], name: 'Ordinateur portable', organization_only: false },
+    { _id: typesIds[1], name: 'Projecteur', organization_only: true }
 ]);
 
 db.organization.insertMany([
@@ -333,34 +333,34 @@ db.role_type.insertMany([
     { _id: roleTypeIds[1], name: 'USER', display_name_french: 'Utilisateur' }
 ]);
 
-db.equipment_reference.insertMany([
-    { _id: equipmentReferenceIds[0], name: 'Ordinateur portable Dell', id_equipment_type: equipmentTypeIds[0] },
-    { _id: equipmentReferenceIds[1], name: 'Ordinateur portable HP', id_equipment_type: equipmentTypeIds[0] },
-    { _id: equipmentReferenceIds[2], name: 'MacBook Pro', id_equipment_type: equipmentTypeIds[0] },
-    { _id: equipmentReferenceIds[3], name: 'Projecteur Dell', id_equipment_type: equipmentTypeIds[1] }
+db.reference.insertMany([
+    { _id: referenceIds[0], name: 'Ordinateur portable Dell', id_type: typesIds[0] },
+    { _id: referenceIds[1], name: 'Ordinateur portable HP', id_type: typesIds[0] },
+    { _id: referenceIds[2], name: 'MacBook Pro', id_type: typesIds[0] },
+    { _id: referenceIds[3], name: 'Projecteur Dell', id_type: typesIds[1] }
 ]);
 
-db.equipment_loan_state_type.insertMany([
-    { _id: equipmentLoanStateTypeIds[0], name: 'REQUESTED', display_name_french: 'Demandé' },
-    { _id: equipmentLoanStateTypeIds[1], name: 'REFUSED', display_name_french: 'Refusé' },
-    { _id: equipmentLoanStateTypeIds[2], name: 'LOANED', display_name_french: 'Emprunté' },
-    { _id: equipmentLoanStateTypeIds[3], name: 'RETURN_REQUESTED', display_name_french: 'Retour demandé' },
-    { _id: equipmentLoanStateTypeIds[4], name: 'RETURNED', display_name_french: 'Retourné' }
+db.state_type.insertMany([
+    { _id: stateTypeIds[0], name: 'REQUESTED', display_name_french: 'Demandé' },
+    { _id: stateTypeIds[1], name: 'REFUSED', display_name_french: 'Refusé' },
+    { _id: stateTypeIds[2], name: 'LOANED', display_name_french: 'Emprunté' },
+    { _id: stateTypeIds[3], name: 'RETURN_REQUESTED', display_name_french: 'Retour demandé' },
+    { _id: stateTypeIds[4], name: 'RETURNED', display_name_french: 'Retourné' }
 ]);
 
 db.equipment.insertMany([
-    { _id: equipmentIds[0], code: 'FR57683', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0], end_of_life_date: new Date('2024-07-01') },
-    { _id: equipmentIds[1], code: 'FR88202', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[0], end_of_life_date: new Date('2025-01-01') },
-    { _id: equipmentIds[2], code: 'FR10983', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1], end_of_life_date: new Date('2025-01-01') },
-    { _id: equipmentIds[3], code: 'FR09083', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[1], end_of_life_date: new Date('2024-07-01') },
-    { _id: equipmentIds[4], code: 'FR20983', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[2], end_of_life_date: new Date('2025-01-01') },
-    { _id: equipmentIds[5], code: 'FR30897', id_stockage_room: roomIds[0], id_equipment_reference: equipmentReferenceIds[3], end_of_life_date: new Date('2025-01-01') },
-    { _id: equipmentIds[6], code: 'FR54362', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3], end_of_life_date: new Date('2024-07-01') },
-    { _id: equipmentIds[7], code: 'FR99208', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[0], end_of_life_date: new Date('2025-01-01') },
-    { _id: equipmentIds[8], code: 'FR68248', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1], end_of_life_date: new Date('2025-01-01') },
-    { _id: equipmentIds[9], code: 'FR93172', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[1], end_of_life_date: new Date('2025-01-01') },
-    { _id: equipmentIds[10], code: 'FR08723', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[2], end_of_life_date: new Date('2025-01-01') },
-    { _id: equipmentIds[11], code: 'FR78324', id_stockage_room: roomIds[7], id_equipment_reference: equipmentReferenceIds[3], end_of_life_date: new Date('2025-01-01') }
+    { _id: equipmentIds[0], code: 'FR57683', id_stockage_room: roomIds[0], id_reference: referenceIds[0], end_of_life_date: new Date('2024-07-01') },
+    { _id: equipmentIds[1], code: 'FR88202', id_stockage_room: roomIds[0], id_reference: referenceIds[0], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[2], code: 'FR10983', id_stockage_room: roomIds[0], id_reference: referenceIds[1], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[3], code: 'FR09083', id_stockage_room: roomIds[0], id_reference: referenceIds[1], end_of_life_date: new Date('2024-07-01') },
+    { _id: equipmentIds[4], code: 'FR20983', id_stockage_room: roomIds[0], id_reference: referenceIds[2], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[5], code: 'FR30897', id_stockage_room: roomIds[0], id_reference: referenceIds[3], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[6], code: 'FR54362', id_stockage_room: roomIds[7], id_reference: referenceIds[3], end_of_life_date: new Date('2024-07-01') },
+    { _id: equipmentIds[7], code: 'FR99208', id_stockage_room: roomIds[7], id_reference: referenceIds[0], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[8], code: 'FR68248', id_stockage_room: roomIds[7], id_reference: referenceIds[1], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[9], code: 'FR93172', id_stockage_room: roomIds[7], id_reference: referenceIds[1], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[10], code: 'FR08723', id_stockage_room: roomIds[7], id_reference: referenceIds[2], end_of_life_date: new Date('2025-01-01') },
+    { _id: equipmentIds[11], code: 'FR78324', id_stockage_room: roomIds[7], id_reference: referenceIds[3], end_of_life_date: new Date('2025-01-01') }
 ]);
 
 db.user.insertMany([
@@ -369,12 +369,12 @@ db.user.insertMany([
     { _id: userIds[2], email_address: 'dorian.descamps@etud.u-picardie.fr', password_hash: '86099dcaccefe1cf9c0bf773e0155a86ab8e2430b91287996b259c4f65a429d67685bed385dc459ade88322225a33e25f7bd2e6213d7ec6a0b41fdb782985e78', password_hash_salt: '574a8d3b175ecf785a8a1b47ac95c05675b41bd820407b260a567eb2e404d5c2684746e3ea1916963b54beebfb575b8bfb8b371a81353caaa5af2fea5c67c1e2', first_name: 'Dorian', last_name: 'Descamps', id_role_type: roleTypeIds[1] }
 ]);
 
-db.equipment_loan.insertMany([
-    { _id: equipmentLoanIds[0], id_state_type: equipmentLoanStateTypeIds[1], loan_date: new Date('2023-01-01'), return_date: new Date('2023-01-10'), id_loan_room: roomIds[2], id_user: userIds[1], id_organization: organizationIds[0], id_equipment: equipmentIds[0] },
-    { _id: equipmentLoanIds[1], id_state_type: equipmentLoanStateTypeIds[3], loan_date: new Date('2023-01-15'), return_date: new Date('2023-01-20'), id_loan_room: roomIds[3], id_user: userIds[2], id_organization: organizationIds[1], id_equipment: equipmentIds[1] },
-    { _id: equipmentLoanIds[2], id_state_type: equipmentLoanStateTypeIds[2], loan_date: new Date('2023-02-01'), return_date: new Date('2023-02-10'), id_loan_room: roomIds[4], id_user: userIds[2], id_organization: organizationIds[2], id_equipment: equipmentIds[2] },
-    { _id: equipmentLoanIds[3], id_state_type: equipmentLoanStateTypeIds[0], loan_date: new Date('2023-02-05'), return_date: new Date('2023-02-15'), id_loan_room: roomIds[5], id_user: userIds[2], id_organization: organizationIds[3], id_equipment: equipmentIds[3] },
-    { _id: equipmentLoanIds[4], id_state_type: equipmentLoanStateTypeIds[1], loan_date: new Date('2023-03-01'), return_date: new Date('2023-03-05'), id_loan_room: roomIds[6], id_user: userIds[1], id_organization: organizationIds[1], id_equipment: equipmentIds[4] }
+db.loan.insertMany([
+    { _id: loanIds[0], id_state_type: stateTypeIds[1], loan_date: new Date('2023-01-01'), return_date: new Date('2023-01-10'), id_room: roomIds[2], id_user: userIds[1], id_organization: organizationIds[0], id_equipment: equipmentIds[0] },
+    { _id: loanIds[1], id_state_type: stateTypeIds[3], loan_date: new Date('2023-01-15'), return_date: new Date('2023-01-20'), id_room: roomIds[3], id_user: userIds[2], id_organization: organizationIds[1], id_equipment: equipmentIds[1] },
+    { _id: loanIds[2], id_state_type: stateTypeIds[2], loan_date: new Date('2023-02-01'), return_date: new Date('2023-02-10'), id_room: roomIds[4], id_user: userIds[2], id_organization: organizationIds[2], id_equipment: equipmentIds[2] },
+    { _id: loanIds[3], id_state_type: stateTypeIds[0], loan_date: new Date('2023-02-05'), return_date: new Date('2023-02-15'), id_room: roomIds[5], id_user: userIds[2], id_organization: organizationIds[3], id_equipment: equipmentIds[3] },
+    { _id: loanIds[4], id_state_type: stateTypeIds[1], loan_date: new Date('2023-03-01'), return_date: new Date('2023-03-05'), id_room: roomIds[6], id_user: userIds[1], id_organization: organizationIds[1], id_equipment: equipmentIds[4] }
 ]);
 
 db.user_organization.insertMany([

@@ -3,7 +3,7 @@ version: '3'
 services:
   express:
     restart: always
-    container_name: angular_express
+    container_name: equipment_express
     image: node:20
     volumes:
       - ./package.json:/app/package.json

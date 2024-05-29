@@ -2,8 +2,8 @@ import 'dotenv/config';
 
 import { authentificate, administrator } from '../../../middlewares/authentificate.js';
 import Equipment from '../../../entities/Equipment.js';
-import EquipmentReference from '../../../entities/EquipmentReference.js';
-import { header_authorization, body_name, body_code } from '../../../middlewares/schemas.js';
+import Reference from '../../../entities/Reference.js';
+import { header_authorization, body_name, body_code, body_end_of_life_date } from '../../../middlewares/schemas.js';
 import Room from '../../../entities/Room.js';
 
 export default function route(app) {
@@ -16,6 +16,7 @@ export default function route(app) {
       body_code('equipment.'),
       body_name('equipment.reference.'),
       body_name('equipment.stockage_room.'),
+      body_end_of_life_date('equipment.'),
     ],
     async (req, res) => {
       if (await Equipment.codeExists(req.body.equipment.code)) {
@@ -24,7 +25,7 @@ export default function route(app) {
           .send({ errors: [{ msg: 'EQUIPMENT_CODE_ALREADY_EXISTS' }] });
       }
 
-      if (!await EquipmentReference.nameExists(req.body.equipment.reference.name)) {
+      if (!await Reference.nameExists(req.body.equipment.reference.name)) {
         return res
           .status(409)
           .send({ errors: [{ msg: 'EQUIPMENT_REFERENCE_NAME_NOT_FOUND' }] });
@@ -39,8 +40,9 @@ export default function route(app) {
       const equipment = new Equipment(
         null,
         req.body.equipment.code,
-        await EquipmentReference.fromName(req.body.equipment.reference.name),
+        await Reference.fromName(req.body.equipment.reference.name),
         await Room.fromName(req.body.equipment.stockage_room.name),
+        new Date(req.body.equipment.end_of_life),
       );
 
       await equipment.insert();
