@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import { authentificate, administrator } from '../../../middlewares/authentificate.js';
 import Equipment from '../../../entities/Equipment.js';
-import EquipmentReference from '../../../entities/EquipmentReference.js';
+import Reference from '../../../entities/Reference.js';
 import { header_authorization, body_name } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
@@ -15,13 +15,13 @@ export default function route(app) {
       body_name('reference.'),
     ],
     async (req, res) => {
-      if (!await EquipmentReference.nameExists(req.body.reference.name)) {
+      if (!await Reference.nameExists(req.body.reference.name)) {
         return res
           .status(409)
           .send({ errors: [{ msg: 'EQUIPMENT_REFERENCE_NAME_NOT_FOUND' }] });
       }
 
-      const reference = await EquipmentReference.fromName(req.body.reference.name);
+      const reference = await Reference.fromName(req.body.reference.name);
 
       if (await Equipment.referenceExists(reference)) {
         return res

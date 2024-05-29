@@ -2,8 +2,8 @@ import 'dotenv/config';
 
 import { authentificate } from '../../../middlewares/authentificate.js';
 import Equipment from '../../../entities/Equipment.js';
-import EquipmentLoan from '../../../entities/EquipmentLoan.js';
-import EquipmentLoanStateType from '../../../entities/EquipmentLoanStateType.js';
+import Loan from '../../../entities/Loan.js';
+import StateType from '../../../entities/StateType.js';
 import Organization from '../../../entities/Organization.js';
 import Room from '../../../entities/Room.js';
 import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
@@ -58,9 +58,9 @@ export default function route(app) {
           .send({ errors: [{ msg: 'ROOM_NAME_NOT_FOUND' }] });
       }
 
-      const equipmentLoan = new EquipmentLoan(
+      const loan = new Loan(
         null,
-        await EquipmentLoanStateType.fromName('REQUESTED'),
+        await StateType.fromName('REQUESTED'),
         new Date(),
         new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
         req.Token.User,
@@ -69,7 +69,7 @@ export default function route(app) {
         await Room.fromName(req.body.room.name),
       );
 
-      await equipmentLoan.insert();
+      await loan.insert();
 
       return res
         .status(204)

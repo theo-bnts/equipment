@@ -1,7 +1,7 @@
 import 'dotenv/config';
 
 import { administrator, authentificate } from '../../../middlewares/authentificate.js';
-import EquipmentReference from '../../../entities/EquipmentReference.js';
+import Reference from '../../../entities/Reference.js';
 import { header_authorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
@@ -13,7 +13,7 @@ export default function route(app) {
       administrator,
     ],
     async (req, res) => {
-      const references = await EquipmentReference.all();
+      const references = await Reference.all();
 
       return res
         .send({

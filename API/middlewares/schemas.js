@@ -127,6 +127,22 @@ const validationRules = {
     isOptional,
     prefix
   ),
+  body_end_of_life_date: (prefix, isOptional = false) => createValidationRule(
+    'end_of_life_date',
+    [
+      body(prefix + 'end_of_life_date')
+        .isDate()
+        .withMessage('End of life date must be a date')
+        .custom((value, { req }) => {
+          if (new Date(value) < new Date()) {
+            throw new Error('End of life date must be in the future');
+          }
+          return true;
+        })
+    ],
+    isOptional,
+    prefix
+  ),
   query_email_address: (prefix, isOptional = false) => createValidationRule(
     'email_address',
     [
@@ -162,5 +178,6 @@ export const body_last_name = (prefix = '', isOptional = false) => [...validatio
 export const body_name = (prefix = '', isOptional = false) => [...validationRules.body_name(prefix, isOptional), handleValidationErrors];
 export const body_code = (prefix = '', isOptional = false) => [...validationRules.body_code(prefix, isOptional), handleValidationErrors];
 export const body_organization_only = (prefix = '', isOptional = false) => [...validationRules.body_organization_only(prefix, isOptional), handleValidationErrors];
+export const body_end_of_life_date = (prefix = '', isOptional = false) => [...validationRules.body_end_of_life_date(prefix, isOptional), handleValidationErrors];
 export const query_email_address = (prefix = '', isOptional = false) => [...validationRules.query_email_address(prefix, isOptional), handleValidationErrors];
 export const query_name = (prefix = '', isOptional = false) => [...validationRules.query_name(prefix, isOptional), handleValidationErrors];

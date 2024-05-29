@@ -2,7 +2,7 @@ import 'dotenv/config';
 
 import { administrator, authentificate } from '../../../middlewares/authentificate.js';
 import Equipment from '../../../entities/Equipment.js';
-import EquipmentLoan from '../../../entities/EquipmentLoan.js';
+import Loan from '../../../entities/Loan.js';
 import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
@@ -23,13 +23,13 @@ export default function route(app) {
 
       const equipment = await Equipment.fromCode(req.body.equipment.code);
 
-      if (!await EquipmentLoan.equipmentExists(equipment)) {
+      if (!await Loan.equipmentExists(equipment)) {
         return res
           .status(409)
           .send({ errors: [{ msg: 'NO_EQUIPMENT_LOAN' }] });
       }
 
-      const loans = await EquipmentLoan.allOfEquipment(equipment);
+      const loans = await Loan.allOfEquipment(equipment);
 
       for (const loan of loans) {
         await loan.delete();

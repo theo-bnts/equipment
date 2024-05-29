@@ -2,8 +2,8 @@ import 'dotenv/config';
 
 import { authentificate } from '../../../middlewares/authentificate.js';
 import Equipment from '../../../entities/Equipment.js';
-import EquipmentLoan from '../../../entities/EquipmentLoan.js';
-import EquipmentLoanStateType from '../../../entities/EquipmentLoanStateType.js';
+import Loan from '../../../entities/Loan.js';
+import StateType from '../../../entities/StateType.js';
 import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
@@ -23,17 +23,17 @@ export default function route(app) {
 
       const equipment = await Equipment.fromCode(req.body.equipment.code);
 
-      const equipmentLoan = await EquipmentLoan.lastOfEquipment(equipment);
+      const loan = await Loan.lastOfEquipment(equipment);
 
-      if (!await equipmentLoan.isRunning()) {
+      if (!await loan.isRunning()) {
         return res
           .status(409)
           .send({ errors: [{ msg: 'EQUIPMENT_LOAN_NOT_RUNNING' }] });
       }
 
-      equipmentLoan.State = await EquipmentLoanStateType.fromName('RETURN_REQUESTED');
+      loan.State = await StateType.fromName('RETURN_REQUESTED');
 
-      await equipmentLoan.update();
+      await loan.update();
 
       return res
         .status(204)

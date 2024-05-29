@@ -2,8 +2,8 @@ import 'dotenv/config';
 
 import { authentificate } from '../../../../middlewares/authentificate.js';
 import Equipment from '../../../../entities/Equipment.js';
-import EquipmentType from '../../../../entities/EquipmentType.js';
-import EquipmentReference from '../../../../entities/EquipmentReference.js';
+import Type from '../../../../entities/Type.js';
+import Reference from '../../../../entities/Reference.js';
 import { header_authorization, query_name } from '../../../../middlewares/schemas.js';
 
 export default function route(app) {
@@ -18,18 +18,18 @@ export default function route(app) {
       let equipments = [];
 
       if (req.query.equipment_type_name) {
-        if (!await EquipmentType.nameExists(req.query.equipment_type_name)) {
+        if (!await Type.nameExists(req.query.equipment_type_name)) {
           return res
             .status(409)
             .send({ errors: [{ msg: 'EQUIPMENT_TYPE_NAME_NOT_FOUND' }] });
         }
 
-        const equipmentType = await EquipmentType.fromName(req.query.equipment_type_name);
+        const type = await Type.fromName(req.query.equipment_type_name);
 
-        const equipmentReferences = await EquipmentReference.allOfType(equipmentType);
+        const references = await Reference.allOfType(type);
 
-        for (const equipmentReference of equipmentReferences) {
-          const referenceEquipments = await Equipment.allOfReference(equipmentReference);
+        for (const reference of references) {
+          const referenceEquipments = await Equipment.allOfReference(reference);
           equipments.push(...referenceEquipments);
         }
       }
