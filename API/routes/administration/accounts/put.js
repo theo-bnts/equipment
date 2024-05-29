@@ -1,23 +1,23 @@
-import 'dotenv/config';
-
-import { authentificate, administrator } from '../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
 import RoleType from '../../../entities/RoleType.js';
-import { header_authorization, body_email_address, body_password, body_first_name, body_last_name, body_name } from '../../../middlewares/schemas.js';
-import User from '../../../entities/User.js';
+import {
+  bodyEmailAddress, bodyFirstName, bodyLastName, bodyName, bodyPassword, headerAuthorization,
+} from '../../../middlewares/schemas.js';
 import Security from '../../../entities/tools/Security.js';
+import User from '../../../entities/User.js';
 
 export default function route(app) {
   app.put(
     '/administration/accounts',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_email_address('user.'),
-      body_password('user.'),
-      body_first_name('user.'),
-      body_last_name('user.'),
-      body_name('user.role.'),
+      bodyEmailAddress('user.'),
+      bodyPassword('user.'),
+      bodyFirstName('user.'),
+      bodyLastName('user.'),
+      bodyName('user.role.'),
     ],
     async (req, res) => {
       if (await User.emailAddressExists(req.body.user.email_address)) {

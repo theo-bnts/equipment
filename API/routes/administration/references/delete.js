@@ -1,18 +1,16 @@
-import 'dotenv/config';
-
-import { authentificate, administrator } from '../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
 import Equipment from '../../../entities/Equipment.js';
 import Reference from '../../../entities/Reference.js';
-import { header_authorization, body_name } from '../../../middlewares/schemas.js';
+import { bodyName, headerAuthorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.delete(
     '/administration/references',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_name('reference.'),
+      bodyName('reference.'),
     ],
     async (req, res) => {
       if (!await Reference.nameExists(req.body.reference.name)) {

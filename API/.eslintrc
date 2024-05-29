@@ -7,6 +7,8 @@
         "import/extensions": "off",
         "import/no-named-as-default": "off",
         "import/no-named-as-default-member": "off",
-        "no-throw-literal": "off"
+        "no-console": ["error", { "allow": ["debug", "warn", "error"] }],
+        "no-throw-literal": "off",
+        "no-underscore-dangle": ["error", { "allow": ["_id"] }]
     }
 }

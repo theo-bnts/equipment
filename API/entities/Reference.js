@@ -70,7 +70,7 @@ class Reference {
       .getConnection()
       .collection('reference')
       .findOne({ name });
-    
+
     return new Reference(
       reference._id,
       reference.name,
@@ -84,14 +84,14 @@ class Reference {
       .collection('reference')
       .find()
       .toArray();
-    
-    return Promise.all(references.map(async (reference) => {
-      return new Reference(
-        reference._id,
-        reference.name,
-        await Type.fromId(reference.id_type),
-      );
-    }));
+
+    const referencesPromises = references.map(async (reference) => new Reference(
+      reference._id,
+      reference.name,
+      await Type.fromId(reference.id_type),
+    ));
+
+    return Promise.all(referencesPromises);
   }
 
   static async allOfType(type) {
@@ -100,14 +100,12 @@ class Reference {
       .collection('reference')
       .find({ id_type: type.Id })
       .toArray();
-    
-    return Promise.all(references.map((reference) => {
-      return new Reference(
-        reference._id,
-        reference.name,
-        type,
-      );
-    }));
+
+    return references.map((reference) => new Reference(
+      reference._id,
+      reference.name,
+      type,
+    ));
   }
 }
 

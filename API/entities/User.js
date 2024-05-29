@@ -1,5 +1,5 @@
-import RoleType from './RoleType.js';
 import DatabasePool from './tools/DatabasePool.js';
+import RoleType from './RoleType.js';
 import Security from './tools/Security.js';
 
 class User {
@@ -102,7 +102,7 @@ class User {
       .getConnection()
       .collection('user')
       .findOne({ _id: id });
-    
+
     return new User(
       user._id,
       user.email_address,
@@ -138,7 +138,7 @@ class User {
       .find()
       .toArray();
 
-    return Promise.all(users.map(async (user) => new User(
+    const usersPromises = users.map(async (user) => new User(
       user._id,
       user.email_address,
       user.password_hash,
@@ -146,7 +146,9 @@ class User {
       user.first_name,
       user.last_name,
       await RoleType.fromId(user.id_role_type),
-    )));
+    ));
+
+    return Promise.all(usersPromises);
   }
 }
 

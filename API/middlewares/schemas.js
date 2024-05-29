@@ -1,185 +1,173 @@
-import { validationResult, header, body, query } from 'express-validator';
+import 'dotenv/config';
 
-const handleValidationErrors = (req, res, next) => {
+import {
+  body, header, query, validationResult,
+} from 'express-validator';
+
+function handleValidationErrors(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res
       .status(400)
       .send({ errors: errors.array() });
   }
-  next();
-};
+  return next();
+}
 
-const createValidationRule = (field, validations, isOptional = false, prefix = '') => {
-  return validations.map(validation => {
+function createValidationRule(validations, isOptional = false) {
+  return validations.map((validation) => {
+    let validationCopy = validation;
+
     if (isOptional) {
-      validation = validation.optional();
+      validationCopy = validationCopy.optional();
     }
-    return validation
-      .withMessage(validation.builder.fields[0] + ' ' + validation.message)
+
+    return validationCopy
+      .withMessage(`${validationCopy.builder.fields[0]} ${validationCopy.builder.message}`)
       .bail();
   });
-};
+}
 
 const validationRules = {
-  header_authorization: () => [
-    header('authorization')
-      .isString()
-      .withMessage('Authorization header must be a string')
-      .matches(new RegExp('^' + process.env.TOKEN_TYPE + ' [a-f0-9]{' + process.env.TOKEN_LENGTH + '}$'))
-      .withMessage('Authorization header must be in the correct format')
-  ],
-  body_email_address: (prefix, isOptional = false) => createValidationRule(
-    'email_address',
+  headerAuthorization: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'email_address')
+      header(`${prefix}authorization`)
+        .isString()
+        .withMessage('Authorization header must be a string')
+        .matches(new RegExp(`^${process.env.TOKEN_TYPE} [a-f0-9]{${process.env.TOKEN_LENGTH}}$`))
+        .withMessage('Authorization header must be in the correct format'),
+    ],
+    isOptional,
+  ),
+  bodyEmailAddress: (prefix, isOptional = false) => createValidationRule(
+    [
+      body(`${prefix}email_address`)
         .isEmail()
         .withMessage('Email address must be valid')
         .isLength({ max: parseInt(process.env.USER_EMAIL_ADDRESS_MAX_LENGTH, 10) })
-        .withMessage('Email address must be at most ' + process.env.USER_EMAIL_ADDRESS_MAX_LENGTH + ' characters')
+        .withMessage(`Email address must be at most ${process.env.USER_EMAIL_ADDRESS_MAX_LENGTH} characters`),
     ],
     isOptional,
-    prefix
   ),
-  body_password: (prefix, isOptional = false) => createValidationRule(
-    'password',
+  bodyPassword: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'password')
+      body(`${prefix}password`)
         .isString()
         .withMessage('Password must be a string')
         .isLength({ min: parseInt(process.env.USER_PASSWORD_MIN_LENGTH, 10) })
-        .withMessage('Password must be at least ' + process.env.USER_PASSWORD_MIN_LENGTH + ' characters')
+        .withMessage(`Password must be at least ${process.env.USER_PASSWORD_MIN_LENGTH} characters`),
     ],
     isOptional,
-    prefix
   ),
-  body_old_password: (prefix, isOptional = false) => createValidationRule(
-    'old_password',
+  bodyOldPassword: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'old_password')
+      body(`${prefix}old_password`)
         .isString()
         .withMessage('Old password must be a string')
         .isLength({ min: parseInt(process.env.USER_PASSWORD_MIN_LENGTH, 10) })
-        .withMessage('Old password must be at least ' + process.env.USER_PASSWORD_MIN_LENGTH + ' characters')
+        .withMessage(`Old password must be at least ${process.env.USER_PASSWORD_MIN_LENGTH} characters`),
     ],
     isOptional,
-    prefix
   ),
-  body_first_name: (prefix, isOptional = false) => createValidationRule(
-    'first_name',
+  bodyFirstName: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'first_name')
+      body(`${prefix}first_name`)
         .isString()
         .withMessage('First name must be a string')
         .isLength({
           min: parseInt(process.env.USER_FIRST_NAME_MIN_LENGTH, 10),
-          max: parseInt(process.env.USER_FIRST_NAME_MAX_LENGTH, 10)
+          max: parseInt(process.env.USER_FIRST_NAME_MAX_LENGTH, 10),
         })
-        .withMessage('First name must be at least ' + process.env.USER_FIRST_NAME_MIN_LENGTH + ' characters and at most ' + process.env.USER_FIRST_NAME_MAX_LENGTH + ' characters')
+        .withMessage(`First name must be at least ${process.env.USER_FIRST_NAME_MIN_LENGTH} characters and at most ${process.env.USER_FIRST_NAME_MAX_LENGTH} characters`),
     ],
     isOptional,
-    prefix
   ),
-  body_last_name: (prefix, isOptional = false) => createValidationRule(
-    'last_name',
+  bodyLastName: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'last_name')
+      body(`${prefix}last_name`)
         .isString()
         .withMessage('Last name must be a string')
         .isLength({
           min: parseInt(process.env.USER_LAST_NAME_MIN_LENGTH, 10),
-          max: parseInt(process.env.USER_LAST_NAME_MAX_LENGTH, 10)
+          max: parseInt(process.env.USER_LAST_NAME_MAX_LENGTH, 10),
         })
-        .withMessage('Last name must be at least ' + process.env.USER_LAST_NAME_MIN_LENGTH + ' characters and at most ' + process.env.USER_LAST_NAME_MAX_LENGTH + ' characters')
+        .withMessage(`Last name must be at least ${process.env.USER_LAST_NAME_MIN_LENGTH} characters and at most ${process.env.USER_LAST_NAME_MAX_LENGTH} characters`),
     ],
     isOptional,
-    prefix
   ),
-  body_name: (prefix, isOptional = false) => createValidationRule(
-    'name',
+  bodyName: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'name')
+      body(`${prefix}name`)
         .isString()
         .withMessage('Name must be a string')
         .isLength({ min: 1 })
-        .withMessage('Name must be at least 1 character')
+        .withMessage('Name must be at least 1 character'),
     ],
     isOptional,
-    prefix
   ),
-  body_code: (prefix, isOptional = false) => createValidationRule(
-    'code',
+  bodyCode: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'code')
+      body(`${prefix}code`)
         .isString()
         .withMessage('Code must be a string')
-        .matches(new RegExp('^FR[0-9]{5}$'))
-        .withMessage('Code must be in the correct format')
+        .matches(/^FR[0-9]{5}$/)
+        .withMessage('Code must be in the correct format'),
     ],
     isOptional,
-    prefix
   ),
-  body_organization_only: (prefix, isOptional = false) => createValidationRule(
-    'organization_only',
+  bodyOrganizationOnly: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'organization_only')
+      body(`${prefix}organization_only`)
         .isBoolean()
-        .withMessage('Organization only must be a boolean')
+        .withMessage('Organization only must be a boolean'),
     ],
     isOptional,
-    prefix
   ),
-  body_end_of_life_date: (prefix, isOptional = false) => createValidationRule(
-    'end_of_life_date',
+  bodyEndOfLifeDate: (prefix, isOptional = false) => createValidationRule(
     [
-      body(prefix + 'end_of_life_date')
+      body(`${prefix}end_of_life_date`)
         .isDate()
         .withMessage('End of life date must be a date')
-        .custom((value, { req }) => {
+        .custom((value) => {
           if (new Date(value) < new Date()) {
             throw new Error('End of life date must be in the future');
           }
           return true;
-        })
+        }),
     ],
     isOptional,
-    prefix
   ),
-  query_email_address: (prefix, isOptional = false) => createValidationRule(
-    'email_address',
+  queryEmailAddress: (prefix, isOptional = false) => createValidationRule(
     [
-      query(prefix + 'email_address')
+      query(`${prefix}email_address`)
         .isEmail()
         .withMessage('Email address must be valid')
         .isLength({ max: parseInt(process.env.USER_EMAIL_ADDRESS_MAX_LENGTH, 10) })
-        .withMessage('Email address must be at most ' + process.env.USER_EMAIL_ADDRESS_MAX_LENGTH + ' characters')
+        .withMessage(`Email address must be at most ${process.env.USER_EMAIL_ADDRESS_MAX_LENGTH} characters`),
     ],
     isOptional,
-    prefix
   ),
-  query_name: (prefix, isOptional = false) => createValidationRule(
-    'name',
+  queryName: (prefix, isOptional = false) => createValidationRule(
     [
-      query(prefix + 'name')
+      query(`${prefix}name`)
         .isString()
         .withMessage('Category name must be a string')
         .isLength({ min: 1 })
-        .withMessage('Category name must be at least 1 character')
+        .withMessage('Category name must be at least 1 character'),
     ],
     isOptional,
-    prefix
   ),
 };
 
-export const header_authorization = [...validationRules.header_authorization(), handleValidationErrors];
-export const body_email_address = (prefix = '', isOptional = false) => [...validationRules.body_email_address(prefix, isOptional), handleValidationErrors];
-export const body_password = (prefix = '', isOptional = false) => [...validationRules.body_password(prefix, isOptional), handleValidationErrors];
-export const body_old_password = (prefix = '', isOptional = false) => [...validationRules.body_old_password(prefix, isOptional), handleValidationErrors];
-export const body_first_name = (prefix = '', isOptional = false) => [...validationRules.body_first_name(prefix, isOptional), handleValidationErrors];
-export const body_last_name = (prefix = '', isOptional = false) => [...validationRules.body_last_name(prefix, isOptional), handleValidationErrors];
-export const body_name = (prefix = '', isOptional = false) => [...validationRules.body_name(prefix, isOptional), handleValidationErrors];
-export const body_code = (prefix = '', isOptional = false) => [...validationRules.body_code(prefix, isOptional), handleValidationErrors];
-export const body_organization_only = (prefix = '', isOptional = false) => [...validationRules.body_organization_only(prefix, isOptional), handleValidationErrors];
-export const body_end_of_life_date = (prefix = '', isOptional = false) => [...validationRules.body_end_of_life_date(prefix, isOptional), handleValidationErrors];
-export const query_email_address = (prefix = '', isOptional = false) => [...validationRules.query_email_address(prefix, isOptional), handleValidationErrors];
-export const query_name = (prefix = '', isOptional = false) => [...validationRules.query_name(prefix, isOptional), handleValidationErrors];
+export const headerAuthorization = (prefix = '', isOptional = false) => [...validationRules.headerAuthorization(prefix, isOptional), handleValidationErrors];
+export const bodyEmailAddress = (prefix = '', isOptional = false) => [...validationRules.bodyEmailAddress(prefix, isOptional), handleValidationErrors];
+export const bodyPassword = (prefix = '', isOptional = false) => [...validationRules.bodyPassword(prefix, isOptional), handleValidationErrors];
+export const bodyOldPassword = (prefix = '', isOptional = false) => [...validationRules.bodyOldPassword(prefix, isOptional), handleValidationErrors];
+export const bodyFirstName = (prefix = '', isOptional = false) => [...validationRules.bodyFirstName(prefix, isOptional), handleValidationErrors];
+export const bodyLastName = (prefix = '', isOptional = false) => [...validationRules.bodyLastName(prefix, isOptional), handleValidationErrors];
+export const bodyName = (prefix = '', isOptional = false) => [...validationRules.bodyName(prefix, isOptional), handleValidationErrors];
+export const bodyCode = (prefix = '', isOptional = false) => [...validationRules.bodyCode(prefix, isOptional), handleValidationErrors];
+export const bodyOrganizationOnly = (prefix = '', isOptional = false) => [...validationRules.bodyOrganizationOnly(prefix, isOptional), handleValidationErrors];
+export const bodyEndOfLifeDate = (prefix = '', isOptional = false) => [...validationRules.bodyEndOfLifeDate(prefix, isOptional), handleValidationErrors];
+export const queryEmailAddress = (prefix = '', isOptional = false) => [...validationRules.queryEmailAddress(prefix, isOptional), handleValidationErrors];
+export const queryName = (prefix = '', isOptional = false) => [...validationRules.queryName(prefix, isOptional), handleValidationErrors];

@@ -1,18 +1,16 @@
-import 'dotenv/config';
-
-import { administrator, authentificate } from '../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
 import Equipment from '../../../entities/Equipment.js';
 import Loan from '../../../entities/Loan.js';
-import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
+import { bodyCode, headerAuthorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.delete(
     '/administration/loans',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_code('equipment.'),
+      bodyCode('equipment.'),
     ],
     async (req, res) => {
       if (!await Equipment.codeExists(req.body.equipment.code)) {
@@ -31,13 +29,13 @@ export default function route(app) {
 
       const loans = await Loan.allOfEquipment(equipment);
 
-      for (const loan of loans) {
-        await loan.delete();
-      }
+      const deletePromises = loans.map((loan) => loan.delete());
+
+      await Promise.all(deletePromises);
 
       return res
         .status(204)
         .send();
-    }
+    },
   );
 }

@@ -1,18 +1,16 @@
-import 'dotenv/config';
-
-import { authentificate } from '../../../../middlewares/authentificate.js';
+import { authenticate } from '../../../../middlewares/authenticate.js';
 import Equipment from '../../../../entities/Equipment.js';
-import Type from '../../../../entities/Type.js';
 import Reference from '../../../../entities/Reference.js';
-import { header_authorization, query_name } from '../../../../middlewares/schemas.js';
+import { headerAuthorization, queryName } from '../../../../middlewares/schemas.js';
+import Type from '../../../../entities/Type.js';
 
 export default function route(app) {
   app.get(
     '/referential/equipments/available',
     [
-      header_authorization,
-      authentificate,
-      query_name('equipment_type_', true),
+      headerAuthorization(),
+      authenticate,
+      queryName('equipment_type_', true),
     ],
     async (req, res) => {
       let equipments = [];
@@ -28,21 +26,28 @@ export default function route(app) {
 
         const references = await Reference.allOfType(type);
 
-        for (const reference of references) {
-          const referenceEquipments = await Equipment.allOfReference(reference);
-          equipments.push(...referenceEquipments);
-        }
-      }
-      else {
+        const equipmentPromises = references.map(
+          (reference) => Equipment.allOfReference(reference),
+        );
+
+        equipments = await Promise.all(equipmentPromises);
+
+        equipments = equipments.flat();
+      } else {
         equipments = await Equipment.all();
       }
 
-      const availableEquipments = equipments.filter(async (equipment) => await equipment.isAvailable());
+      const availableEquipmentsPromises = equipments.map(
+        async (equipment) => (await equipment.isAvailable() ? equipment : null),
+      );
+
+      const availableEquipments = (await Promise.all(availableEquipmentsPromises))
+        .filter((equipment) => equipment !== null);
 
       return res
         .send({
-          datas: availableEquipments.map(equipment => equipment.format()),
+          datas: availableEquipments.map((equipment) => equipment.format()),
         });
-    }
+    },
   );
 }

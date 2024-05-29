@@ -1,18 +1,16 @@
-import 'dotenv/config';
-
-import { authentificate, administrator } from '../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
+import { bodyName, bodyOrganizationOnly, headerAuthorization } from '../../../middlewares/schemas.js';
 import Type from '../../../entities/Type.js';
-import { header_authorization, body_name, body_organization_only } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.put(
     '/administration/types',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_name('type.'),
-      body_organization_only('type.'),
+      bodyName('type.'),
+      bodyOrganizationOnly('type.'),
     ],
     async (req, res) => {
       if (await Type.nameExists(req.body.type.name)) {

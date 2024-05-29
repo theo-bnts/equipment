@@ -68,7 +68,7 @@ class Token {
       .getConnection()
       .collection('token')
       .findOne({ value });
-    
+
     return new Token(
       token._id,
       token.value,

@@ -80,14 +80,16 @@ class UserOrganization {
       .collection('user_organization')
       .find({ id_user: user.Id })
       .toArray();
-    
-    return Promise.all(userOrganizations.map(async (userOrganization) => {
-      return new UserOrganization(
+
+    const userOrganizationsPromises = userOrganizations.map(
+      async (userOrganization) => new UserOrganization(
         userOrganization._id,
         user,
         await Organization.fromId(userOrganization.id_organization),
-      );
-    }));
+      ),
+    );
+
+    return Promise.all(userOrganizationsPromises);
   }
 }
 

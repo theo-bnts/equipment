@@ -1,8 +1,8 @@
 import DatabasePool from './tools/DatabasePool.js';
 import Equipment from './Equipment.js';
-import StateType from './StateType.js';
 import Organization from './Organization.js';
 import Room from './Room.js';
+import StateType from './StateType.js';
 import User from './User.js';
 
 class Loan {
@@ -53,7 +53,7 @@ class Loan {
       loanData.id_organization = this.Organization.Id;
     }
 
-    return await DatabasePool
+    return DatabasePool
       .getConnection()
       .collection('loan')
       .insertOne(loanData);
@@ -73,14 +73,14 @@ class Loan {
       loanData.id_organization = this.Organization.Id;
     }
 
-    return await DatabasePool
+    return DatabasePool
       .getConnection()
       .collection('loan')
       .updateOne({ _id: this.Id }, { $set: loanData });
   }
 
   async delete() {
-    return await DatabasePool
+    return DatabasePool
       .getConnection()
       .collection('loan')
       .deleteOne({ _id: this.Id });
@@ -149,18 +149,18 @@ class Loan {
       .find()
       .toArray();
 
-    return Promise.all(loans.map(async (loan) => {
-      return new Loan(
-        loan._id,
-        await StateType.fromId(loan.id_state_type),
-        loan.loan_date,
-        loan.return_date,
-        await User.fromId(loan.id_user),
-        await Organization.fromId(loan.id_organization),
-        await Equipment.fromId(loan.id_equipment),
-        await Room.fromId(loan.id_room),
-      );
-    }));
+    const loansPromises = loans.map(async (loan) => new Loan(
+      loan._id,
+      await StateType.fromId(loan.id_state_type),
+      loan.loan_date,
+      loan.return_date,
+      await User.fromId(loan.id_user),
+      await Organization.fromId(loan.id_organization),
+      await Equipment.fromId(loan.id_equipment),
+      await Room.fromId(loan.id_room),
+    ));
+
+    return Promise.all(loansPromises);
   }
 
   static async allOfStateTypes(stateTypes) {
@@ -170,18 +170,18 @@ class Loan {
       .find({ id_state_type: { $in: stateTypes.map((stateType) => stateType.Id) } })
       .toArray();
 
-    return Promise.all(loans.map(async (loan) => {
-      return new Loan(
-        loan._id,
-        await StateType.fromId(loan.id_state_type),
-        loan.loan_date,
-        loan.return_date,
-        await User.fromId(loan.id_user),
-        await Organization.fromId(loan.id_organization),
-        await Equipment.fromId(loan.id_equipment),
-        await Room.fromId(loan.id_room),
-      );
-    }));
+    const loansPromises = loans.map(async (loan) => new Loan(
+      loan._id,
+      await StateType.fromId(loan.id_state_type),
+      loan.loan_date,
+      loan.return_date,
+      await User.fromId(loan.id_user),
+      await Organization.fromId(loan.id_organization),
+      await Equipment.fromId(loan.id_equipment),
+      await Room.fromId(loan.id_room),
+    ));
+
+    return Promise.all(loansPromises);
   }
 
   static async allOfUser(user) {
@@ -191,18 +191,18 @@ class Loan {
       .find({ id_user: user.Id })
       .toArray();
 
-    return Promise.all(loans.map(async (loan) => {
-      return new Loan(
-        loan._id,
-        await StateType.fromId(loan.id_state_type),
-        loan.loan_date,
-        loan.return_date,
-        user,
-        await Organization.fromId(loan.id_organization),
-        await Equipment.fromId(loan.id_equipment),
-        await Room.fromId(loan.id_room),
-      );
-    }));
+    const loansPromises = loans.map(async (loan) => new Loan(
+      loan._id,
+      await StateType.fromId(loan.id_state_type),
+      loan.loan_date,
+      loan.return_date,
+      user,
+      await Organization.fromId(loan.id_organization),
+      await Equipment.fromId(loan.id_equipment),
+      await Room.fromId(loan.id_room),
+    ));
+
+    return Promise.all(loansPromises);
   }
 
   static async allOfEquipment(equipment) {
@@ -212,18 +212,18 @@ class Loan {
       .find({ id_equipment: equipment.Id })
       .toArray();
 
-    return Promise.all(loans.map(async (loan) => {
-      return new Loan(
-        loan._id,
-        await StateType.fromId(loan.id_state_type),
-        loan.loan_date,
-        loan.return_date,
-        await User.fromId(loan.id_user),
-        await Organization.fromId(loan.id_organization),
-        equipment,
-        await Room.fromId(loan.id_room),
-      );
-    }));
+    const loansPromises = loans.map(async (loan) => new Loan(
+      loan._id,
+      await StateType.fromId(loan.id_state_type),
+      loan.loan_date,
+      loan.return_date,
+      await User.fromId(loan.id_user),
+      await Organization.fromId(loan.id_organization),
+      equipment,
+      await Room.fromId(loan.id_room),
+    ));
+
+    return Promise.all(loansPromises);
   }
 }
 

@@ -1,18 +1,16 @@
-import 'dotenv/config';
-
-import { authentificate, administrator } from '../../../middlewares/authentificate.js';
-import Type from '../../../entities/Type.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
 import Reference from '../../../entities/Reference.js';
-import { header_authorization, body_name } from '../../../middlewares/schemas.js';
+import { bodyName, headerAuthorization } from '../../../middlewares/schemas.js';
+import Type from '../../../entities/Type.js';
 
 export default function route(app) {
   app.delete(
     '/administration/types',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_name('type.'),
+      bodyName('type.'),
     ],
     async (req, res) => {
       if (!await Type.nameExists(req.body.type.name)) {

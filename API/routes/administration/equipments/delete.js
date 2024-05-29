@@ -1,18 +1,16 @@
-import 'dotenv/config';
-
-import { authentificate, administrator } from '../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
 import Equipment from '../../../entities/Equipment.js';
-import { header_authorization, body_code } from '../../../middlewares/schemas.js';
 import Loan from '../../../entities/Loan.js';
+import { bodyCode, headerAuthorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.delete(
     '/administration/equipments',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_code('equipment.'),
+      bodyCode('equipment.'),
     ],
     async (req, res) => {
       if (!await Equipment.codeExists(req.body.equipment.code)) {

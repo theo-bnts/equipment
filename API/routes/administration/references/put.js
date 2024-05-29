@@ -1,19 +1,17 @@
-import 'dotenv/config';
-
-import { authentificate, administrator } from '../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
 import Reference from '../../../entities/Reference.js';
+import { bodyName, headerAuthorization } from '../../../middlewares/schemas.js';
 import Type from '../../../entities/Type.js';
-import { header_authorization, body_name } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.put(
     '/administration/references',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_name('reference.'),
-      body_name('reference.type.'),
+      bodyName('reference.'),
+      bodyName('reference.type.'),
     ],
     async (req, res) => {
       if (await Reference.nameExists(req.body.reference.name)) {

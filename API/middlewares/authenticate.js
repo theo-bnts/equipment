@@ -2,7 +2,7 @@ import authHeader from 'auth-header';
 
 import Token from '../entities/Token.js';
 
-export async function authentificate(req, res, next) {
+export async function authenticate(req, res, next) {
   const authorization = authHeader.parse(req.header('authorization'));
 
   if (!await Token.isValidValue(authorization.token)) {
@@ -20,7 +20,7 @@ export async function authentificate(req, res, next) {
   }
 
   req.Token = token;
-  next();
+  return next();
 }
 
 export async function administrator(req, res, next) {
@@ -30,5 +30,5 @@ export async function administrator(req, res, next) {
       .send({ errors: [{ msg: 'NOT_ADMINISTRATOR' }] });
   }
 
-  next();
+  return next();
 }
