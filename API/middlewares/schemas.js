@@ -15,7 +15,9 @@ const createValidationRule = (field, validations, isOptional = false, prefix = '
     if (isOptional) {
       validation = validation.optional();
     }
-    return validation.withMessage(validation.builder.fields[0] + ' ' + validation.message).bail();
+    return validation
+      .withMessage(validation.builder.fields[0] + ' ' + validation.message)
+      .bail();
   });
 };
 
