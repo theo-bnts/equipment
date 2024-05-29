@@ -10,15 +10,13 @@
   },
   "dependencies": {
     "auth-header": "1",
-    "axios": "1",
     "cors": "2",
     "desm": "1",
     "dotenv": "16",
     "express": "4",
     "express-validator": "7",
     "glob": "10",
-    "mongoose": "8",
-    "nodemailer": "6"
+    "mongoose": "8"
   },
   "devDependencies": {
     "eslint": "8",

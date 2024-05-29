@@ -27,14 +27,14 @@ class Equipment {
       await StateType.fromName('REQUESTED'),
       await StateType.fromName('LOANED'),
       await StateType.fromName('RETURN_REQUESTED'),
-    ]
+    ];
 
     return await DatabasePool
       .getConnection()
       .collection('loan')
       .find({
         id_equipment: this.Id,
-        id_state_type: { $in: unvailableStateTypes.map(stateType => stateType.Id) },
+        id_state_type: { $in: unvailableStateTypes.map((stateType) => stateType.Id) },
       })
       .count() === 0;
   }
@@ -117,16 +117,18 @@ class Equipment {
       .collection('equipment')
       .find()
       .toArray();
-    
-    return Promise.all(equipments.map(async (equipment) => {
-      return new Equipment(
+
+    const equipmentsPromises = equipments.map(
+      async (equipment) => new Equipment(
         equipment._id,
         equipment.code,
         await Reference.fromId(equipment.id_reference),
         await Room.fromId(equipment.id_stockage_room),
         equipment.end_of_life_date,
-      );
-    }));
+      ),
+    );
+
+    return Promise.all(equipmentsPromises);
   }
 
   static async allOfReference(reference) {
@@ -135,16 +137,18 @@ class Equipment {
       .collection('equipment')
       .find({ id_reference: reference.Id })
       .toArray();
-    
-    return Promise.all(equipments.map(async (equipment) => {
-      return new Equipment(
+
+    const equipmentsPromises = equipments.map(
+      async (equipment) => new Equipment(
         equipment._id,
         equipment.code,
         reference,
         await Room.fromId(equipment.id_stockage_room),
         equipment.end_of_life_date,
-      );
-    }));
+      ),
+    );
+
+    return Promise.all(equipmentsPromises);
   }
 }
 

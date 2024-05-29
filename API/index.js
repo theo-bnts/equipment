@@ -1,9 +1,9 @@
 import 'dotenv/config';
 
-import express from 'express';
-import { join } from 'desm';
-import { glob } from 'glob';
 import cors from 'cors';
+import { join } from 'desm';
+import express from 'express';
+import { glob } from 'glob';
 
 import DatabasePool from './entities/tools/DatabasePool.js';
 
@@ -21,24 +21,27 @@ app.use((req, res, next) => {
   const start = Date.now();
   res.on('finish', () => {
     const duration = Date.now() - start;
-    console.log(req.method + ' ' + req.originalUrl + ' ' + res.statusCode + ' - ' + duration + 'ms');
+    console.debug(`${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`);
   });
-  next();
+  return next();
 });
 
 const routesPath = join(import.meta.url, 'routes');
 const routeFiles = glob.sync(`${routesPath}/**/*.js`);
 
-for (const file of routeFiles) {
+const modulePromises = routeFiles.map(async (file) => {
   const module = await import(file);
   module.default(app);
-  console.log(`${file} loaded`);
-}
+
+  console.debug(`Route ${file} loaded`);
+});
+
+await Promise.all(modulePromises);
 
 app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, (error) => {
   if (error) {
     throw error;
   }
 
-  console.log(`Server running at http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
+  console.debug(`Server running at http://${process.env.SERVER_HOST}:${process.env.SERVER_PORT}`);
 });

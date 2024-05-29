@@ -1,23 +1,21 @@
-import 'dotenv/config';
-
-import { authentificate } from '../../../middlewares/authentificate.js';
+import { authenticate } from '../../../middlewares/authenticate.js';
 import Equipment from '../../../entities/Equipment.js';
 import Loan from '../../../entities/Loan.js';
-import StateType from '../../../entities/StateType.js';
 import Organization from '../../../entities/Organization.js';
 import Room from '../../../entities/Room.js';
-import { header_authorization, body_code, body_name } from '../../../middlewares/schemas.js';
+import { bodyCode, bodyName, headerAuthorization } from '../../../middlewares/schemas.js';
+import StateType from '../../../entities/StateType.js';
 import UserOrganization from '../../../entities/UserOrganization.js';
 
 export default function route(app) {
   app.put(
     '/user/loans',
     [
-      header_authorization,
-      authentificate,
-      body_code('equipment.'),
-      body_name('organization.', true),
-      body_name('room.'),
+      headerAuthorization(),
+      authenticate,
+      bodyCode('equipment.'),
+      bodyName('organization.', true),
+      bodyName('room.'),
     ],
     async (req, res) => {
       if (!await Equipment.codeExists(req.body.equipment.code)) {
@@ -74,6 +72,6 @@ export default function route(app) {
       return res
         .status(204)
         .send();
-    }
+    },
   );
 }

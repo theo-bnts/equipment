@@ -1,20 +1,18 @@
-import 'dotenv/config';
-
-import { administrator, authentificate } from '../../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../../middlewares/authenticate.js';
 import Equipment from '../../../../entities/Equipment.js';
 import Loan from '../../../../entities/Loan.js';
+import { bodyCode, bodyName, headerAuthorization } from '../../../../middlewares/schemas.js';
 import StateType from '../../../../entities/StateType.js';
-import { header_authorization, body_code, body_name } from '../../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.patch(
     '/administration/loans/last',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_code('equipment.'),
-      body_name('loan.state.'),
+      bodyCode('equipment.'),
+      bodyName('loan.state.'),
     ],
     async (req, res) => {
       if (!await Equipment.codeExists(req.body.equipment.code)) {
@@ -34,7 +32,7 @@ export default function route(app) {
       const loan = await Loan.lastOfEquipment(equipment);
 
       if (
-        loan.State.Name === 'REQUESTED' && (req.body.loan.state.name !== 'LOANED' && req.body.loan.state.name !== 'REFUSED')
+        (loan.State.Name === 'REQUESTED' && (req.body.loan.state.name !== 'LOANED' && req.body.loan.state.name !== 'REFUSED'))
         || (loan.State.Name === 'LOANED' && req.body.loan.state.name !== 'RETURN_REQUESTED')
         || (loan.State.Name === 'RETURN_REQUESTED' && req.body.loan.state.name !== 'RETURNED')
       ) {
@@ -50,6 +48,6 @@ export default function route(app) {
       return res
         .status(204)
         .send();
-    }
+    },
   );
 }

@@ -1,6 +1,4 @@
-import 'dotenv/config';
-
-import { body_email_address, body_old_password, body_password } from '../../../middlewares/schemas.js';
+import { bodyEmailAddress, bodyOldPassword, bodyPassword } from '../../../middlewares/schemas.js';
 import Security from '../../../entities/tools/Security.js';
 import User from '../../../entities/User.js';
 
@@ -8,9 +6,9 @@ export default function route(app) {
   app.post(
     '/account/password',
     [
-      body_email_address('user.'),
-      body_old_password('user.'),
-      body_password('user.'),
+      bodyEmailAddress('user.'),
+      bodyOldPassword('user.'),
+      bodyPassword('user.'),
     ],
     async (req, res) => {
       if (!await User.emailAddressExists(req.body.user.email_address)) {
@@ -27,7 +25,9 @@ export default function route(app) {
           .send({ errors: [{ msg: 'INVALID_OLD_PASSWORD' }] });
       }
 
-      if (Security.hashPassword(req.body.user.password, user.PasswordHashSalt) === user.PasswordHash) {
+      if (
+        Security.hashPassword(req.body.user.password, user.PasswordHashSalt) === user.PasswordHash
+      ) {
         return res
           .status(403)
           .send({ errors: [{ msg: 'SAME_PASSWORD' }] });
@@ -41,6 +41,6 @@ export default function route(app) {
       return res
         .status(204)
         .send();
-    }
+    },
   );
 }

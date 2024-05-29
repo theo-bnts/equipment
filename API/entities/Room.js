@@ -37,7 +37,7 @@ class Room {
       .getConnection()
       .collection('room')
       .findOne({ name });
-    
+
     return new Room(room._id, room.name);
   }
 
@@ -47,10 +47,8 @@ class Room {
       .collection('room')
       .find()
       .toArray();
-    
-    return rooms.map((room) => {
-      return new Room(room._id, room.name);
-    });
+
+    return rooms.map((room) => new Room(room._id, room.name));
   }
 }
 

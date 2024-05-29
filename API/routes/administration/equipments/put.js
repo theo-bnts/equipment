@@ -1,22 +1,22 @@
-import 'dotenv/config';
-
-import { authentificate, administrator } from '../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
 import Equipment from '../../../entities/Equipment.js';
 import Reference from '../../../entities/Reference.js';
-import { header_authorization, body_name, body_code, body_end_of_life_date } from '../../../middlewares/schemas.js';
 import Room from '../../../entities/Room.js';
+import {
+  bodyCode, bodyEndOfLifeDate, bodyName, headerAuthorization,
+} from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.put(
     '/administration/equipments',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
-      body_code('equipment.'),
-      body_name('equipment.reference.'),
-      body_name('equipment.stockage_room.'),
-      body_end_of_life_date('equipment.'),
+      bodyCode('equipment.'),
+      bodyName('equipment.reference.'),
+      bodyName('equipment.stockage_room.'),
+      bodyEndOfLifeDate('equipment.'),
     ],
     async (req, res) => {
       if (await Equipment.codeExists(req.body.equipment.code)) {

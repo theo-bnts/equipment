@@ -68,14 +68,12 @@ class Type {
       .collection('type')
       .find()
       .toArray();
-    
-    return types.map((type) => {
-      return new Type(
-        type._id,
-        type.name,
-        type.organization_only
-      );
-    });
+
+    return types.map((type) => new Type(
+      type._id,
+      type.name,
+      type.organization_only,
+    ));
   }
 }
 

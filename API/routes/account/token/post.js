@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-import { body_email_address, body_password } from '../../../middlewares/schemas.js';
+import { bodyEmailAddress, bodyPassword } from '../../../middlewares/schemas.js';
 import Security from '../../../entities/tools/Security.js';
 import Token from '../../../entities/Token.js';
 import User from '../../../entities/User.js';
@@ -9,8 +9,8 @@ export default function route(app) {
   app.post(
     '/account/token',
     [
-      body_email_address('user.'),
-      body_password('user.'),
+      bodyEmailAddress('user.'),
+      bodyPassword('user.'),
     ],
     async (req, res) => {
       if (!await User.emailAddressExists(req.body.user.email_address)) {
@@ -40,6 +40,6 @@ export default function route(app) {
         .send({
           datas: token.format(),
         });
-    }
+    },
   );
 }

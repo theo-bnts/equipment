@@ -1,15 +1,13 @@
-import 'dotenv/config';
-
-import { administrator, authentificate } from '../../../middlewares/authentificate.js';
+import { administrator, authenticate } from '../../../middlewares/authenticate.js';
 import Reference from '../../../entities/Reference.js';
-import { header_authorization } from '../../../middlewares/schemas.js';
+import { headerAuthorization } from '../../../middlewares/schemas.js';
 
 export default function route(app) {
   app.get(
     '/administration/references',
     [
-      header_authorization,
-      authentificate,
+      headerAuthorization(),
+      authenticate,
       administrator,
     ],
     async (req, res) => {
@@ -17,8 +15,8 @@ export default function route(app) {
 
       return res
         .send({
-          datas: references.map(reference => reference.format()),
+          datas: references.map((reference) => reference.format()),
         });
-    }
+    },
   );
 }

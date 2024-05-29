@@ -36,7 +36,7 @@ class StateType {
     return new StateType(
       stateType._id,
       stateType.name,
-      stateType.display_name_french
+      stateType.display_name_french,
     );
   }
 
@@ -45,11 +45,11 @@ class StateType {
       .getConnection()
       .collection('state_type')
       .findOne({ name });
-    
+
     return new StateType(
       stateType._id,
       stateType.name,
-      stateType.display_name_french
+      stateType.display_name_french,
     );
   }
 
@@ -59,14 +59,12 @@ class StateType {
       .collection('state_type')
       .find()
       .toArray();
-    
-    return stateTypes.map((stateType) => {
-      return new StateType(
-        stateType._id,
-        stateType.name,
-        stateType.display_name_french
-      );
-    });
+
+    return stateTypes.map((stateType) => new StateType(
+      stateType._id,
+      stateType.name,
+      stateType.display_name_french,
+    ));
   }
 }
 
