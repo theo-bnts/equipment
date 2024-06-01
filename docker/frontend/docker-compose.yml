@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  angular:
+    restart: always
+    container_name: equipment_angular
+    image: node:20
+    volumes:
+      - ../../site/:/app/
+      - ./environment.ts:/app/src/environments/environment.ts
+    working_dir: /app
+    command: npm run debug
+    ports:
+      - "4201:4200"
