@@ -3,10 +3,10 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint src/ --ext .js",
-    "format": "eslint --fix src/ --ext .js",
+    "lint": "npm install && eslint --ext .js",
+    "format": "npm install && eslint --fix --ext .js",
     "debug": "npm install && nodemon",
-    "start": "npm install && node src/index.js"
+    "start": "npm install && node index.js"
   },
   "dependencies": {
     "auth-header": "1",
