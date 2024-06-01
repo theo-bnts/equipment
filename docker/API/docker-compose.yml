@@ -6,11 +6,10 @@ services:
     container_name: equipment_express
     image: node:20
     volumes:
-      - ./package.json:/app/package.json
+      - ../../API/:/app/
       - ./.env:/app/.env
-      - ../../API/:/app/src/
     working_dir: /app
-    command: npm run debug
+    command: npm run start
     ports:
       - "8082:80"
     extra_hosts:
