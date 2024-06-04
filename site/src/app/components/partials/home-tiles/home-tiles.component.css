@@ -1,11 +1,12 @@
 .home-tiles > div {
   display: flex;
   gap: 1em;
+  margin: 1em;
 }
 
 .home-tiles > div > div {
   border-radius: 30px;
-  padding: 1.5em;
+  padding: 3em 2em;
 }
 
 .green {
