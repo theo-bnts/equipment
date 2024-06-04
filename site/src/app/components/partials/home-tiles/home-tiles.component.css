@@ -1,0 +1,25 @@
+.home-tiles > div {
+  display: flex;
+  gap: 1em;
+}
+
+.home-tiles > div > div {
+  border-radius: 30px;
+  padding: 1.5em;
+}
+
+.green {
+  background-color: #50d7b3;
+}
+
+.yellow {
+  background-color: #e6cb31;
+}
+
+.blue {
+  background-color: #37b2ff;
+}
+
+.red {
+  background-color: #ff6b6b;
+}
