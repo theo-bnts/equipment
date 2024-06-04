@@ -1,0 +1,6 @@
+.home-page {
+  min-height: calc(100vh - 37.5vh);
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}

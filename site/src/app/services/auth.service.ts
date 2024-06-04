@@ -11,13 +11,11 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<boolean> {
-    return this.http.post<{ datas: { value: string, expiration: string, user: any } }>(`${environment.API_BASE_URL}/account/token`, { user: { email_address: email, password: password } })
+    return this.http.post<{ datas: { value: string, expiration: string, user: any } }>(`${environment.API_BASE_URL}/account/token`, { user: { email_address: email, password } })
       .pipe(
         map(response => {
-          const token = response.datas.value;
-          const expiration = response.datas.expiration;
-          localStorage.setItem('token', token);
-          localStorage.setItem('tokenExpiration', expiration);
+          localStorage.setItem('token', response.datas.value);
+          localStorage.setItem('tokenExpiration', response.datas.expiration);
           return true;
         }),
         catchError(error => {
@@ -44,12 +42,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     const token = localStorage.getItem('token');
     const expiration = localStorage.getItem('tokenExpiration');
-    if (!token || !expiration) {
-      return false;
-    }
-    const now = new Date();
-    const expirationDate = new Date(expiration);
-    return now < expirationDate;
+    
+    return !!token && !!expiration && new Date(expiration) > new Date();
   }
 
   getUserInfo(): Observable<any> {
