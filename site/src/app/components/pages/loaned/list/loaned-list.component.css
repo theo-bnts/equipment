@@ -1,0 +1,5 @@
+.loaned-list-page {
+  min-height: calc(100vh - 12vh);
+  display: flex;
+  align-items: center;
+}

@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
-import { AuthService } from '../../../services/auth.service';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-login-form',
@@ -17,7 +19,7 @@ export class LoginFormComponent {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private authService: AccountService, private router: Router) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -33,12 +35,14 @@ export class LoginFormComponent {
     }
   
     const { email, password } = this.loginForm.value;
-    this.authService.login(email, password).subscribe(success => {
-      if (success) {
-        this.router.navigate(['/home']);
-      } else {
-        alert('Login failed');
-      }
-    });
+    this.authService
+      .login(email, password)
+      .pipe(
+        catchError(() => {
+          alert('Login failed');
+          return of(false);
+        })
+      )
+      .subscribe(() => this.router.navigate(['/home']));
   }
 }
