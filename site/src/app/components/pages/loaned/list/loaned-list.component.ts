@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-//import { HomeTilesComponent } from '../../partials/home-tiles/home-tiles.component';
+import { ListComponent } from '../../../partials/list/list.component';
 
 @Component({
   selector: 'app-loaned-list',
   standalone: true,
-  //imports: [HomeTilesComponent],
+  imports: [ListComponent],
   templateUrl: './loaned-list.component.html',
   styleUrls: ['./loaned-list.component.css']
 })
