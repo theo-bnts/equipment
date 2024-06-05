@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { AccountService } from '../../../services/account.service';
@@ -30,6 +30,7 @@ export class LoginFormComponent {
 
   onSubmit() {
     this.submitted = true;
+
     if (this.loginForm.invalid) {
       return;
     }
@@ -38,11 +39,12 @@ export class LoginFormComponent {
     this.authService
       .login(email, password)
       .pipe(
+        tap(() => this.router.navigate(['/home'])),
         catchError(() => {
           alert('Login failed');
-          return of(false);
+          return of();
         })
       )
-      .subscribe(() => this.router.navigate(['/home']));
+      .subscribe();
   }
 }
