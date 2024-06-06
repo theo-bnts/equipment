@@ -36,7 +36,7 @@ class Loan {
   async isRunning() {
     const loanedStateType = await StateType.fromName('LOANED');
 
-    return this.State.Id === loanedStateType.Id;
+    return this.State.Id.equals(loanedStateType.Id);
   }
 
   async insert() {
