@@ -1,7 +1,7 @@
 <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()" class="account-form">
   <div>
     <label for="email">E-Mail</label>
-    <input type="email" formControlName="email" placeholder="name@example.com"
+    <input type="email" formControlName="email" [attr.disabled]="true"
            [ngClass]="{ 'invalid-input': submitted && formControls['email'].errors }" />
     <div *ngIf="submitted && formControls['email'].errors" class="invalid-indicator">
       <div *ngIf="formControls['email'].errors?.['required']">L'email est requis</div>

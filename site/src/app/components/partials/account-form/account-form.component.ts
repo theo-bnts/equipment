@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
@@ -15,15 +15,21 @@ import { AccountService } from '../../../services/account.service';
   templateUrl: './account-form.component.html',
   styleUrls: ['./account-form.component.css']
 })
-export class AccountFormComponent {
+export class AccountFormComponent implements OnInit {
   changePasswordForm: FormGroup;
   submitted = false;
 
   constructor(private formBuilder: FormBuilder, private accountService: AccountService, private router: Router) {
     this.changePasswordForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       oldPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  ngOnInit() {
+    this.accountService.getUserInfo().subscribe(userInfo => {
+      this.changePasswordForm.patchValue({ email: userInfo.email_address });
     });
   }
 
@@ -35,8 +41,8 @@ export class AccountFormComponent {
     if (this.changePasswordForm.invalid) {
       return;
     }
- 
-    const { email, oldPassword, newPassword } = this.changePasswordForm.value;
+
+    const { email, oldPassword, newPassword } = this.changePasswordForm.getRawValue();
     this.accountService
       .changePassword(email, oldPassword, newPassword)
       .pipe(
