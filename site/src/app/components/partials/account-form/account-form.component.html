@@ -1,0 +1,30 @@
+<form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()" class="account-form">
+  <div>
+    <label for="email">E-Mail</label>
+    <input type="email" formControlName="email" placeholder="name@example.com"
+           [ngClass]="{ 'invalid-input': submitted && formControls['email'].errors }" />
+    <div *ngIf="submitted && formControls['email'].errors" class="invalid-indicator">
+      <div *ngIf="formControls['email'].errors?.['required']">L'email est requis</div>
+      <div *ngIf="formControls['email'].errors?.['email']">L'email doit être valide</div>
+    </div>
+  </div>
+  <div>
+    <label for="oldPassword">Ancien mot de passe</label>
+    <input type="password" formControlName="oldPassword" placeholder="***********"
+           [ngClass]="{ 'invalid-input': submitted && formControls['oldPassword'].errors }" />
+    <div *ngIf="submitted && formControls['oldPassword'].errors" class="invalid-indicator">
+      <div *ngIf="formControls['oldPassword'].errors?.['required']">L'ancien mot de passe est requis</div>
+    </div>
+  </div>
+  <div>
+    <label for="newPassword">Nouveau mot de passe</label>
+    <input type="password" formControlName="newPassword" placeholder="***********"
+           [ngClass]="{ 'invalid-input': submitted && formControls['newPassword'].errors }" />
+    <div *ngIf="submitted && formControls['newPassword'].errors" class="invalid-indicator">
+      <div *ngIf="formControls['newPassword'].errors?.['required']">Le nouveau mot de passe est requis</div>
+      <div *ngIf="formControls['newPassword'].errors?.['minlength']">Le nouveau mot de passe doit contenir au moins 6 caractères</div>
+    </div>
+  </div>
+  <button class="change-password-button" type="submit">Changer le mot de passe</button>
+</form>
+<button class="logout-button" (click)="logout()">Déconnexion</button>
