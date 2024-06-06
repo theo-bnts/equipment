@@ -23,7 +23,7 @@ export default function route(app) {
 
       const loan = await Loan.lastOfEquipment(equipment);
 
-      if (loan.User.Id !== req.Token.User.Id) {
+      if (!loan.User.Id.equals(req.Token.User.Id)) {
         return res
           .status(403)
           .send({ errors: [{ msg: 'USER_NOT_OWNER_OF_LOAN' }] });
