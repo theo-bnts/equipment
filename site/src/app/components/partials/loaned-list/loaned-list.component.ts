@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
   returnLoan(equipmentCode: string) {
     this.userService.returnLoan(equipmentCode)
       .pipe(
-        tap(() => this.router.navigate(['/loaned/list'])),
+        tap(() => this.ngOnInit()),
         catchError(() => {
           alert('Failed to ask for loan return');
           return of();
@@ -36,6 +36,4 @@ export class ListComponent implements OnInit {
       )
       .subscribe();
   }
-
-
 }
