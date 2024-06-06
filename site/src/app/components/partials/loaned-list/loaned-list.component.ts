@@ -25,6 +25,12 @@ export class ListComponent implements OnInit {
     );
   }
 
+  isReturnDateExceeded(returnDate: string): boolean {
+    const currentDate = new Date();
+    const returnDateObj = new Date(returnDate);
+    return returnDateObj < currentDate;
+  }
+
   returnLoan(equipmentCode: string) {
     this.userService.returnLoan(equipmentCode)
       .pipe(

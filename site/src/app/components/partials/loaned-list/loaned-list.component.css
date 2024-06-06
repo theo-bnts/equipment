@@ -26,8 +26,20 @@
   background-color: red;
 }
 
-.red:hover:not(.disabled) {
+.button.red:hover:not(.disabled) {
   background-color: #CC0000;
+}
+
+.green {
+  background-color: green;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.grey {
+  background-color: grey;
 }
 
 .disabled {

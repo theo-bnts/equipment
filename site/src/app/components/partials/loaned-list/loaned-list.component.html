@@ -14,9 +14,17 @@
   </thead>
   <tbody>
     <tr *ngFor="let loan of loans">
-      <td>{{ loan.state.display_name_french }}</td>
+      <td [ngClass]="{
+        'green': loan.state.name === 'LOANED',
+        'yellow': loan.state.name === 'REQUESTED' || loan.state.name === 'RETURN_REQUESTED',
+        'red': loan.state.name === 'REFUSED',
+        'grey': loan.state.name === 'RETURNED'
+      }"
+      >
+        {{ loan.state.display_name_french }}
+      </td>
       <td>{{ loan.loan_date | date:'shortDate' }}</td>
-      <td>{{ loan.return_date | date:'shortDate' }}</td>
+      <td [ngClass]="{'red': isReturnDateExceeded(loan.return_date)}">{{ loan.return_date | date:'shortDate' }}</td>
       <td>{{ loan.organization?.name || '-' }}</td>
       <td>{{ loan.equipment.code }}</td>
       <td>{{ loan.equipment.reference.name }}</td>
