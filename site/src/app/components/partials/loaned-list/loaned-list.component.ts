@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { tap, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -22,7 +25,17 @@ export class ListComponent implements OnInit {
     );
   }
 
-  navigateTo(route: string) {
-    this.router.navigate([route]);
+  returnLoan(equipmentCode: string) {
+    this.userService.updateLoan(equipmentCode)
+      .pipe(
+        tap(() => this.router.navigate(['/loaned/list'])),
+        catchError(() => {
+          alert('Failed to ask for loan return');
+          return of();
+        })
+      )
+      .subscribe();
   }
+
+
 }
