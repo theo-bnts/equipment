@@ -86,7 +86,7 @@ class Loan {
       loan_date: this.LoanDate,
       return_date: this.ReturnDate,
       user: this.User.format(),
-      organization: this.Organization?.format(),
+      organization: this.Organization !== null ? this.Organization.format() : null,
       equipment: this.Equipment.format(),
       room: this.Room.format(),
     };
