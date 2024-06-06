@@ -1,0 +1,16 @@
+.list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.list th, .list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.list th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #f2f2f2;
+}

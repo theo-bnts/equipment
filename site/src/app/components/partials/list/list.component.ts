@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getLoans().subscribe(
-      data => { this.loans = data; console.log('Loans loaded', data); },
+      data => this.loans = data,
       error => console.error('Failed to load loans', error)
     );
   }

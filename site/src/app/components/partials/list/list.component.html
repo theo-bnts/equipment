@@ -1,1 +1,26 @@
-ee
+<table class="list">
+  <thead>
+    <tr>
+      <th>État</th>
+      <th>Date de prêt</th>
+      <th>Date de retour</th>
+      <th>Organisation</th>
+      <th>Équipement (Code)</th>
+      <th>Équipement (Nom)</th>
+      <th>Salle</th>
+      <th>Salle de stockage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let loan of loans">
+      <td>{{ loan.state.display_name_french }}</td>
+      <td>{{ loan.loan_date | date:'shortDate' }}</td>
+      <td>{{ loan.return_date | date:'shortDate' }}</td>
+      <td>{{ loan.organization?.name }}</td>
+      <td>{{ loan.equipment.code }}</td>
+      <td>{{ loan.equipment.reference.name }}</td>
+      <td>{{ loan.room.name }}</td>
+      <td>{{ loan.equipment.stockage_room.name }}</td>
+    </tr>
+  </tbody>
+</table>
