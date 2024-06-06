@@ -32,7 +32,7 @@ export default function route(app) {
           .send({ errors: [{ msg: 'EQUIPMENT_NOT_AVAILABLE' }] });
       }
 
-      let organization = null;
+      let organization;
 
       if (req.body.organization.name) {
         if (!await Organization.nameExists(req.body.organization.name)) {
@@ -48,6 +48,15 @@ export default function route(app) {
             .status(403)
             .send({ errors: [{ msg: 'USER_NOT_IN_ORGANIZATION' }] });
         }
+      }
+      else {
+        if (equipment.Reference.Type.OrganizationOnly) {
+          return res
+            .status(409)
+            .send({ errors: [{ msg: 'ORGANIZATION_REQUIRED_FOR_TYPE' }] });
+        }
+
+        organization = null;
       }
 
       if (!await Room.nameExists(req.body.room.name)) {
