@@ -9,6 +9,7 @@
       <th>Équipement (Nom)</th>
       <th>Salle</th>
       <th>Salle de stockage</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +22,14 @@
       <td>{{ loan.equipment.reference.name }}</td>
       <td>{{ loan.room.name }}</td>
       <td>{{ loan.equipment.stockage_room.name }}</td>
+      <td>
+        <div
+          class="button red"
+          [ngClass]="{'disabled': loan.state.name !== 'LOANED'}"
+          (click)="loan.state.name === 'LOANED' && returnLoan(loan.equipment.code)">
+          Demander un retour
+        </div>
+      </td>      
     </tr>
   </tbody>
 </table>
