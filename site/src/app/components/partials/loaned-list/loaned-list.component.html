@@ -17,7 +17,7 @@
       <td>{{ loan.state.display_name_french }}</td>
       <td>{{ loan.loan_date | date:'shortDate' }}</td>
       <td>{{ loan.return_date | date:'shortDate' }}</td>
-      <td>{{ loan.organization?.name }}</td>
+      <td>{{ loan.organization?.name || '-' }}</td>
       <td>{{ loan.equipment.code }}</td>
       <td>{{ loan.equipment.reference.name }}</td>
       <td>{{ loan.room.name }}</td>
