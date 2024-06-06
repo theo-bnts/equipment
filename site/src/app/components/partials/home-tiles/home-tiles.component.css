@@ -1,7 +1,6 @@
 .home-tiles > div {
   display: flex;
   gap: 1em;
-  margin: 1em;
 }
 
 .home-tiles > div > div {
