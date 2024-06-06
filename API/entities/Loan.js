@@ -45,13 +45,10 @@ class Loan {
       loan_date: this.LoanDate,
       return_date: this.ReturnDate,
       id_user: this.User.Id,
+      id_organization: this.Organization === null ? this.Organization.Id : null,
       id_equipment: this.Equipment.Id,
       id_room: this.Room.Id,
     };
-
-    if (this.Organization) {
-      loanData.id_organization = this.Organization.Id;
-    }
 
     return DatabasePool
       .getConnection()
@@ -65,13 +62,10 @@ class Loan {
       loan_date: this.LoanDate,
       return_date: this.ReturnDate,
       id_user: this.User.Id,
+      id_organization: this.Organization === null ? this.Organization.Id : null,
       id_equipment: this.Equipment.Id,
       id_room: this.Room.Id,
     };
-
-    if (this.Organization) {
-      loanData.id_organization = this.Organization.Id;
-    }
 
     return DatabasePool
       .getConnection()
@@ -118,7 +112,7 @@ class Loan {
       loan.loan_date,
       loan.return_date,
       await User.fromId(loan.id_user),
-      await Organization.fromId(loan.id_organization),
+      loan.id_organization !== null ? await Organization.fromId(loan.id_organization) : null,
       await Equipment.fromId(loan.id_equipment),
       await Room.fromId(loan.id_room),
     );
@@ -136,7 +130,7 @@ class Loan {
       loan.loan_date,
       loan.return_date,
       await User.fromId(loan.id_user),
-      await Organization.fromId(loan.id_organization),
+      loan.id_organization !== null ? await Organization.fromId(loan.id_organization) : null,
       await Equipment.fromId(loan.id_equipment),
       await Room.fromId(loan.id_room),
     );
@@ -155,7 +149,7 @@ class Loan {
       loan.loan_date,
       loan.return_date,
       await User.fromId(loan.id_user),
-      await Organization.fromId(loan.id_organization),
+      loan.id_organization !== null ? await Organization.fromId(loan.id_organization) : null,
       await Equipment.fromId(loan.id_equipment),
       await Room.fromId(loan.id_room),
     ));
@@ -176,7 +170,7 @@ class Loan {
       loan.loan_date,
       loan.return_date,
       await User.fromId(loan.id_user),
-      await Organization.fromId(loan.id_organization),
+      loan.id_organization !== null ? await Organization.fromId(loan.id_organization) : null,
       await Equipment.fromId(loan.id_equipment),
       await Room.fromId(loan.id_room),
     ));
@@ -197,7 +191,7 @@ class Loan {
       loan.loan_date,
       loan.return_date,
       user,
-      await Organization.fromId(loan.id_organization),
+      loan.id_organization !== null ? await Organization.fromId(loan.id_organization) : null,
       await Equipment.fromId(loan.id_equipment),
       await Room.fromId(loan.id_room),
     ));
@@ -218,7 +212,7 @@ class Loan {
       loan.loan_date,
       loan.return_date,
       await User.fromId(loan.id_user),
-      await Organization.fromId(loan.id_organization),
+      loan.id_organization !== null ? await Organization.fromId(loan.id_organization) : null,
       equipment,
       await Room.fromId(loan.id_room),
     ));
