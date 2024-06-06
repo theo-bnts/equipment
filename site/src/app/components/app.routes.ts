@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { AuthGuard } from '../services/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
-import { LoanedListComponent } from './pages/loaned/list/loaned-list.component';
+import { LoanedListComponent } from './pages/loaned/list/list.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AccountComponent } from './pages/account/account.component';
 

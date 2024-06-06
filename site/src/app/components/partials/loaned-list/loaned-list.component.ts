@@ -7,8 +7,8 @@ import { UserService } from '../../../services/user.service';
   selector: 'app-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  templateUrl: './loaned-list.component.html',
+  styleUrls: ['./loaned-list.component.css']
 })
 export class ListComponent implements OnInit {
   loans: any[] = [];
