@@ -26,6 +26,10 @@
   background-color: red;
 }
 
+.red:hover:not(.disabled) {
+  background-color: #CC0000;
+}
+
 .disabled {
   background-color: #ccc;
   cursor: not-allowed;

@@ -13,10 +13,22 @@
   background-color: #50d7b3;
 }
 
+.green:hover {
+  background-color: #3dbf9b;
+}
+
 .yellow {
   background-color: #e6cb31;
 }
 
+.yellow:hover {
+  background-color: #d9c22b;
+}
+
 .blue {
   background-color: #37b2ff;
+}
+
+.blue:hover {
+  background-color: #2f9ed6;
 }
