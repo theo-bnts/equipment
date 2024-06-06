@@ -191,7 +191,7 @@ db.createCollection('loan', {
     validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['id_state_type', 'loan_date', 'return_date', 'id_room', 'id_user', 'id_equipment'],
+            required: ['id_state_type', 'loan_date', 'return_date', 'id_room', 'id_user', 'id_organization', 'id_equipment'],
             properties: {
                 id_state_type: {
                     bsonType: 'objectId',
@@ -214,7 +214,7 @@ db.createCollection('loan', {
                     description: 'must be an ObjectId and is required'
                 },
                 id_organization: {
-                    bsonType: 'objectId',
+                    bsonType: ['objectId', 'null'],
                     description: 'must be an ObjectId'
                 },
                 id_equipment: {
@@ -395,11 +395,11 @@ db.user.insertMany([
 ]);
 
 db.loan.insertMany([
-    { _id: loanIds[0], id_state_type: stateTypeIds[0], loan_date: new Date('2023-05-01'), return_date: new Date('2023-05-15'), id_room: roomIds[2], id_user: userIds[1], id_equipment: equipmentIds[0] },
-    { _id: loanIds[1], id_state_type: stateTypeIds[2], loan_date: new Date('2023-06-01'), return_date: new Date('2023-06-10'), id_room: roomIds[3], id_user: userIds[1], id_equipment: equipmentIds[1], id_organization: organizationIds[0] },
-    { _id: loanIds[2], id_state_type: stateTypeIds[0], loan_date: new Date('2023-07-01'), return_date: new Date('2023-07-15'), id_room: roomIds[4], id_user: userIds[1], id_equipment: equipmentIds[2], id_organization: organizationIds[1] },
-    { _id: loanIds[3], id_state_type: stateTypeIds[3], loan_date: new Date('2023-08-01'), return_date: new Date('2023-08-15'), id_room: roomIds[2], id_user: userIds[1], id_equipment: equipmentIds[3] },
-    { _id: loanIds[4], id_state_type: stateTypeIds[4], loan_date: new Date('2023-09-01'), return_date: new Date('2023-09-15'), id_room: roomIds[3], id_user: userIds[1], id_equipment: equipmentIds[4], id_organization: organizationIds[1] }
+    { _id: loanIds[0], id_state_type: stateTypeIds[0], loan_date: new Date('2023-05-01'), return_date: new Date('2023-05-15'), id_room: roomIds[2], id_user: userIds[1], id_organization: null, id_equipment: equipmentIds[0] },
+    { _id: loanIds[1], id_state_type: stateTypeIds[2], loan_date: new Date('2023-06-01'), return_date: new Date('2023-06-10'), id_room: roomIds[3], id_user: userIds[1], id_organization: organizationIds[0], id_equipment: equipmentIds[1] },
+    { _id: loanIds[2], id_state_type: stateTypeIds[0], loan_date: new Date('2023-07-01'), return_date: new Date('2023-07-15'), id_room: roomIds[4], id_user: userIds[1], id_organization: organizationIds[1], id_equipment: equipmentIds[2] },
+    { _id: loanIds[3], id_state_type: stateTypeIds[3], loan_date: new Date('2023-08-01'), return_date: new Date('2023-08-15'), id_room: roomIds[2], id_user: userIds[1], id_organization: null, id_equipment: equipmentIds[3] },
+    { _id: loanIds[4], id_state_type: stateTypeIds[4], loan_date: new Date('2023-09-01'), return_date: new Date('2023-09-15'), id_room: roomIds[3], id_user: userIds[1], id_organization: organizationIds[1], id_equipment: equipmentIds[4] },
 ]);
 
 db.user_organization.insertMany([
