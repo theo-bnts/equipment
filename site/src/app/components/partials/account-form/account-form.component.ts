@@ -40,7 +40,10 @@ export class AccountFormComponent {
     this.accountService
       .changePassword(email, oldPassword, newPassword)
       .pipe(
-        tap(() => alert('Password changed successfully')),
+        tap(() => {
+          alert('Password changed successfully');
+          this.router.navigate(['/home']);
+        }),
         catchError(() => {
           alert('Password change failed');
           return of();
