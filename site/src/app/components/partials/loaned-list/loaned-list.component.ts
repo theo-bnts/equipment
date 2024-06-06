@@ -26,7 +26,7 @@ export class ListComponent implements OnInit {
   }
 
   returnLoan(equipmentCode: string) {
-    this.userService.updateLoan(equipmentCode)
+    this.userService.returnLoan(equipmentCode)
       .pipe(
         tap(() => this.router.navigate(['/loaned/list'])),
         catchError(() => {

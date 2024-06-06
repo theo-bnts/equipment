@@ -43,7 +43,7 @@ export class UserService {
     return this.http.put<void>(`${environment.API_BASE_URL}/user/loans`, body, { headers })
   }
 
-  updateLoan(equipmentCode: string): Observable<void> {
+  returnLoan(equipmentCode: string): Observable<void> {
     const headers = AccountService.getAuthHeaders();
 
     const body = {
