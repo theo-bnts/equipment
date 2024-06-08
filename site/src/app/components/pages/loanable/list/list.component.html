@@ -1,4 +1,4 @@
 <div class="list-page">
-    <app-types-dropdown></app-types-dropdown>
-    <app-loanable-list></app-loanable-list>
+    <app-types-dropdown (typeSelected)="onTypeChange($event)"></app-types-dropdown>
+    <app-loanable-list [selectedType]="selectedType"></app-loanable-list>    
 </div>

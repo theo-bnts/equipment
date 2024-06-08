@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { LoanableListComponent } from '../../../partials/loanable-list/loanable-list.component';
 import { TypesDropdownComponent } from '../../../partials/types-dropdown/types-dropdown.component';
 
@@ -10,4 +9,10 @@ import { TypesDropdownComponent } from '../../../partials/types-dropdown/types-d
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class LoanableListPageComponent { }
+export class LoanableListPageComponent {
+  selectedType: string | undefined;
+
+  onTypeChange(type: string) {
+    this.selectedType = type;
+  }
+}
