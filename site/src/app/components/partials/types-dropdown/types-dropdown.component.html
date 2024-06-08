@@ -1,0 +1,8 @@
+<div class="dropdown-container">
+  <label for="typesDropdown">Type :</label>
+  <select id="typesDropdown" class="dropdown" (change)="onTypeChange($any($event.target).value)">
+    <option *ngFor="let type of types" [value]="type.name">
+      {{ type.name }}
+    </option>
+  </select>
+</div>

@@ -42,10 +42,10 @@ export class LoanedListComponent implements OnInit {
     return returnDateObj < currentDate;
   }
 
-  returnLoan(equipmentCode: string) {
+  onLoanReturnRequest(equipmentCode: string) {
     this.userService.returnLoan(equipmentCode)
       .pipe(
-        tap(() => this.ngOnInit()),
+        tap(() => location.reload()),
         catchError(() => {
           alert('Failed to ask for loan return');
           return of();

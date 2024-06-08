@@ -46,15 +46,6 @@ export class ReferentialAdministrationService {
     return this.http.patch<void>(`${environment.API_BASE_URL}/administration/loans/last`, body, { headers });
   }
 
-  getTypes(): Observable<any> {
-    const headers = AccountService.getAuthHeaders();
-    
-    return this.http.get<{ datas: any }>(`${environment.API_BASE_URL}/administration/types`, { headers })
-      .pipe(
-        map(response => response.datas),
-      );
-  }
-
   createType(typeName: string, organizationOnly: boolean): Observable<void> {
     const headers = AccountService.getAuthHeaders();
     
