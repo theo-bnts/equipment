@@ -9,7 +9,7 @@
   <div *ngIf="isOrganisationSelected">
     <label for="organisation">Organisation</label>
     <select formControlName="organisation">
-      <option *ngFor="let organisation of organisations" [value]="organisation.id">{{ org.name }}</option>
+      <option *ngFor="let organisation of organisations" [value]="organisation.id">{{ organisation.name }}</option>
     </select>
   </div>
   <button type="submit">Demander un emprunt</button>
