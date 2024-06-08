@@ -9,4 +9,4 @@ import { HomeTilesComponent } from '../../partials/home-tiles/home-tiles.compone
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent { }
+export class HomePageComponent { }
