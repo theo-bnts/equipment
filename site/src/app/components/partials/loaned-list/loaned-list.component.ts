@@ -20,9 +20,20 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getLoans().subscribe(
-      data => this.loans = data,
+      data => {
+        this.loans = data;
+        this.sortLoans();
+      },
       error => console.error('Failed to load loans', error)
     );
+  }
+
+  sortLoans() {
+    this.loans.sort((a, b) => {
+      const dateA = new Date(a.loan_date);
+      const dateB = new Date(b.loan_date);
+      return dateA.getTime() - dateB.getTime();
+    });
   }
 
   isReturnDateExceeded(returnDate: string): boolean {
