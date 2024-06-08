@@ -33,7 +33,7 @@
         <div
           class="button red"
           [ngClass]="{'disabled': loan.state.name !== 'LOANED'}"
-          (click)="loan.state.name === 'LOANED' && returnLoan(loan.equipment.code)">
+          (click)="loan.state.name === 'LOANED' && onLoanReturnRequest(loan.equipment.code)">
           Demander un retour
         </div>
       </td>      

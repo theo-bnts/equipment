@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 
-import { UserService } from '../../../services/user.service';
+import { ReferentialService } from '../../../services/referential.service';
 
 @Component({
   selector: 'app-loanable-list',
@@ -14,43 +12,18 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./loanable-list.component.css']
 })
 export class LoanableListComponent implements OnInit {
-  loans: any[] = [];
+  availableEquipments: any[] = [];
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private referentialService: ReferentialService) {}
 
   ngOnInit() {
-    this.userService.getLoans().subscribe(
-      data => {
-        this.loans = data;
-        this.sortLoans();
-      },
-      error => console.error('Failed to load loans', error)
+    this.referentialService.getAvailableEquipments("Bureau").subscribe(
+      data => this.availableEquipments = data,
+      error => console.error('Failed to load available equipments', error)
     );
   }
 
-  sortLoans() {
-    this.loans.sort((a, b) => {
-      const dateA = new Date(a.loan_date);
-      const dateB = new Date(b.loan_date);
-      return dateA.getTime() - dateB.getTime();
-    });
-  }
-
-  isReturnDateExceeded(returnDate: string): boolean {
-    const currentDate = new Date();
-    const returnDateObj = new Date(returnDate);
-    return returnDateObj < currentDate;
-  }
-
-  returnLoan(equipmentCode: string) {
-    this.userService.returnLoan(equipmentCode)
-      .pipe(
-        tap(() => this.ngOnInit()),
-        catchError(() => {
-          alert('Failed to ask for loan return');
-          return of();
-        })
-      )
-      .subscribe();
+  onLoanRequest(equipmentCode: string) {
+    console.log('Demande de prêt pour l\'équipement:', equipmentCode);
   }
 }
