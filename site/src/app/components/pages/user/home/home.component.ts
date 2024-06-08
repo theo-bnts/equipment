@@ -7,6 +7,6 @@ import { HomeTilesComponent } from '../../../partials/user-home-tiles/home-tiles
   standalone: true,
   imports: [HomeTilesComponent],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['../../../../../styles/page.css']
 })
 export class UserHomePageComponent { }

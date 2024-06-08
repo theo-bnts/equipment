@@ -7,7 +7,7 @@ import { TypesDropdownComponent } from '../../../partials/types-dropdown/types-d
   standalone: true,
   imports: [LoanableListComponent, TypesDropdownComponent],
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['../../../../../styles/page.css', './list.component.css']
 })
 export class LoanableListPageComponent {
   selectedType: string | undefined;

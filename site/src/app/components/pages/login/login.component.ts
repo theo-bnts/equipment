@@ -8,6 +8,6 @@ import { LoginFormComponent } from '../../partials/login-form/login-form.compone
   standalone: true,
   imports: [CommonModule, LoginFormComponent],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['../../../../styles/page.css', './login.component.css']
 })
 export class LoginPageComponent {}
