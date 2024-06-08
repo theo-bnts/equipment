@@ -54,7 +54,7 @@ export class LoanRequestFormComponent {
       }
       
       if (this.equipmentCode === null) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/user/home']);
       }
     });
 
@@ -86,13 +86,14 @@ export class LoanRequestFormComponent {
       organization = null;
     }
 
-    this.userService.createLoan(this.equipmentCode!, organization, room)
+    this.userService.createLoanRequest(this.equipmentCode!, organization, room)
       .pipe(
-        tap(() => this.router.navigate(['/home'])),
+        tap(() => this.router.navigate(['/user/home'])),
         catchError(() => {
           alert('Loan request failed');
           return of();
         })
       )
+      .subscribe();
   }
 }

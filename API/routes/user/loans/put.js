@@ -34,7 +34,7 @@ export default function route(app) {
 
       let organization;
 
-      if (req.body.organization.name) {
+      if (req.body.organization && req.body.organization.name) {
         if (!await Organization.nameExists(req.body.organization.name)) {
           return res
             .status(409)
