@@ -1,0 +1,16 @@
+<form [formGroup]="loanRequestForm" (ngSubmit)="onSubmit()" class="form">
+  <div>
+    <label for="loanType">Type de l'emprunt</label>
+    <select formControlName="loanType" (change)="onLoanTypeChange($event.target.value)">
+      <option value="personnel">Personnel</option>
+      <option value="organisation">Pour une organisation</option>
+    </select>
+  </div>
+  <div *ngIf="isOrganisationSelected">
+    <label for="organisation">Organisation</label>
+    <select formControlName="organisation">
+      <option *ngFor="let organisation of organisations" [value]="organisation.id">{{ org.name }}</option>
+    </select>
+  </div>
+  <button type="submit">Demander un emprunt</button>
+</form>
