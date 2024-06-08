@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { UserService } from '../../../services/user.service';
+import { ReferentialService } from '../../../services/referential.service';
 
 @Component({
   selector: 'app-loan-request-form',
@@ -17,22 +18,54 @@ import { UserService } from '../../../services/user.service';
 })
 export class LoanRequestFormComponent {
   loanRequestForm: FormGroup;
-  isOrganizationSelected = false;
+  submitted = false;
+  organizationOnly = false;
+  equipmentCode: string | null = null;
   userOrganizations: any[] = [];
+  rooms: any[] = [];
+  isOrganizationSelected = false;
 
   get formControls() { return this.loanRequestForm.controls; }
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private referentialService: ReferentialService, private router: Router, private route: ActivatedRoute) {
     this.loanRequestForm = this.formBuilder.group({
-      loanType: ['', Validators.required],
-      organization: [''],
+      loanType: [undefined, Validators.required],
+      organization: [undefined],
+      room: [undefined, Validators.required],
+    });
+
+    this.loanRequestForm.get('loanType')?.valueChanges.subscribe(loanType => {
+      if (loanType === 'ORGANIZATION') {
+        this.loanRequestForm.get('organization')?.setValidators(Validators.required);
+      } else {
+        this.loanRequestForm.get('organization')?.clearValidators();
+      }
+      this.loanRequestForm.get('organization')?.updateValueAndValidity();
     });
   }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
+      this.organizationOnly = params.get('organizationOnly') === 'true';
+      this.equipmentCode = params.get('equipmentCode');
+
+      if (this.organizationOnly) {
+        this.loanRequestForm.patchValue({ loanType: 'ORGANIZATION' });
+      }
+      
+      if (this.equipmentCode === null) {
+        this.router.navigate(['/home']);
+      }
+    });
+
     this.userService.getOrganizations().subscribe(
       data => this.userOrganizations = data,
       error => console.error('Failed to load user organizations', error)
+    );
+
+    this.referentialService.getRooms().subscribe(
+      data => this.rooms = data,
+      error => console.error('Failed to load rooms', error)
     );
   }
 
@@ -41,10 +74,25 @@ export class LoanRequestFormComponent {
   }
 
   onSubmit() {
+    this.submitted = true;
+
     if (this.loanRequestForm.invalid) {
       return;
     }
 
-    console.log(this.loanRequestForm.getRawValue());
+    let { loanType, organization, room } = this.loanRequestForm.value;
+
+    if (loanType !== 'ORGANIZATION') {
+      organization = null;
+    }
+
+    this.userService.createLoan(this.equipmentCode!, organization, room)
+      .pipe(
+        tap(() => this.router.navigate(['/home'])),
+        catchError(() => {
+          alert('Loan request failed');
+          return of();
+        })
+      )
   }
 }

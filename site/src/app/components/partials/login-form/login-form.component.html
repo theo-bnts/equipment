@@ -1,21 +1,45 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
   <div>
     <label for="email">E-Mail</label>
-    <input type="email" formControlName="email" placeholder="name@example.com"
-           [ngClass]="{ 'invalid-input': submitted && formControls['email'].errors }" />
-    <div *ngIf="submitted && formControls['email'].errors" class="invalid-indicator">
-      <div *ngIf="formControls['email'].errors?.['required']">L'email est requis</div>
-      <div *ngIf="formControls['email'].errors?.['email']">L'email doit être valide</div>
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="name@example.com"
+      [ngClass]="{ 'invalid-input': submitted && formControls['email'].errors }"
+    />
+    <div
+      *ngIf="submitted && formControls['email'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['email'].errors?.['required']">
+        L'email est requis
+      </div>
+      <div *ngIf="formControls['email'].errors?.['email']">
+        L'email doit être valide
+      </div>
     </div>
   </div>
-  
+
   <div>
     <label for="password">Mot de passe</label>
-    <input type="password" formControlName="password" placeholder="***********"
-           [ngClass]="{ 'invalid-input': submitted && formControls['password'].errors }" />
-    <div *ngIf="submitted && formControls['password'].errors" class="invalid-indicator">
-      <div *ngIf="formControls['password'].errors?.['required']">Le mot de passe est requis</div>
-      <div *ngIf="formControls['password'].errors?.['minlength']">Le mot de passe doit contenir au moins 8 caractères</div>
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="***********"
+      [ngClass]="{
+        'invalid-input': submitted && formControls['password'].errors
+      }"
+    />
+    <div
+      *ngIf="submitted && formControls['password'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['password'].errors?.['required']">
+        Le mot de passe est requis
+      </div>
+      <div *ngIf="formControls['password'].errors?.['minlength']">
+        Le mot de passe doit contenir au moins 8 caractères
+      </div>
     </div>
   </div>
 

@@ -12,15 +12,25 @@
     <tr *ngFor="let availableEquipment of availableEquipments">
       <td>{{ availableEquipment.code }}</td>
       <td>{{ availableEquipment.reference.name }}</td>
-      <td>{{ availableEquipment.reference.type.organization_only ? 'Oui' : 'Non' }}</td>
+      <td>
+        {{
+          availableEquipment.reference.type.organization_only ? "Oui" : "Non"
+        }}
+      </td>
       <td>{{ availableEquipment.stockage_room.name }}</td>
       <td>
         <div
           class="button green"
-          (click)="onLoanRequest(availableEquipment.code)">
+          (click)="
+            onLoanRequest(
+              availableEquipment.reference.type.organization_only,
+              availableEquipment.code
+            )
+          "
+        >
           Demander un emprunt
         </div>
-      </td>      
+      </td>
     </tr>
   </tbody>
 </table>

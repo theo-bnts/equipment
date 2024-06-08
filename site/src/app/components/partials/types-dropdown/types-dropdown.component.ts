@@ -11,7 +11,7 @@ import { ReferentialService } from '../../../services/referential.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './types-dropdown.component.html',
-  styleUrls: ['../../../../styles/dropdown.css']
+  styleUrls: ['../../../../styles/form.css']
 })
 export class TypesDropdownComponent {
   types: any[] = [];

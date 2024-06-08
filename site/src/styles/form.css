@@ -9,7 +9,12 @@
   gap: 2.5em;
 }
 
-.form > div > input {
+.form > div > select {
+  all: unset;
+}
+
+.form > div > input, .form > div > select {
+  background-color: white;
   border: 1px solid #ccc;
   padding: .5em;
   font-size: 1em;
