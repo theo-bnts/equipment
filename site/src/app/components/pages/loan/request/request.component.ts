@@ -9,4 +9,4 @@ import { LoanRequestFormComponent } from '../../../partials/loan-request-form/lo
   templateUrl: './request.component.html',
   styleUrls: ['../../../../../styles/page.css']
 })
-export class LoanedListPageComponent { }
+export class LoanRequestPageComponent { }
