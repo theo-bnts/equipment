@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -42,8 +42,7 @@ export class AccountService {
     return this.http.delete<void>(`${environment.API_BASE_URL}/account/token`, { headers })
       .pipe(
         map(() => {
-          localStorage.removeItem('token');
-          localStorage.removeItem('tokenExpiration');
+          this.clearLocalToken();
         }),
       );
   }
@@ -60,5 +59,10 @@ export class AccountService {
   static getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
+  clearLocalToken(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenExpiration');
   }
 }
