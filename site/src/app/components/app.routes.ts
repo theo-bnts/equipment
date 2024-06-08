@@ -9,7 +9,7 @@ import { LoanedListPageComponent } from './pages/loaned/list/list.component';
 import { LoginPageComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full' , redirectTo: '/home'},
+  { path: '', pathMatch: 'full' , redirectTo: '/account'},
   { path: 'login', pathMatch: 'full', component: LoginPageComponent },
   { path: 'user/home', pathMatch: 'full', component: UserHomePageComponent, canActivate: [AuthGuard] },
   { path: 'administration/home', pathMatch: 'full', component: AdminHomePageComponent, canActivate: [AuthGuard] },
