@@ -10,4 +10,4 @@ import { AccountFormComponent } from '../../partials/account-form/account-form.c
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
-export class AccountComponent {}
+export class AccountPageComponent {}

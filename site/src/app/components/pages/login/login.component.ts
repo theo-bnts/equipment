@@ -10,4 +10,4 @@ import { LoginFormComponent } from '../../partials/login-form/login-form.compone
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {}
+export class LoginPageComponent {}

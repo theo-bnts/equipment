@@ -7,13 +7,13 @@ import { of } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-loaned-list',
+  selector: 'app-loanable-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './loaned-list.component.html',
-  styleUrls: ['./loaned-list.component.css']
+  templateUrl: './loanable-list.component.html',
+  styleUrls: ['./loanable-list.component.css']
 })
-export class LoanedListComponent implements OnInit {
+export class LoanableListComponent implements OnInit {
   loans: any[] = [];
 
   constructor(private router: Router, private userService: UserService) {}
