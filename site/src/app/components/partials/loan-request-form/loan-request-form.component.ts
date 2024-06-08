@@ -82,7 +82,7 @@ export class LoanRequestFormComponent {
 
     let { loanType, organization, room } = this.loanRequestForm.value;
 
-    if (loanType !== 'ORGANIZATION') {
+    if (organization === undefined || loanType !== 'ORGANIZATION') {
       organization = null;
     }
 

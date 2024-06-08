@@ -31,16 +31,24 @@ export class UserService {
       );
   }
 
-  createLoanRequest(equipmentCode: string, organizationName: string, roomName: string): Observable<void> {
+  createLoanRequest(equipmentCode: string, organizationName: string | null, roomName: string): Observable<void> {
     const headers = AccountService.getAuthHeaders();
 
-    const body = {
-      equipment: { code: equipmentCode },
-      organization: { name: organizationName },
-      room: { name: roomName }
-    };
+    let body;
 
-    console.log(body);
+    if (organizationName !== null) {
+      body = {
+        equipment: { code: equipmentCode },
+        organization: { name: organizationName },
+        room: { name: roomName }
+      };
+    }
+    else {
+      body = {
+        equipment: { code: equipmentCode },
+        room: { name: roomName }
+      };
+    }
 
     return this.http.put<void>(`${environment.API_BASE_URL}/user/loans`, body, { headers })
   }
