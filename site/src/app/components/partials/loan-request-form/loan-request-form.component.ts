@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { AccountService } from '../../../services/account.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-loan-request-form',
@@ -17,23 +17,34 @@ import { AccountService } from '../../../services/account.service';
 })
 export class LoanRequestFormComponent {
   loanRequestForm: FormGroup;
+  isOrganizationSelected = false;
   userOrganizations: any[] = [];
-
-  constructor(private formBuilder: FormBuilder, private authService: AccountService, private router: Router) {
-    this.loanRequestForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
-    });
-  }
 
   get formControls() { return this.loanRequestForm.controls; }
 
-  isOrganizationSelected = false;
-  
-  onLoanTypeChange(loantype: string) {
-    this.isOrganizationSelected = false;
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+    this.loanRequestForm = this.formBuilder.group({
+      loanType: ['', Validators.required],
+      organization: [''],
+    });
+  }
+
+  ngOnInit() {
+    this.userService.getOrganizations().subscribe(
+      data => this.userOrganizations = data,
+      error => console.error('Failed to load user organizations', error)
+    );
+  }
+
+  onLoanTypeChange(loanType: string) {
+    this.isOrganizationSelected = loanType === 'ORGANIZATION';
   }
 
   onSubmit() {
+    if (this.loanRequestForm.invalid) {
+      return;
+    }
+
+    console.log(this.loanRequestForm.getRawValue());
   }
 }
