@@ -31,7 +31,7 @@ export class UserService {
       );
   }
 
-  createLoan(equipmentCode: string, organizationName: string, roomName: string): Observable<void> {
+  createLoanRequest(equipmentCode: string, organizationName: string, roomName: string): Observable<void> {
     const headers = AccountService.getAuthHeaders();
 
     const body = {
@@ -39,6 +39,8 @@ export class UserService {
       organization: { name: organizationName },
       room: { name: roomName }
     };
+
+    console.log(body);
 
     return this.http.put<void>(`${environment.API_BASE_URL}/user/loans`, body, { headers })
   }
