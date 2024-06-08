@@ -1,14 +1,13 @@
-import { administrator, authenticate } from '../../../middlewares/authenticate.js';
+import { authenticate } from '../../../middlewares/authenticate.js';
 import { headerAuthorization } from '../../../middlewares/schemas.js';
 import Type from '../../../entities/Type.js';
 
 export default function route(app) {
   app.get(
-    '/administration/types',
+    '/referential/types',
     [
       headerAuthorization(),
       authenticate,
-      administrator,
     ],
     async (req, res) => {
       const types = await Type.all();
