@@ -4,9 +4,9 @@
       <th>État</th>
       <th>Date de prêt</th>
       <th>Date de retour</th>
+      <th>Code</th>
+      <th>Nom</th>
       <th>Organisation</th>
-      <th>Équipement (Code)</th>
-      <th>Équipement (Nom)</th>
       <th>Salle</th>
       <th>Salle de stockage</th>
       <th>Actions</th>
@@ -19,15 +19,14 @@
         'yellow': loan.state.name === 'REQUESTED' || loan.state.name === 'RETURN_REQUESTED',
         'red': loan.state.name === 'REFUSED',
         'grey': loan.state.name === 'RETURNED'
-      }"
-      >
+      }">
         {{ loan.state.display_name_french }}
       </td>
-      <td>{{ loan.loan_date | date:'shortDate' }}</td>
-      <td [ngClass]="{'red': isReturnDateExceeded(loan.return_date)}">{{ loan.return_date | date:'shortDate' }}</td>
-      <td>{{ loan.organization?.name || '-' }}</td>
+      <td>{{ loan.loan_date | date:'dd/MM/yyyy' }}</td>
+      <td [ngClass]="{'red': isReturnDateExceeded(loan.return_date)}">{{ loan.return_date | date:'dd/MM/yyyy' }}</td>
       <td>{{ loan.equipment.code }}</td>
       <td>{{ loan.equipment.reference.name }}</td>
+      <td>{{ loan.organization?.name || '-' }}</td>
       <td>{{ loan.room.name }}</td>
       <td>{{ loan.equipment.stockage_room.name }}</td>
       <td>
