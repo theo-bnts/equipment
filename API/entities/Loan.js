@@ -45,7 +45,7 @@ class Loan {
       loan_date: this.LoanDate,
       return_date: this.ReturnDate,
       id_user: this.User.Id,
-      id_organization: this.Organization === null ? this.Organization.Id : null,
+      id_organization: this.Organization !== null ? this.Organization.Id : null,
       id_equipment: this.Equipment.Id,
       id_room: this.Room.Id,
     };
@@ -62,7 +62,7 @@ class Loan {
       loan_date: this.LoanDate,
       return_date: this.ReturnDate,
       id_user: this.User.Id,
-      id_organization: this.Organization === null ? this.Organization.Id : null,
+      id_organization: this.Organization !== null ? this.Organization.Id : null,
       id_equipment: this.Equipment.Id,
       id_room: this.Room.Id,
     };
