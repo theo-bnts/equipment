@@ -8,6 +8,6 @@ import { AccountFormComponent } from '../../partials/account-form/account-form.c
   standalone: true,
   imports: [CommonModule, AccountFormComponent],
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  styleUrls: ['../../../../styles/page.css']
 })
 export class AccountPageComponent {}

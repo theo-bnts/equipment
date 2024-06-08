@@ -11,7 +11,7 @@ import { UserService } from '../../../services/user.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './loaned-list.component.html',
-  styleUrls: ['./loaned-list.component.css']
+  styleUrls: ['../../../../styles/table.css']
 })
 export class LoanedListComponent implements OnInit {
   loans: any[] = [];

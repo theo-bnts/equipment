@@ -7,6 +7,6 @@ import { LoanedListComponent } from '../../../partials/loaned-list/loaned-list.c
   standalone: true,
   imports: [LoanedListComponent],
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['../../../../../styles/page.css']
 })
 export class LoanedListPageComponent { }

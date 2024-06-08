@@ -6,6 +6,6 @@ import { HomeTilesComponent } from '../../../partials/admin-home-tiles/home-tile
   standalone: true,
   imports: [HomeTilesComponent],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['../../../../../styles/page.css']
 })
 export class AdminHomePageComponent { }

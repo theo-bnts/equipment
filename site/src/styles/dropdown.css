@@ -1,4 +1,4 @@
-.dropdown-container {
+.dropdown.container {
   display: flex;
   gap: 1em;
 }

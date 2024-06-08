@@ -9,7 +9,7 @@ import { ReferentialService } from '../../../services/referential.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './loanable-list.component.html',
-  styleUrls: ['./loanable-list.component.css']
+  styleUrls: ['../../../../styles/table.css']
 })
 export class LoanableListComponent implements OnChanges {
   @Input() selectedType: string | undefined;

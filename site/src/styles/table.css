@@ -34,12 +34,24 @@
   background-color: green;
 }
 
+.button.green:hover:not(.disabled) {
+  background-color: #006e00;
+}
+
 .yellow {
   background-color: yellow;
 }
 
+.button.yellow:hover:not(.disabled) {
+  background-color: #b3b300;
+}
+
 .grey {
   background-color: grey;
+}
+
+.button.grey:hover:not(.disabled) {
+  background-color: #777777;
 }
 
 .disabled {

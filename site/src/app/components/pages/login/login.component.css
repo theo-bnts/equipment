@@ -1,8 +1,5 @@
 .login-page {
-  min-height: calc(100vh - 12vh);
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: space-evenly !important;
 }
 
 .login-page > img {
