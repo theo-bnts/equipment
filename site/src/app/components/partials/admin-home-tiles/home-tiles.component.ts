@@ -11,15 +11,10 @@ import { AccountService } from '../../../services/account.service';
   templateUrl: './home-tiles.component.html',
   styleUrls: ['./home-tiles.component.css']
 })
-export class HomeTilesComponent {
+export class AdminHomeTilesComponent {
   constructor(private authService: AccountService, private router: Router) {}
 
   navigateTo(route: string) {
     this.router.navigate([route]);
-  }
-
-  logout() {
-    this.authService.logout();
-    this.navigateTo('/login');
   }
 }
