@@ -1,16 +1,66 @@
 <form [formGroup]="loanRequestForm" (ngSubmit)="onSubmit()" class="form">
-  <div>
+  <div *ngIf="!organizationOnly">
     <label for="loanType">Pour qui souhaitez-vous emprunter ?</label>
-    <select formControlName="loanType" (change)="onLoanTypeChange($any($event.target).value)">
+    <select
+      formControlName="loanType"
+      (change)="onLoanTypeChange($any($event.target).value)"
+      [ngClass]="{
+        'invalid-input': submitted && formControls['loanType'].invalid
+      }"
+    >
       <option value="INDIVIDUAL">Pour moi</option>
       <option value="ORGANIZATION">Pour une organisation</option>
     </select>
+    <div
+      *ngIf="submitted && formControls['loanType'].invalid"
+      class="invalid-indicator"
+    >
+      <div>Ce champ est requis</div>
+    </div>
   </div>
-  <div *ngIf="isOrganizationSelected">
+
+  <div *ngIf="organizationOnly || isOrganizationSelected">
     <label for="organization">Organisation</label>
-    <select formControlName="organization">
-      <option *ngFor="let organization of userOrganizations" [value]="organization.id">{{ organization.name }}</option>
+    <select
+      formControlName="organization"
+      [ngClass]="{
+        'invalid-input': submitted && formControls['organization'].invalid
+      }"
+    >
+      <option
+        *ngFor="let organization of userOrganizations"
+        [value]="organization.name"
+      >
+        {{ organization.name }}
+      </option>
     </select>
+    <div
+      *ngIf="submitted && formControls['organization'].invalid"
+      class="invalid-indicator"
+    >
+      <div>Ce champ est requis</div>
+    </div>
   </div>
+
+  <div>
+    <label for="room">Salle</label>
+    <select
+      formControlName="room"
+      [ngClass]="{
+        'invalid-input': submitted && formControls['room'].invalid
+      }"
+    >
+      <option *ngFor="let room of rooms" [value]="room.name">
+        {{ room.name }}
+      </option>
+    </select>
+    <div
+      *ngIf="submitted && formControls['room'].invalid"
+      class="invalid-indicator"
+    >
+      <div>Ce champ est requis</div>
+    </div>
+  </div>
+
   <button type="submit">Demander un emprunt</button>
 </form>
