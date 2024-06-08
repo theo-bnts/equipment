@@ -34,12 +34,18 @@ export class LoginFormComponent {
     if (this.loginForm.invalid) {
       return;
     }
-  
+
     const { email, password } = this.loginForm.value;
     this.authService
       .login(email, password)
       .pipe(
-        tap(() => this.router.navigate(['/home'])),
+        tap(user => {
+          if (user.role.name === 'ADMINISTRATOR') {
+            this.router.navigate(['/administration/home']);
+          } else if (user.role.name === 'USER') {
+            this.router.navigate(['/user/home']);
+          }
+        }),
         catchError(() => {
           alert('Login failed');
           return of();

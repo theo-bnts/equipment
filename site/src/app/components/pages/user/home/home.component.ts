@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { HomeTilesComponent } from '../../partials/home-tiles/home-tiles.component';
+import { HomeTilesComponent } from '../../../partials/user-home-tiles/home-tiles.component';
 
 @Component({
   selector: 'app-home',
@@ -9,4 +9,4 @@ import { HomeTilesComponent } from '../../partials/home-tiles/home-tiles.compone
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomePageComponent { }
+export class UserHomePageComponent { }

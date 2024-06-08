@@ -48,7 +48,7 @@ export class AccountFormComponent implements OnInit {
       .pipe(
         tap(() => {
           alert('Password changed successfully');
-          this.router.navigate(['/home']);
+          location.reload();
         }),
         catchError(() => {
           alert('Password change failed');
