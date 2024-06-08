@@ -31,6 +31,6 @@ export class LoanableListComponent implements OnChanges {
   }
 
   onLoanRequest(equipmentCode: string) {
-    console.log('Demande de prêt pour l\'équipement:', equipmentCode);
+    this.router.navigate(['/loan/request', equipmentCode]);
   }
 }
