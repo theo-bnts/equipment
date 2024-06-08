@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
   <div>
     <label for="email">E-Mail</label>
     <input type="email" formControlName="email" placeholder="name@example.com"
@@ -15,7 +15,7 @@
            [ngClass]="{ 'invalid-input': submitted && formControls['password'].errors }" />
     <div *ngIf="submitted && formControls['password'].errors" class="invalid-indicator">
       <div *ngIf="formControls['password'].errors?.['required']">Le mot de passe est requis</div>
-      <div *ngIf="formControls['password'].errors?.['minlength']">Le mot de passe doit contenir au moins 6 caractères</div>
+      <div *ngIf="formControls['password'].errors?.['minlength']">Le mot de passe doit contenir au moins 8 caractères</div>
     </div>
   </div>
 

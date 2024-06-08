@@ -1,14 +1,14 @@
-.list {
+.table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.list th, .list td {
+.table th, .table td {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-.list th {
+.table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;

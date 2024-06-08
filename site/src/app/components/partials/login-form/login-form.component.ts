@@ -13,7 +13,7 @@ import { AccountService } from '../../../services/account.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['../../../../styles/form.css']
 })
 export class LoginFormComponent {
   loginForm: FormGroup;
@@ -22,7 +22,7 @@ export class LoginFormComponent {
   constructor(private formBuilder: FormBuilder, private authService: AccountService, private router: Router) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 

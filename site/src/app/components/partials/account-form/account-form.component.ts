@@ -13,7 +13,7 @@ import { AccountService } from '../../../services/account.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './account-form.component.html',
-  styleUrls: ['./account-form.component.css']
+  styleUrls: ['../../../../styles/form.css', './account-form.component.css']
 })
 export class AccountFormComponent implements OnInit {
   changePasswordForm: FormGroup;

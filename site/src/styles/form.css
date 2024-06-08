@@ -1,4 +1,4 @@
-.login-form {
+.form {
   max-width: 400px;
   margin: auto;
   padding: 2em;
@@ -9,14 +9,7 @@
   gap: 2.5em;
 }
 
-.login-form > label {
-  margin-bottom: .5em;
-  color: #333333;
-  display: block;
-  font-size: 1.5em;
-}
-
-.login-form > div > input {
+.form > div > input {
   border: 1px solid #ccc;
   padding: .5em;
   font-size: 1em;
@@ -25,13 +18,13 @@
   box-sizing: border-box;
 }
 
-.login-form > div > .invalid-input {
+.form > div > .invalid-input {
   border-color: red;
 }
 
-.login-form > button {
+.form > button {
   padding: 0.7em;
-  color: #fff;
+  color: white;
   background-color: #007BFF;
   border: none;
   border-radius: 5px;
@@ -40,11 +33,11 @@
   width: 100%;
 }
 
-.login-form > button:hover {
+.form > button:hover {
   background-color: #0056b3;
 }
 
-.login-form > div > .invalid-indicator {
+.form > div > .invalid-indicator {
   color: red;
   font-size: 0.8em;
   line-height: 0;

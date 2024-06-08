@@ -1,46 +1,6 @@
-.account-form {
-  max-width: 400px;
-  margin: auto;
-  padding: 2em;
-  background: #ddf2ff;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5em;
-}
-
-.account-form > label {
-  margin-bottom: .5em;
-  color: #333333;
-  display: block;
-  font-size: 1.5em;
-}
-
-.account-form > div > input {
-  border: 1px solid #ccc;
-  padding: .5em;
-  font-size: 1em;
-  border-radius: 5px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.account-form > div > .invalid-input {
-  border-color: red;
-}
-
-.account-form > button {
-  padding: 0.7em;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1em;
-  width: 100%;
-}
-
 .logout-button {
   padding: 0.7em;
-  color: #fff;
+  color: white;
   background-color: red;
   border: none;
   border-radius: 5px;
@@ -52,28 +12,4 @@
 
 .logout-button:hover {
   background-color: #CC0000;
-}
-
-.change-password-button {
-  padding: 0.7em;
-  color: #fff;
-  background-color: #007BFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1em;
-  width: 100%;
-  margin-top: 1em;
-}
-
-.change-password-button:hover {
-  background-color: #0056b3;
-}
-
-.account-form > div > .invalid-indicator {
-  color: red;
-  font-size: 0.8em;
-  line-height: 0;
-  margin-top: 0.8em;
-  margin-bottom: -0.8em;
 }
