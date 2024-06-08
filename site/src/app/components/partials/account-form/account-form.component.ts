@@ -19,6 +19,8 @@ export class AccountFormComponent implements OnInit {
   changePasswordForm: FormGroup;
   submitted = false;
 
+  get formControls() { return this.changePasswordForm.controls; }
+
   constructor(private formBuilder: FormBuilder, private accountService: AccountService, private router: Router) {
     this.changePasswordForm = this.formBuilder.group({
       email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
@@ -32,8 +34,6 @@ export class AccountFormComponent implements OnInit {
       this.changePasswordForm.patchValue({ email: userInfo.email_address });
     });
   }
-
-  get formControls() { return this.changePasswordForm.controls; }
 
   onSubmit() {
     this.submitted = true;

@@ -1,9 +1,9 @@
 <form [formGroup]="loanRequestForm" (ngSubmit)="onSubmit()" class="form">
   <div>
-    <label for="loanType">Type de l'emprunt</label>
+    <label for="loanType">Pour qui souhaitez-vous emprunter ?</label>
     <select formControlName="loanType" (change)="onLoanTypeChange($any($event.target).value)">
-      <option value="personnel">Personnel</option>
-      <option value="organization">Pour une organisation</option>
+      <option value="INDIVIDUAL">Pour moi</option>
+      <option value="ORGANIZATION">Pour une organisation</option>
     </select>
   </div>
   <div *ngIf="isOrganizationSelected">

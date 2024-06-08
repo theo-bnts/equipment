@@ -19,14 +19,14 @@ export class LoginFormComponent {
   loginForm: FormGroup;
   submitted = false;
 
+  get formControls() { return this.loginForm.controls; }
+
   constructor(private formBuilder: FormBuilder, private authService: AccountService, private router: Router) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
-
-  get formControls() { return this.loginForm.controls; }
 
   onSubmit() {
     this.submitted = true;
