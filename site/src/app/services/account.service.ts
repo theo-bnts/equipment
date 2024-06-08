@@ -23,7 +23,7 @@ export class AccountService {
     return !!token && !!expiration && new Date(expiration) > new Date();
   }
 
-  login(email: string, password: string): Observable<void> {
+  login(email: string, password: string): Observable<any> {
     const body = { user: { email_address: email, password } };
 
     return this.http.post<{ datas: { value: string, expiration: string, user: any } }>(`${environment.API_BASE_URL}/account/token`, body)
@@ -31,6 +31,7 @@ export class AccountService {
         map(response => {
           localStorage.setItem('token', response.datas.value);
           localStorage.setItem('tokenExpiration', response.datas.expiration);
+          return response.datas.user;
         }),
       );
   }

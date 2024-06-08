@@ -1,6 +1,6 @@
-.account-page {
+.home-page {
   min-height: calc(100vh - 12vh);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
