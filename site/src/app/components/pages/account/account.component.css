@@ -1,3 +1,7 @@
+.account-page {
+  flex-direction: column;
+}
+
 .logout-button {
   padding: 0.7em;
   color: white;
@@ -8,6 +12,7 @@
   font-size: 1em;
   width: 100%;
   margin-top: 1em;
+  max-width: 400px;
 }
 
 .logout-button:hover {

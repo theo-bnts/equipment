@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -13,7 +12,7 @@ import { AccountService } from '../../../services/account.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './account-form.component.html',
-  styleUrls: ['../../../../styles/form.css', './account-form.component.css']
+  styleUrls: ['../../../../styles/form.css']
 })
 export class AccountFormComponent implements OnInit {
   changePasswordForm: FormGroup;
@@ -21,7 +20,7 @@ export class AccountFormComponent implements OnInit {
 
   get formControls() { return this.changePasswordForm.controls; }
 
-  constructor(private formBuilder: FormBuilder, private accountService: AccountService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private accountService: AccountService) {
     this.changePasswordForm = this.formBuilder.group({
       email: [{ value: undefined, disabled: true }, [Validators.required, Validators.email]],
       oldPassword: [undefined, [Validators.required]],
@@ -52,19 +51,6 @@ export class AccountFormComponent implements OnInit {
         }),
         catchError(() => {
           alert('Password change failed');
-          return of();
-        })
-      )
-      .subscribe();
-  }
-
-  logout() {
-    this.accountService
-      .logout()
-      .pipe(
-        tap(() => this.router.navigate(['/login'])),
-        catchError(() => {
-          alert('Logout failed');
           return of();
         })
       )
