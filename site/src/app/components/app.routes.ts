@@ -12,6 +12,7 @@ import { UserLoanRequestPageComponent } from './pages/user/loan/request/request.
 
 import { AdministrationHomePageComponent } from './pages/administration/home/home.component';
 import { AdministrationLoanedListPageComponent } from './pages/administration/loaned/list/list.component';
+import { AdministrationAccountListPageComponent } from './pages/administration/account/list/list.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full' , redirectTo: '/account'},
@@ -25,4 +26,5 @@ export const routes: Routes = [
 
   { path: 'administration/home', pathMatch: 'full', component: AdministrationHomePageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/loaned/list', pathMatch: 'full', component: AdministrationLoanedListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/account/list', pathMatch: 'full', component: AdministrationAccountListPageComponent, canActivate: [AdministratorAuthGuard] },
 ];

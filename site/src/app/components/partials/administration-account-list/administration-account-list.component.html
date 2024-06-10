@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Rôle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let account of accounts">
+      <td>{{ account.email_address }}</td>
+      <td>{{ account.first_name }}</td>
+      <td>{{ account.last_name }}</td>
+      <td>{{ account.role.display_name_french }}</td>
+    </tr>
+  </tbody>
+</table>
