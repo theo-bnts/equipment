@@ -5,14 +5,23 @@
       <th>Prénom</th>
       <th>Nom</th>
       <th>Rôle</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let account of accounts">
       <td>{{ account.email_address }}</td>
       <td>{{ account.first_name }}</td>
-      <td>{{ account.last_name }}</td>
+      <td>{{ account.last_name.toUpperCase() }}</td>
       <td>{{ account.role.display_name_french }}</td>
+      <td class="actions">
+        <div 
+          class="button red"
+          (click)="onAccountDelete(account.email_address)"
+        >
+          Supprimer
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>
