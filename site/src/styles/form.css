@@ -24,7 +24,7 @@
 }
 
 .form > div > .invalid-input {
-  border-color: red;
+  border-color: var(--red)
 }
 
 .form > button {
@@ -43,7 +43,7 @@
 }
 
 .form > div > .invalid-indicator {
-  color: red;
+  color: var(--red);
   font-size: 0.8em;
   line-height: 0;
   margin-top: 0.8em;
