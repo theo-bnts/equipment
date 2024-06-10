@@ -1,5 +1,6 @@
 .page {
-  min-height: calc(100vh - 12vh);
+  min-height: calc(100vh - 12vh - 2em);
+  padding: 1em;
   display: flex;
   justify-content: center;
   align-items: center;
