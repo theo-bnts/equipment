@@ -1,82 +1,17 @@
 <table class="table">
   <thead>
     <tr>
-      <th>État</th>
-      <th>Date de prêt</th>
-      <th>Date de retour</th>
-      <th>Code</th>
       <th>Nom</th>
-      <th>Utilisateur</th>
-      <th>Organisation</th>
-      <th>Salle</th>
-      <th>Salle de stockage</th>
+      <th>Réservé aux organisations</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let loan of loans">
-      <td
-        [ngClass]="{
-          green: loan.state.name === 'LOANED',
-          yellow:
-            loan.state.name === 'REQUESTED' ||
-            loan.state.name === 'RETURN_REQUESTED',
-          red: loan.state.name === 'REFUSED',
-          grey: loan.state.name === 'RETURNED'
-        }"
-      >
-        {{ loan.state.display_name_french }}
-      </td>
-      <td>{{ loan.loan_date | date : "dd/MM/yyyy" }}</td>
-      <td [ngClass]="{ red: isReturnDateExceeded(loan.return_date) }">
-        {{ loan.return_date | date : "dd/MM/yyyy" }}
-      </td>
-      <td>{{ loan.equipment.code }}</td>
-      <td>{{ loan.equipment.reference.name }}</td>
-      <td>
-        {{ loan.user.first_name }} {{ loan.user.last_name.toUpperCase() }}
-      </td>
-      <td>{{ loan.organization?.name || "-" }}</td>
-      <td>{{ loan.room.name }}</td>
-      <td>{{ loan.equipment.stockage_room.name }}</td>
+    <tr *ngFor="let type of types">
+      <td>{{ type.name }}</td>
+      <td>{{ type.organization_only ? "Oui" : "Non" }}</td>
       <td class="actions">
-        <div
-          class="button"
-          [ngClass]="getButtonClasses(loan.state.name, 'REQUESTED', 'LOANED')"
-          (click)="
-            loan.state.name === 'REQUESTED' &&
-              onLoanStateUpdate(loan.equipment.code, 'LOANED')
-          "
-        >
-          Accepter la demande d'emprunt
-        </div>
-        
-        <div
-          class="button"
-          [ngClass]="getButtonClasses(loan.state.name, 'REQUESTED', 'REFUSED')"
-          (click)="
-            loan.state.name === 'RETURN_REQUESTED' &&
-              onLoanStateUpdate(loan.equipment.code, 'REFUSED')
-          "
-        >
-          Refuser la demande d'emprunt
-        </div>
-
-        <div
-          class="button"
-          [ngClass]="getButtonClasses(loan.state.name, 'RETURN_REQUESTED', 'RETURNED')"
-          (click)="
-            loan.state.name === 'RETURN_REQUESTED' &&
-              onLoanStateUpdate(loan.equipment.code, 'RETURNED')
-          "
-        >
-          Accepter la demande de retour
-        </div>
-
-        <div 
-          class="button red"
-          (click)="onLoanDelete(loan.equipment.code)"
-        >
+        <div class="button red" (click)="onTypeDelete(type.code)">
           Supprimer
         </div>
       </td>
