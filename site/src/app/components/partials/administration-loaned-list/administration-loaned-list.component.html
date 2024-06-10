@@ -42,7 +42,7 @@
       <td class="actions">
         <div
           class="button green"
-          [ngClass]="{ disabled: loan.state.name !== 'REQUESTED' }"
+          [ngClass]="{ disabled: loan.state.name !== 'REQUESTED', grey: loan.state.name !== 'REQUESTED' }"
           (click)="
             loan.state.name === 'REQUESTED' &&
               onLoanRequestAcceptation(loan.equipment.code)
