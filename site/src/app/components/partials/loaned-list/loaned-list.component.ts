@@ -32,7 +32,7 @@ export class LoanedListComponent implements OnInit {
     this.loans.sort((a, b) => {
       const dateA = new Date(a.loan_date);
       const dateB = new Date(b.loan_date);
-      return dateA.getTime() - dateB.getTime();
+      return dateB.getTime() - dateA.getTime();
     });
   }
 
