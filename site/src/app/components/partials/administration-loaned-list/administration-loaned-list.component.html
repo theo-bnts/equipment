@@ -40,8 +40,7 @@
           class="button red"
           [ngClass]="{ disabled: loan.state.name !== 'LOANED' }"
           (click)="
-            loan.state.name === 'LOANED' &&
-              onLoanReturnRequest(loan.equipment.code)
+            loan.state.name === 'LOANED'
           "
         >
           Demander un retour

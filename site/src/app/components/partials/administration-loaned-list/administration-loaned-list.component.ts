@@ -1,38 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { UserService } from '../../../services/user.service';
+import { ReferentialAdministrationService } from '../../../services/referential.administration.service';
 
 @Component({
-  selector: 'app-loaned-list',
+  selector: 'app-administration-loaned-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './loaned-list.component.html',
+  templateUrl: './administration-loaned-list.component.html',
   styleUrls: ['../../../../styles/table.css']
 })
 export class AdministrationLoanedListComponent implements OnInit {
   loans: any[] = [];
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private referentialAdministrationService: ReferentialAdministrationService) {}
 
   ngOnInit() {
-    this.userService.getLoans().subscribe(
-      data => {
-        this.loans = data;
-        this.sortLoans();
-      },
-      error => console.error('Failed to load loans', error)
-    );
+    this.referentialAdministrationService.getLoans()
+      .pipe(
+        tap(data => this.loans = data),
+        catchError(() => {
+          alert('Failed to load loans');
+          return of();
+        })
+      )
+      .subscribe(() => this.sortLoans());
+
+    console.log(this.loans);
   }
 
   sortLoans() {
     this.loans.sort((a, b) => {
       const dateA = new Date(a.loan_date);
       const dateB = new Date(b.loan_date);
-      return dateA.getTime() - dateB.getTime();
+      return dateB.getTime() - dateA.getTime();
     });
   }
 
@@ -42,12 +45,24 @@ export class AdministrationLoanedListComponent implements OnInit {
     return returnDateObj < currentDate;
   }
 
-  onLoanReturnRequest(equipmentCode: string) {
-    this.userService.returnLoan(equipmentCode)
+  onLoanRequestAcceptation(equipmentCode: string) {
+    this.referentialAdministrationService.updateLoanState(equipmentCode, 'LOANED')
       .pipe(
         tap(() => location.reload()),
         catchError(() => {
-          alert('Failed to ask for loan return');
+          alert('Failed to accept loan request');
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
+  onLoanReturnRequestAcceptation(equipmentCode: string) {
+    this.referentialAdministrationService.updateLoanState(equipmentCode, 'RETURNED')
+      .pipe(
+        tap(() => location.reload()),
+        catchError(() => {
+          alert('Failed to accept loan return request');
           return of();
         })
       )
