@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { ReferentialService } from '../../../services/referential.service';
 
 @Component({
-  selector: 'app-loanable-list',
+  selector: 'app-user-loanable-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './loanable-list.component.html',
+  templateUrl: './user-loanable-list.component.html',
   styleUrls: ['../../../../styles/table.css']
 })
-export class LoanableListComponent implements OnChanges {
+export class UserLoanableListComponent implements OnChanges {
   @Input() selectedType: string | undefined;
   availableEquipments: any[] = [];
 

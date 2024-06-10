@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
-import { LoanRequestFormComponent } from '../../../../partials/loan-request-form/loan-request-form.component';
+import { UserLoanRequestFormComponent } from '../../../../partials/user-loan-request-form/user-loan-request-form.component';
 
 @Component({
   selector: 'app-request',
   standalone: true,
-  imports: [LoanRequestFormComponent],
+  imports: [UserLoanRequestFormComponent],
   templateUrl: './request.component.html',
   styleUrls: ['../../../../../../styles/page.css']
 })

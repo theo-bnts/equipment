@@ -10,10 +10,10 @@ import { UserService } from '../../../services/user.service';
   selector: 'app-user-loaned-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './loaned-list.component.html',
+  templateUrl: './user-loaned-list.component.html',
   styleUrls: ['../../../../styles/table.css']
 })
-export class LoanedListComponent implements OnInit {
+export class UserLoanedListComponent implements OnInit {
   loans: any[] = [];
 
   constructor(private router: Router, private userService: UserService) {}

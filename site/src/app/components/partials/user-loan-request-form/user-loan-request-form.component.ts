@@ -13,10 +13,10 @@ import { ReferentialService } from '../../../services/referential.service';
   selector: 'app-user-loan-request-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
-  templateUrl: './loan-request-form.component.html',
+  templateUrl: './user-loan-request-form.component.html',
   styleUrls: ['../../../../styles/form.css']
 })
-export class LoanRequestFormComponent {
+export class UserLoanRequestFormComponent {
   loanRequestForm: FormGroup;
   submitted = false;
   organizationOnly = false;
