@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 
 @Component({
-  selector: 'app-home-tiles',
+  selector: 'app-user-home-tiles',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user-home-tiles.component.html',

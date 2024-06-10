@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 
 @Component({
-  selector: 'app-loaned-list',
+  selector: 'app-user-loaned-list',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './loaned-list.component.html',
