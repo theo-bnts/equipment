@@ -29,9 +29,9 @@ export default function route(app) {
 
       const loans = await Loan.allOfEquipment(equipment);
 
-      const deletePromises = loans.map((loan) => loan.delete());
+      const loansDeletionPromises = loans.map((loan) => loan.delete());
 
-      await Promise.all(deletePromises);
+      await Promise.all(loansDeletionPromises);
 
       return res
         .status(204)

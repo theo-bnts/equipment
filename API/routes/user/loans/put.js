@@ -48,8 +48,7 @@ export default function route(app) {
             .status(403)
             .send({ errors: [{ msg: 'USER_NOT_IN_ORGANIZATION' }] });
         }
-      }
-      else {
+      } else {
         if (equipment.Reference.Type.OrganizationOnly) {
           return res
             .status(409)

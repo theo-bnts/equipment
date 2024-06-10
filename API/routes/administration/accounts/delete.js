@@ -1,6 +1,9 @@
 import { administrator, authenticate } from '../../../middlewares/authenticate.js';
+import Loan from '../../../entities/Loan.js';
 import { bodyEmailAddress, headerAuthorization } from '../../../middlewares/schemas.js';
+import Token from '../../../entities/Token.js';
 import User from '../../../entities/User.js';
+import UserOrganization from '../../../entities/UserOrganization.js';
 
 export default function route(app) {
   app.delete(
@@ -25,6 +28,26 @@ export default function route(app) {
           .status(403)
           .send({ errors: [{ msg: 'ADMINISTRATOR_ACCOUNT' }] });
       }
+
+      if (await UserOrganization.userExists(user)) {
+        return res
+          .status(409)
+          .send({ errors: [{ msg: 'USER_HAS_ORGANIZATION' }] });
+      }
+
+      if (await Loan.userExists(user)) {
+        return res
+          .status(409)
+          .send({ errors: [{ msg: 'USER_HAS_LOAN' }] });
+      }
+
+      const tokens = await Token.allOfUser(user);
+
+      const tokensDeletionPromises = tokens.map(
+        async (token) => token.delete(),
+      );
+
+      await Promise.all(tokensDeletionPromises);
 
       await user.delete();
 
