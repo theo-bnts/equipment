@@ -2,7 +2,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 import { ReferentialService } from '../../../services/referential.service';
 
@@ -17,7 +16,7 @@ export class TypesDropdownComponent {
   types: any[] = [];
   @Output() typeSelected = new EventEmitter<string>();
 
-  constructor(private router: Router, private referentialService: ReferentialService) {}
+  constructor(private referentialService: ReferentialService) {}
 
   ngOnInit() {
     this.referentialService.getTypes().subscribe(

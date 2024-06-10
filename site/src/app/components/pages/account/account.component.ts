@@ -15,7 +15,7 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['../../../../styles/page.css', './account.component.css']
 })
 export class AccountPageComponent {
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(private router: Router, private accountService: AccountService) {}
 
   logout() {
     this.accountService

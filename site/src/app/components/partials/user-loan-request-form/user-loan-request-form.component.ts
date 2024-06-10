@@ -27,7 +27,7 @@ export class UserLoanRequestFormComponent {
 
   get formControls() { return this.loanRequestForm.controls; }
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private referentialService: ReferentialService, private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private referentialService: ReferentialService, private userService: UserService) {
     this.loanRequestForm = this.formBuilder.group({
       loanType: [undefined, Validators.required],
       organization: [undefined],

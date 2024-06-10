@@ -16,7 +16,7 @@ import { UserService } from '../../../services/user.service';
 export class UserLoanedListComponent implements OnInit {
   loans: any[] = [];
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.userService.getLoans().subscribe(
