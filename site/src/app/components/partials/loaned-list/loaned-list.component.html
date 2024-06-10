@@ -35,7 +35,7 @@
       <td>{{ loan.organization?.name || "-" }}</td>
       <td>{{ loan.room.name }}</td>
       <td>{{ loan.equipment.stockage_room.name }}</td>
-      <td>
+      <td class="actions">
         <div
           class="button red"
           [ngClass]="{ disabled: loan.state.name !== 'LOANED' }"
