@@ -31,6 +31,6 @@ export class LoanableListComponent implements OnChanges {
   }
 
   onLoanRequest(organizationOnly: boolean, equipmentCode: string) {
-    this.router.navigate(['/loan/request'], { queryParams: { organizationOnly, equipmentCode } });
+    this.router.navigate(['/user/loan/request'], { queryParams: { organizationOnly, equipmentCode } });
   }
 }
