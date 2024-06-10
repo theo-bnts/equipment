@@ -14,21 +14,17 @@ export class HeaderComponent {
   constructor(private router: Router, private accountService: AccountService) {}
 
   navigateTo() {
-    this.accountService.getUserInfo().subscribe(
-      user => {
+    if (this.accountService.isLoggedIn()) {
+      this.accountService.getUserInfo().subscribe(user => {
         const roleName = user.role.name;
         if (roleName === 'ADMINISTRATOR') {
           this.router.navigate(['/administration/home']);
         } else if (roleName === 'USER') {
           this.router.navigate(['/user/home']);
-        } else {
-          this.router.navigate(['/login']);
         }
-      },
-      () => {
-        this.accountService.clearLocalToken();
-        this.router.navigate(['/login']);
-      }
-    );
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 }

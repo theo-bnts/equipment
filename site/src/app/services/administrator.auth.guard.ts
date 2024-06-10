@@ -7,24 +7,22 @@ import { AccountService } from './account.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AdministratorAuthGuard implements CanActivate {
   private authService = inject(AccountService);
   private router = inject(Router);
 
   canActivate(): Observable<boolean> {
     return this.authService.getUserInfo().pipe(
       map(user => {
-        if (user && (user.role.name === 'ADMINISTRATOR' || user.role.name === 'USER')) {
+        if (user && user.role.name === 'ADMINISTRATOR') {
           return true;
         } else {
-          this.authService.clearLocalToken();
-          this.router.navigate(['/login']);
+          this.router.navigate(['/user/home']);
           return false;
         }
       }),
       catchError(() => {
-        this.authService.clearLocalToken();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/user/home']);
         return of(false);
       })
     );
