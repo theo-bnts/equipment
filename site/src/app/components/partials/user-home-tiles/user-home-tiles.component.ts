@@ -8,10 +8,10 @@ import { AccountService } from '../../../services/account.service';
   selector: 'app-home-tiles',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './home-tiles.component.html',
-  styleUrls: ['./home-tiles.component.css']
+  templateUrl: './user-home-tiles.component.html',
+  styleUrls: ['./user-home-tiles.component.css']
 })
-export class AdminHomeTilesComponent {
+export class UserHomeTilesComponent {
   constructor(private authService: AccountService, private router: Router) {}
 
   navigateTo(route: string) {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { UserHomeTilesComponent } from '../../../partials/user-home-tiles/home-tiles.component';
+import { UserHomeTilesComponent } from '../../../partials/user-home-tiles/user-home-tiles.component';
 
 @Component({
   selector: 'app-home',

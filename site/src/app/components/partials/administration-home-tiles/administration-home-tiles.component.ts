@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 
 @Component({
-  selector: 'app-home-tiles',
+  selector: 'app-administration-home-tiles',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './home-tiles.component.html',
-  styleUrls: ['./home-tiles.component.css']
+  templateUrl: './administration-home-tiles.component.html',
+  styleUrls: ['./administration-home-tiles.component.css']
 })
-export class UserHomeTilesComponent {
+export class AdministrationHomeTilesComponent {
   constructor(private authService: AccountService, private router: Router) {}
 
   navigateTo(route: string) {
