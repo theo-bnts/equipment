@@ -9,7 +9,7 @@
       type="email"
       formControlName="email"
       [attr.disabled]="true"
-      [ngClass]="{ 'invalid-input': submitted && formControls['email'].errors }"
+      [ngClass]="{ 'red': submitted && formControls['email'].errors }"
     />
     <div
       *ngIf="submitted && formControls['email'].errors"

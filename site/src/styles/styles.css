@@ -9,3 +9,51 @@ body {
   font-family: 'KoHo', sans-serif;
   font-weight: 400;
 }
+
+.blue {
+  background-color: #37b2ff;
+}
+
+.blue:hover {
+  background-color: #2f9ed6;
+}
+
+.green {
+  background-color: #50d7b3;
+}
+
+.green:hover {
+  background-color: #3dbf9b;
+}
+
+.yellow {
+  background-color: #e6cb31;
+}
+
+.yellow:hover {
+  background-color: #d9c22b;
+}
+
+.orange {
+  background-color: #ff8c00;
+}
+
+.orange:hover {
+  background-color: #e67a00;
+}
+
+.red {
+  background-color: #ff4d4d;
+}
+
+.red:hover {
+  background-color: #e63a3a;
+}
+
+.grey {
+  background-color: #b0b0b0;
+}
+
+.grey:hover {
+  background-color: #a0a0a0;
+}
