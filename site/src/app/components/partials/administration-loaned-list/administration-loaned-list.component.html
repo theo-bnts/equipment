@@ -41,8 +41,8 @@
       <td>{{ loan.equipment.stockage_room.name }}</td>
       <td class="actions">
         <div
-          class="button green"
-          [ngClass]="{ disabled: loan.state.name !== 'REQUESTED', grey: loan.state.name !== 'REQUESTED' }"
+          class="button"
+          [ngClass]="getButtonClasses(loan.state.name, 'REQUESTED')"
           (click)="
             loan.state.name === 'REQUESTED' &&
               onLoanRequestAcceptation(loan.equipment.code)
@@ -51,8 +51,8 @@
           Accepter la demande d'emprunt
         </div>
         <div
-          class="button red"
-          [ngClass]="{ disabled: loan.state.name !== 'RETURN_REQUESTED' }"
+          class="button"
+          [ngClass]="getButtonClasses(loan.state.name, 'RETURN_REQUESTED')"
           (click)="
             loan.state.name === 'RETURN_REQUESTED' &&
               onLoanReturnRequestAcceptation(loan.equipment.code)

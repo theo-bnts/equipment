@@ -42,6 +42,14 @@ export class LoanedListComponent implements OnInit {
     return returnDateObj < currentDate;
   }
 
+  getButtonClasses(loanStateName: string) {
+    return {
+      red: loanStateName === 'LOANED',
+      grey: loanStateName !== 'LOANED',
+      disabled: loanStateName !== 'LOANED'
+    };
+  }
+
   onLoanReturnRequest(equipmentCode: string) {
     this.userService.returnLoan(equipmentCode)
       .pipe(
