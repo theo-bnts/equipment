@@ -13,8 +13,11 @@ import { UserLoanRequestPageComponent } from './pages/user/loan/request/request.
 
 import { AdministrationAccountListPageComponent } from './pages/administration/account/list/list.component';
 import { AdministrationEquipmentHomePageComponent } from './pages/administration/equipment/home/home.component';
+import { AdministrationEquipmentListPageComponent } from './pages/administration/equipment/list/list.component';
 import { AdministrationHomePageComponent } from './pages/administration/home/home.component';
 import { AdministrationLoanedListPageComponent } from './pages/administration/loaned/list/list.component';
+import { AdministrationReferenceListPageComponent } from './pages/administration/reference/list/list.component';
+import { AdministrationTypeListPageComponent } from './pages/administration/type/list/list.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full' , redirectTo: '/account'},
@@ -29,5 +32,8 @@ export const routes: Routes = [
   { path: 'administration/home', pathMatch: 'full', component: AdministrationHomePageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/loaned/list', pathMatch: 'full', component: AdministrationLoanedListPageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/equipment/home', pathMatch: 'full', component: AdministrationEquipmentHomePageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/equipment/list', pathMatch: 'full', component: AdministrationEquipmentListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/reference/list', pathMatch: 'full', component: AdministrationReferenceListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/type/list', pathMatch: 'full', component: AdministrationTypeListPageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/account/list', pathMatch: 'full', component: AdministrationAccountListPageComponent, canActivate: [AdministratorAuthGuard] },
 ];
