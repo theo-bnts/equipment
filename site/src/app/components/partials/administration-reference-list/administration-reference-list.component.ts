@@ -13,64 +13,28 @@ import { ReferentialAdministrationService } from '../../../services/referential.
   styleUrls: ['../../../../styles/table.css']
 })
 export class AdministrationReferenceListComponent implements OnInit {
-  loans: any[] = [];
+  references: any[] = [];
 
   constructor(private referentialAdministrationService: ReferentialAdministrationService) {}
 
   ngOnInit() {
-    this.referentialAdministrationService.getLoans()
+    this.referentialAdministrationService.getReferences()
       .pipe(
-        tap(data => this.loans = data),
+        tap(data => this.references = data),
         catchError(() => {
-          alert('Failed to load loans');
-          return of();
-        })
-      )
-      .subscribe(() => this.sortLoans());
-  }
-
-  sortLoans() {
-    this.loans.sort((a, b) => {
-      const dateA = new Date(a.loan_date);
-      const dateB = new Date(b.loan_date);
-      return dateB.getTime() - dateA.getTime();
-    });
-  }
-
-  isReturnDateExceeded(returnDate: string): boolean {
-    const currentDate = new Date();
-    const returnDateObj = new Date(returnDate);
-    return returnDateObj < currentDate;
-  }
-
-  getButtonClasses(currentStateName: string, expectedStateName: string, nextExpectedStateName: string) {
-    return {
-      green: currentStateName === expectedStateName && nextExpectedStateName === 'LOANED',
-      yellow: currentStateName === expectedStateName && nextExpectedStateName === 'RETURNED',
-      red: currentStateName === expectedStateName && nextExpectedStateName === 'REFUSED',
-      grey: currentStateName !== expectedStateName,
-      disabled: currentStateName !== expectedStateName
-    };
-  }
-
-  onLoanStateUpdate(equipmentCode: string, stateName: string) {
-    this.referentialAdministrationService.updateLoanState(equipmentCode, stateName)
-      .pipe(
-        tap(() => location.reload()),
-        catchError(() => {
-          alert('Failed to update loan state');
+          alert('Failed to load references');
           return of();
         })
       )
       .subscribe();
   }
 
-  onLoanDelete(equipmentCode: string) {
-    this.referentialAdministrationService.deleteLoan(equipmentCode)
+  onReferenceDelete(referenceCode: string) {
+    this.referentialAdministrationService.deleteReference(referenceCode)
       .pipe(
         tap(() => location.reload()),
         catchError(() => {
-          alert('Failed to delete loan');
+          alert('Failed to delete reference');
           return of();
         })
       )

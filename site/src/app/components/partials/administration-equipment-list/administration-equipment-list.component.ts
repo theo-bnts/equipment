@@ -13,64 +13,42 @@ import { ReferentialAdministrationService } from '../../../services/referential.
   styleUrls: ['../../../../styles/table.css']
 })
 export class AdministrationEquipmentListComponent implements OnInit {
-  loans: any[] = [];
+  equipments: any[] = [];
 
   constructor(private referentialAdministrationService: ReferentialAdministrationService) {}
 
   ngOnInit() {
-    this.referentialAdministrationService.getLoans()
+    this.referentialAdministrationService.getEquipments()
       .pipe(
-        tap(data => this.loans = data),
+        tap(data => this.equipments = data),
         catchError(() => {
-          alert('Failed to load loans');
+          alert('Failed to load equipments');
           return of();
         })
       )
-      .subscribe(() => this.sortLoans());
+      .subscribe(() => this.sortEquipments());
   }
 
-  sortLoans() {
-    this.loans.sort((a, b) => {
-      const dateA = new Date(a.loan_date);
-      const dateB = new Date(b.loan_date);
-      return dateB.getTime() - dateA.getTime();
+  sortEquipments() {
+    this.equipments.sort((a, b) => {
+      const dateA = new Date(a.end_of_life_date);
+      const dateB = new Date(b.end_of_life_date);
+      return dateA.getTime() - dateB.getTime();
     });
   }
 
-  isReturnDateExceeded(returnDate: string): boolean {
+  isEndOfLifeExceeded(endOfLifeDate: string): boolean {
     const currentDate = new Date();
-    const returnDateObj = new Date(returnDate);
-    return returnDateObj < currentDate;
+    const endOfLifeDateObj = new Date(endOfLifeDate);
+    return endOfLifeDateObj < currentDate;
   }
 
-  getButtonClasses(currentStateName: string, expectedStateName: string, nextExpectedStateName: string) {
-    return {
-      green: currentStateName === expectedStateName && nextExpectedStateName === 'LOANED',
-      yellow: currentStateName === expectedStateName && nextExpectedStateName === 'RETURNED',
-      red: currentStateName === expectedStateName && nextExpectedStateName === 'REFUSED',
-      grey: currentStateName !== expectedStateName,
-      disabled: currentStateName !== expectedStateName
-    };
-  }
-
-  onLoanStateUpdate(equipmentCode: string, stateName: string) {
-    this.referentialAdministrationService.updateLoanState(equipmentCode, stateName)
+  onEquipmentDelete(equipmentCode: string) {
+    this.referentialAdministrationService.deleteEquipment(equipmentCode)
       .pipe(
         tap(() => location.reload()),
         catchError(() => {
-          alert('Failed to update loan state');
-          return of();
-        })
-      )
-      .subscribe();
-  }
-
-  onLoanDelete(equipmentCode: string) {
-    this.referentialAdministrationService.deleteLoan(equipmentCode)
-      .pipe(
-        tap(() => location.reload()),
-        catchError(() => {
-          alert('Failed to delete loan');
+          alert('Failed to delete equipment');
           return of();
         })
       )
