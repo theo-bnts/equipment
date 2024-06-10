@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { LoanableListComponent } from '../../../../partials/loanable-list/loanable-list.component';
+import { UserLoanableListComponent } from '../../../../partials/user-loanable-list/user-loanable-list.component';
 import { TypesDropdownComponent } from '../../../../partials/types-dropdown/types-dropdown.component';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [LoanableListComponent, TypesDropdownComponent],
+  imports: [UserLoanableListComponent, TypesDropdownComponent],
   templateUrl: './list.component.html',
   styleUrls: ['../../../../../../styles/page.css', './list.component.css']
 })
