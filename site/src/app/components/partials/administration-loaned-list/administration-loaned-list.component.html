@@ -6,6 +6,7 @@
       <th>Date de retour</th>
       <th>Code</th>
       <th>Nom</th>
+      <th>Utilisateur</th>
       <th>Organisation</th>
       <th>Salle</th>
       <th>Salle de stockage</th>
@@ -32,18 +33,32 @@
       </td>
       <td>{{ loan.equipment.code }}</td>
       <td>{{ loan.equipment.reference.name }}</td>
+      <td>
+        {{ loan.user.first_name }} {{ loan.user.last_name.toUpperCase() }}
+      </td>
       <td>{{ loan.organization?.name || "-" }}</td>
       <td>{{ loan.room.name }}</td>
       <td>{{ loan.equipment.stockage_room.name }}</td>
-      <td>
+      <td class="actions">
         <div
-          class="button red"
-          [ngClass]="{ disabled: loan.state.name !== 'LOANED' }"
+          class="button green"
+          [ngClass]="{ disabled: loan.state.name !== 'REQUESTED' }"
           (click)="
-            loan.state.name === 'LOANED'
+            loan.state.name === 'REQUESTED' &&
+              onLoanRequestAcceptation(loan.equipment.code)
           "
         >
-          Demander un retour
+          Accepter la demande d'emprunt
+        </div>
+        <div
+          class="button red"
+          [ngClass]="{ disabled: loan.state.name !== 'RETURN_REQUESTED' }"
+          (click)="
+            loan.state.name === 'RETURN_REQUESTED' &&
+              onLoanReturnRequestAcceptation(loan.equipment.code)
+          "
+        >
+          Accepter la demande de retour
         </div>
       </td>
     </tr>

@@ -27,8 +27,6 @@ export class AdministrationLoanedListComponent implements OnInit {
         })
       )
       .subscribe(() => this.sortLoans());
-
-    console.log(this.loans);
   }
 
   sortLoans() {
