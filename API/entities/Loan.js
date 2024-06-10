@@ -92,6 +92,14 @@ class Loan {
     };
   }
 
+  static async userExists(user) {
+    return await DatabasePool
+      .getConnection()
+      .collection('loan')
+      .find({ id_user: user.Id })
+      .count() > 0;
+  }
+
   static async equipmentExists(equipment) {
     return await DatabasePool
       .getConnection()

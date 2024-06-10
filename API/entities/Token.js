@@ -46,6 +46,13 @@ class Token {
       );
   }
 
+  async delete() {
+    await DatabasePool
+      .getConnection()
+      .collection('token')
+      .deleteOne({ _id: this.Id });
+  }
+
   format() {
     return {
       value: this.Value,
@@ -75,6 +82,21 @@ class Token {
       token.expiration,
       await User.fromId(token.id_user),
     );
+  }
+
+  static async allOfUser(user) {
+    const tokens = await DatabasePool
+      .getConnection()
+      .collection('token')
+      .find({ id_user: user.Id })
+      .toArray();
+
+    return tokens.map((token) => new Token(
+      token._id,
+      token.value,
+      token.expiration,
+      user,
+    ));
   }
 }
 

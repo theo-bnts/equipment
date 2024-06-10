@@ -10,7 +10,7 @@ export default function route(app) {
       authenticate,
     ],
     async (req, res) => {
-      const userOrganizations = await UserOrganization.all(req.Token.User);
+      const userOrganizations = await UserOrganization.allOfUser(req.Token.User);
 
       return res
         .send({

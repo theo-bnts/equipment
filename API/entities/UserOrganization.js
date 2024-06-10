@@ -48,6 +48,13 @@ class UserOrganization {
       .findOne({ id_user: user.Id, id_organization: organization.Id }) !== null;
   }
 
+  static async userExists(user) {
+    return await DatabasePool
+      .getConnection()
+      .collection('user_organization')
+      .findOne({ id_user: user.Id }) !== null;
+  }
+
   static async fromId(id) {
     const userOrganization = await DatabasePool
       .getConnection()
@@ -74,7 +81,7 @@ class UserOrganization {
     );
   }
 
-  static async all(user) {
+  static async allOfUser(user) {
     const userOrganizations = await DatabasePool
       .getConnection()
       .collection('user_organization')

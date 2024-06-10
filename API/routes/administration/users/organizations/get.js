@@ -23,7 +23,7 @@ export default function route(app) {
 
       const user = await User.fromEmailAddress(req.query.user_email_address);
 
-      const userOrganizations = await UserOrganization.all(user);
+      const userOrganizations = await UserOrganization.allOfUser(user);
 
       return res
         .send({

@@ -1,10 +1,10 @@
 {
-  "name": "api",
-  "main": "src/index.js",
+  "name": "equipment_express",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "lint": "npm install && eslint --ext .js",
-    "format": "npm install && eslint --fix --ext .js",
+    "lint": "npm install && eslint --ext .js .",
+    "format": "npm install && eslint --fix --ext .js .",
     "debug": "npm install && nodemon",
     "start": "npm install && node index.js"
   },
