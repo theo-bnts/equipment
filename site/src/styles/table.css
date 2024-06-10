@@ -4,7 +4,7 @@
 }
 
 .table th, .table td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--light-grey);
   padding: .5em;
 }
 
@@ -12,7 +12,7 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #f2f2f2;
+  background-color: var(--grey);
 }
 
 .actions {
@@ -28,6 +28,5 @@
 }
 
 .disabled {
-  background-color: #616161;
   cursor: not-allowed;
 }

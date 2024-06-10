@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 :root {
+  --light-blue: #ddf2ff;
   --blue: #37b2ff;
   --blue-hover: #2f9ed6;
   --green: #50d7b3;
@@ -11,6 +12,7 @@
   --orange-hover: #e67a00;
   --red: #ff4d4d;
   --red-hover: #e63a3a;
+  --light-grey: #e0e0e0;
   --grey: #b0b0b0;
   --grey-hover: #a0a0a0;
 }
@@ -69,6 +71,6 @@ body {
   background-color: var(--grey);
 }
 
-.grey:hover {
+.grey:hover:not(.disabled) {
   background-color: var(--grey-hover);
 }
