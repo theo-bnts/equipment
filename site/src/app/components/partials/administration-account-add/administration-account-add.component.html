@@ -1,0 +1,72 @@
+<form [formGroup]="addAccountForm" (ngSubmit)="onSubmit()" class="form account-form">
+  <div>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="name@example.com"
+      [ngClass]="{ 'invalid-input': submitted && formControls['email'].errors }"
+    />
+    <div
+      *ngIf="submitted && formControls['email'].errors"
+      class="invalid-indicator"
+    >
+    <div *ngIf="formControls['email'].errors?.['required']">
+        L'email est requis
+      </div>
+      <div *ngIf="formControls['email'].errors?.['email']">
+        L'email doit être valide
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Mot de passe</label>
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="***********"
+      [ngClass]="{ 'invalid-input': submitted && formControls['password'].errors }"
+  />
+    <div *ngIf="submitted && formControls['password'].errors" class="invalid-indicator">
+      <div *ngIf="formControls['password'].errors?.['required']">
+        Le mot de passe est requis
+      </div>
+      <div *ngIf="formControls['password'].errors?.['minlength']">
+        Le mot de passe doit contenir au moins 8 caractères
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="firstName">Prénom :</label>
+    <input id="firstName" formControlName="firstName" [ngClass]="{ 'invalid-input': submitted && formControls['firstName'].errors }">
+    <div *ngIf="submitted && formControls['firstName'].errors" class="invalid-indicator">
+      <div *ngIf="formControls['firstName'].errors?.['required']">
+        Le prénom est requis
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="lastName">Nom :</label>
+    <input id="lastName" formControlName="lastName" [ngClass]="{ 'invalid-input': submitted && formControls['lastName'].errors }">
+    <div *ngIf="submitted && formControls['lastName'].errors" class="invalid-indicator">
+      <div *ngIf="formControls['lastName'].errors?.['required']">
+        Le nom est requis
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="roleName">Rôle :</label>
+    <input id="roleName" formControlName="roleName" [ngClass]="{ 'invalid-input': submitted && formControls['roleName'].errors }">
+    <div *ngIf="submitted && formControls['roleName'].errors" class="invalid-indicator">
+      <div *ngIf="formControls['roleName'].errors?.['required']">
+        Le rôle est requis
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="blue">Créer</button>
+</form>

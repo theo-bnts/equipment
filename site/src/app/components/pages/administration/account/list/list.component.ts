@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AdministrationAccountListComponent } from '../../../../partials/administration-account-list/administration-account-list.component';
 
@@ -7,6 +8,12 @@ import { AdministrationAccountListComponent } from '../../../../partials/adminis
   standalone: true,
   imports: [AdministrationAccountListComponent],
   templateUrl: './list.component.html',
-  styleUrls: ['../../../../../../styles/page.css']
+  styleUrls: ['../../../../../../styles/page.css', './list.component.css']
 })
-export class AdministrationAccountListPageComponent { }
+export class AdministrationAccountListPageComponent { 
+  constructor(private router: Router) {}
+
+  navigateToAddAccount() {
+    this.router.navigate(['/administration/account/add']);
+  }
+}

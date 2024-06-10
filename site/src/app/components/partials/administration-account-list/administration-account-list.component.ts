@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -15,7 +16,7 @@ import { AccountAdministrationService } from '../../../services/account.administ
 export class AdministrationAccountListComponent implements OnInit {
   accounts: any[] = [];
 
-  constructor(private accountAdministrationService: AccountAdministrationService) {}
+  constructor(private accountAdministrationService: AccountAdministrationService, private router: Router) {}
 
   ngOnInit() {
     this.accountAdministrationService.getAccounts()
@@ -23,6 +24,20 @@ export class AdministrationAccountListComponent implements OnInit {
         tap(data => this.accounts = data),
         catchError(() => {
           alert('Failed to load accounts');
+          return of();
+        })
+      )
+      .subscribe();
+  }
+
+  onAccountDelete(email: string) {
+    this.accountAdministrationService.deleteAccount(email)
+      .pipe(
+        tap(() => {
+          this.accounts = this.accounts.filter(account => account.email_address !== email);
+        }),
+        catchError(() => {
+          alert('Failed to delete account');
           return of();
         })
       )

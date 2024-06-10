@@ -1,0 +1,13 @@
+.user-list-page {
+  flex-direction: column;
+}
+
+.add-account-button {
+    padding: 0.7em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1em;
+    max-width: 400px;
+  }
