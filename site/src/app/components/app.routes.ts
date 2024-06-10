@@ -13,10 +13,11 @@ import { LoginPageComponent } from './pages/login/login.component';
 export const routes: Routes = [
   { path: '', pathMatch: 'full' , redirectTo: '/account'},
   { path: 'login', pathMatch: 'full', component: LoginPageComponent },
+  { path: 'account', pathMatch: 'full', component: AccountPageComponent, canActivate: [UserAuthGuard] },
   { path: 'user/home', pathMatch: 'full', component: UserHomePageComponent, canActivate: [UserAuthGuard] },
-  { path: 'administration/home', pathMatch: 'full', component: AdministrationHomePageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'loanable/list', pathMatch: 'full', component: LoanableListPageComponent, canActivate: [UserAuthGuard] },
   { path: 'loan/request', pathMatch: 'full', component: LoanRequestPageComponent, canActivate: [UserAuthGuard] },
   { path: 'loaned/list', pathMatch: 'full', component: LoanedListPageComponent, canActivate: [UserAuthGuard] },
-  { path: 'account', pathMatch: 'full', component: AccountPageComponent, canActivate: [UserAuthGuard] }
+  { path: 'administration/home', pathMatch: 'full', component: AdministrationHomePageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/loaned/list', pathMatch: 'full', component: LoanedListPageComponent, canActivate: [AdministratorAuthGuard] },
 ];
