@@ -7,6 +7,6 @@ import { AdministrationLoanedListComponent } from '../../../../partials/administ
   standalone: true,
   imports: [AdministrationLoanedListComponent],
   templateUrl: './list.component.html',
-  styleUrls: ['../../../../../styles/page.css']
+  styleUrls: ['../../../../../../styles/page.css']
 })
 export class AdministrationLoanedListPageComponent { }
