@@ -10,7 +10,7 @@ import { UserService } from '../../../services/user.service';
 import { ReferentialService } from '../../../services/referential.service';
 
 @Component({
-  selector: 'app-loan-request-form',
+  selector: 'app-user-loan-request-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './loan-request-form.component.html',
