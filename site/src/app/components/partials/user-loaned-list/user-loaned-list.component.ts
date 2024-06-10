@@ -42,11 +42,11 @@ export class UserLoanedListComponent implements OnInit {
     return returnDateObj < currentDate;
   }
 
-  getButtonClasses(loanStateName: string) {
+  getButtonClasses(currentStateName: string, expectedStateName: string, nextExpectedStateName: string) {
     return {
-      red: loanStateName === 'LOANED',
-      grey: loanStateName !== 'LOANED',
-      disabled: loanStateName !== 'LOANED'
+      red: currentStateName === expectedStateName && nextExpectedStateName === 'RETURN_REQUESTED',
+      grey: currentStateName !== expectedStateName,
+      disabled: currentStateName !== expectedStateName
     };
   }
 

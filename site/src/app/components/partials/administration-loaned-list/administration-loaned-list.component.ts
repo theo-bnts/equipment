@@ -43,33 +43,34 @@ export class AdministrationLoanedListComponent implements OnInit {
     return returnDateObj < currentDate;
   }
 
-  getButtonClasses(loanStateName: string, expectedState: string) {
+  getButtonClasses(currentStateName: string, expectedStateName: string, nextExpectedStateName: string) {
     return {
-      green: expectedState === 'REQUESTED' && loanStateName === 'REQUESTED',
-      red: expectedState === 'RETURN_REQUESTED' && loanStateName === 'RETURN_REQUESTED',
-      grey: loanStateName !== expectedState,
-      disabled: loanStateName !== expectedState
+      green: currentStateName === expectedStateName && nextExpectedStateName === 'LOANED',
+      yellow: currentStateName === expectedStateName && nextExpectedStateName === 'RETURNED',
+      red: currentStateName === expectedStateName && nextExpectedStateName === 'REFUSED',
+      grey: currentStateName !== expectedStateName,
+      disabled: currentStateName !== expectedStateName
     };
   }
 
-  onLoanRequestAcceptation(equipmentCode: string) {
-    this.referentialAdministrationService.updateLoanState(equipmentCode, 'LOANED')
+  onLoanStateUpdate(equipmentCode: string, stateName: string) {
+    this.referentialAdministrationService.updateLoanState(equipmentCode, stateName)
       .pipe(
         tap(() => location.reload()),
         catchError(() => {
-          alert('Failed to accept loan request');
+          alert('Failed to update loan state');
           return of();
         })
       )
       .subscribe();
   }
 
-  onLoanReturnRequestAcceptation(equipmentCode: string) {
-    this.referentialAdministrationService.updateLoanState(equipmentCode, 'RETURNED')
+  onLoanDelete(equipmentCode: string) {
+    this.referentialAdministrationService.deleteLoan(equipmentCode)
       .pipe(
         tap(() => location.reload()),
         catchError(() => {
-          alert('Failed to accept loan return request');
+          alert('Failed to delete loan');
           return of();
         })
       )

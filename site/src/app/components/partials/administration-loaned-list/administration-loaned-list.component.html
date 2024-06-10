@@ -42,23 +42,42 @@
       <td class="actions">
         <div
           class="button"
-          [ngClass]="getButtonClasses(loan.state.name, 'REQUESTED')"
+          [ngClass]="getButtonClasses(loan.state.name, 'REQUESTED', 'LOANED')"
           (click)="
             loan.state.name === 'REQUESTED' &&
-              onLoanRequestAcceptation(loan.equipment.code)
+              onLoanStateUpdate(loan.equipment.code, 'LOANED')
           "
         >
           Accepter la demande d'emprunt
         </div>
+        
         <div
           class="button"
-          [ngClass]="getButtonClasses(loan.state.name, 'RETURN_REQUESTED')"
+          [ngClass]="getButtonClasses(loan.state.name, 'REQUESTED', 'REFUSED')"
           (click)="
             loan.state.name === 'RETURN_REQUESTED' &&
-              onLoanReturnRequestAcceptation(loan.equipment.code)
+              onLoanStateUpdate(loan.equipment.code, 'REFUSED')
+          "
+        >
+          Refuser la demande d'emprunt
+        </div>
+
+        <div
+          class="button"
+          [ngClass]="getButtonClasses(loan.state.name, 'RETURN_REQUESTED', 'RETURNED')"
+          (click)="
+            loan.state.name === 'RETURN_REQUESTED' &&
+              onLoanStateUpdate(loan.equipment.code, 'RETURNED')
           "
         >
           Accepter la demande de retour
+        </div>
+
+        <div 
+          class="button red"
+          (click)="onLoanDelete(loan.equipment.code)"
+        >
+          Supprimer
         </div>
       </td>
     </tr>
