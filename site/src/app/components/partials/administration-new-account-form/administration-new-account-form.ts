@@ -6,13 +6,13 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-administration-account-add',
+  selector: 'app-administration-new-account-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './administration-account-add.component.html',
+  templateUrl: './administration-new-account-form.component.html',
   styleUrls: ['../../../../styles/form.css']
 })
-export class AdministrationAccountAddComponent {
+export class AdministrationNewAccountFormComponent {
   addAccountForm: FormGroup;
   submitted = false;
 
