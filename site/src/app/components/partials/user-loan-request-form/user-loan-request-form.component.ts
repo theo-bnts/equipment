@@ -54,7 +54,7 @@ export class UserLoanRequestFormComponent {
       }
       
       if (this.equipmentCode === null) {
-        this.router.navigate(['/user/home']);
+        this.router.navigate(['/account']);
       }
     });
 
