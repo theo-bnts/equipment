@@ -13,7 +13,7 @@ import { AccountService } from '../../../services/account.service';
 export class HeaderComponent {
   constructor(private router: Router, private accountService: AccountService) {}
 
-  navigateTo() {
+  navigateToHome() {
     if (this.accountService.isLoggedIn()) {
       this.accountService.getUserInfo().subscribe(user => {
         const roleName = user.role.name;

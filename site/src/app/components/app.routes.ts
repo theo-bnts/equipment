@@ -8,17 +8,17 @@ import { LoginPageComponent } from './pages/login/login.component';
 
 import { UserHomePageComponent } from './pages/user/home/home.component';
 import { UserAvailableEquipmentsListPageComponent } from './pages/user/equipments/available/list/list.component';
-import { UserLoanedListPageComponent } from './pages/user/loaned/list/list.component';
-import { UserLoanRequestPageComponent } from './pages/user/loan/request/request.component';
+import { UserLoansListPageComponent } from './pages/user/loans/list/list.component';
+import { UserLoanRequestPageComponent } from './pages/user/loans/request/request.component';
 
 import { AdministrationHomePageComponent } from './pages/administration/home/home.component';
-import { AdministrationEquipmentHomePageComponent } from './pages/administration/equipment/home/home.component';
-import { AdministrationAccountListPageComponent } from './pages/administration/account/list/list.component';
-import { AdministrationEquipmentListPageComponent } from './pages/administration/equipment/list/list.component';
-import { AdministrationLoanedListPageComponent } from './pages/administration/loaned/list/list.component';
-import { AdministrationNewAccountPageComponent } from './pages/administration/account/new/new.component';
-import { AdministrationReferenceListPageComponent } from './pages/administration/reference/list/list.component';
-import { AdministrationTypeListPageComponent } from './pages/administration/type/list/list.component';
+import { AdministrationEquipmentsHomePageComponent } from './pages/administration/equipments/home/home.component';
+import { AdministrationAccountsListPageComponent } from './pages/administration/accounts/list/list.component';
+import { AdministrationEquipmentsListPageComponent } from './pages/administration/equipments/list/list.component';
+import { AdministrationLoansListPageComponent } from './pages/administration/loans/list/list.component';
+import { AdministrationNewAccountPageComponent } from './pages/administration/accounts/new/new.component';
+import { AdministrationReferencesListPageComponent } from './pages/administration/references/list/list.component';
+import { AdministrationTypesListPageComponent } from './pages/administration/types/list/list.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full' , redirectTo: '/account'},
@@ -27,15 +27,15 @@ export const routes: Routes = [
 
   { path: 'user/home', pathMatch: 'full', component: UserHomePageComponent, canActivate: [UserAuthGuard] },
   { path: 'user/equipments/available/list', pathMatch: 'full', component: UserAvailableEquipmentsListPageComponent, canActivate: [UserAuthGuard] },
-  { path: 'user/loan/request', pathMatch: 'full', component: UserLoanRequestPageComponent, canActivate: [UserAuthGuard] },
-  { path: 'user/loaned/list', pathMatch: 'full', component: UserLoanedListPageComponent, canActivate: [UserAuthGuard] },
+  { path: 'user/loans/request', pathMatch: 'full', component: UserLoanRequestPageComponent, canActivate: [UserAuthGuard] },
+  { path: 'user/loans/list', pathMatch: 'full', component: UserLoansListPageComponent, canActivate: [UserAuthGuard] },
 
   { path: 'administration/home', pathMatch: 'full', component: AdministrationHomePageComponent, canActivate: [AdministratorAuthGuard] },
-  { path: 'administration/loaned/list', pathMatch: 'full', component: AdministrationLoanedListPageComponent, canActivate: [AdministratorAuthGuard] },
-  { path: 'administration/equipment/home', pathMatch: 'full', component: AdministrationEquipmentHomePageComponent, canActivate: [AdministratorAuthGuard] },
-  { path: 'administration/equipment/list', pathMatch: 'full', component: AdministrationEquipmentListPageComponent, canActivate: [AdministratorAuthGuard] },
-  { path: 'administration/reference/list', pathMatch: 'full', component: AdministrationReferenceListPageComponent, canActivate: [AdministratorAuthGuard] },
-  { path: 'administration/type/list', pathMatch: 'full', component: AdministrationTypeListPageComponent, canActivate: [AdministratorAuthGuard] },
-  { path: 'administration/account/list', pathMatch: 'full', component: AdministrationAccountListPageComponent, canActivate: [AdministratorAuthGuard] },
-  { path: 'administration/account/add', pathMatch: 'full', component: AdministrationNewAccountPageComponent, canActivate: [AdministratorAuthGuard] }
+  { path: 'administration/loans/list', pathMatch: 'full', component: AdministrationLoansListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/equipments/home', pathMatch: 'full', component: AdministrationEquipmentsHomePageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/equipments/list', pathMatch: 'full', component: AdministrationEquipmentsListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/references/list', pathMatch: 'full', component: AdministrationReferencesListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/types/list', pathMatch: 'full', component: AdministrationTypesListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/accounts/list', pathMatch: 'full', component: AdministrationAccountsListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/accounts/new', pathMatch: 'full', component: AdministrationNewAccountPageComponent, canActivate: [AdministratorAuthGuard] }
 ];
