@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -15,7 +16,14 @@ import { AccountAdministrationService } from '../../../services/account.administ
 export class AdministrationAccountListComponent implements OnInit {
   accounts: any[] = [];
 
-  constructor(private accountAdministrationService: AccountAdministrationService) {}
+  constructor(
+    private accountAdministrationService: AccountAdministrationService,
+    private router: Router
+  ) {}
+  
+  viewOrganizations(email: string) {
+    this.router.navigate(['administration/account/organization'], { queryParams: { email } });
+  }
 
   ngOnInit() {
     this.accountAdministrationService.getAccounts()

@@ -1,0 +1,4 @@
+.list-page {
+  flex-direction: column;
+  gap: 1em;
+}
