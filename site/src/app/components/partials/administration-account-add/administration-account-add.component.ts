@@ -16,6 +16,11 @@ export class AdministrationAccountAddComponent {
   addAccountForm: FormGroup;
   submitted = false;
 
+  roles = [
+    { name: 'USER', displayName: 'Utilisateur' },
+    { name: 'ADMINISTRATOR', displayName: 'Administrateur' }
+  ];
+
   constructor(
     private fb: FormBuilder,
     private accountAdministrationService: AccountAdministrationService,
