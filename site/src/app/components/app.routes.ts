@@ -7,7 +7,7 @@ import { AccountPageComponent } from './pages/account/account.component';
 import { LoginPageComponent } from './pages/login/login.component';
 
 import { UserHomePageComponent } from './pages/user/home/home.component';
-import { UserLoanableListPageComponent } from './pages/user/loanable/list/list.component';
+import { UserAvailableEquipmentsListPageComponent } from './pages/user/equipments/available/list/list.component';
 import { UserLoanedListPageComponent } from './pages/user/loaned/list/list.component';
 import { UserLoanRequestPageComponent } from './pages/user/loan/request/request.component';
 
@@ -26,7 +26,7 @@ export const routes: Routes = [
   { path: 'account', pathMatch: 'full', component: AccountPageComponent, canActivate: [UserAuthGuard] },
 
   { path: 'user/home', pathMatch: 'full', component: UserHomePageComponent, canActivate: [UserAuthGuard] },
-  { path: 'user/loanable/list', pathMatch: 'full', component: UserLoanableListPageComponent, canActivate: [UserAuthGuard] },
+  { path: 'user/equipments/available/list', pathMatch: 'full', component: UserAvailableEquipmentsListPageComponent, canActivate: [UserAuthGuard] },
   { path: 'user/loan/request', pathMatch: 'full', component: UserLoanRequestPageComponent, canActivate: [UserAuthGuard] },
   { path: 'user/loaned/list', pathMatch: 'full', component: UserLoanedListPageComponent, canActivate: [UserAuthGuard] },
 
