@@ -70,7 +70,7 @@
       placeholder="Rôle"
       formControlName="roleName" 
       [ngClass]="{ 'invalid-input': submitted && formControls['roleName'].errors }">
-      <option value="" disabled hidden selected>Selectionnez un rôle</option>
+      <option value="" disabled hidden selected>Sélectionner un rôle</option>
       <option *ngFor="let role of roles" [value]="role.name">{{ role.displayName }}</option>
     </select>
     <div *ngIf="submitted && formControls['roleName'].errors" class="invalid-indicator">

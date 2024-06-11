@@ -29,9 +29,9 @@ export class UserLoanRequestFormComponent {
 
   constructor(private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private referentialService: ReferentialService, private userService: UserService) {
     this.loanRequestForm = this.formBuilder.group({
-      loanType: [undefined, Validators.required],
-      organization: [undefined],
-      room: [undefined, Validators.required],
+      loanType: ['', Validators.required],
+      organization: [''],
+      room: ['', Validators.required],
     });
 
     this.loanRequestForm.get('loanType')?.valueChanges.subscribe(loanType => {
