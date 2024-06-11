@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { AccountAdministrationService } from '../../../services/account.administration.service';
 
@@ -15,7 +16,7 @@ import { AccountAdministrationService } from '../../../services/account.administ
 export class AdministrationAccountsListComponent implements OnInit {
   accounts: any[] = [];
 
-  constructor(private accountAdministrationService: AccountAdministrationService) {}
+  constructor(private router: Router, private accountAdministrationService: AccountAdministrationService) {}
 
   ngOnInit() {
     this.accountAdministrationService.getAccounts()
@@ -27,6 +28,10 @@ export class AdministrationAccountsListComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  navigateToOrganizations(email: string) {
+    this.router.navigate(['administration/users/organizations/list'], { queryParams: { email } });
   }
 
   onAccountDelete(email: string) {
