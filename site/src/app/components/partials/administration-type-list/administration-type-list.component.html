@@ -11,9 +11,9 @@
       <td>{{ type.name }}</td>
       <td>{{ type.organization_only ? "Oui" : "Non" }}</td>
       <td class="actions">
-        <div class="button red" (click)="onTypeDelete(type.code)">
+        <button class="red" (click)="onTypeDelete(type.code)">
           Supprimer
-        </div>
+        </button>
       </td>
     </tr>
   </tbody>

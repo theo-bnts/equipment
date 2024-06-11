@@ -19,9 +19,9 @@
         {{ equipment.end_of_life_date | date : "dd/MM/yyyy" }}
       </td>
       <td class="actions">
-        <div class="button red" (click)="onEquipmentDelete(equipment.code)">
+        <button class="red" (click)="onEquipmentDelete(equipment.code)">
           Supprimer
-        </div>
+        </button>
       </td>
     </tr>
   </tbody>

@@ -42,14 +42,6 @@ export class UserLoanedListComponent implements OnInit {
     return returnDateObj < currentDate;
   }
 
-  getButtonClasses(currentStateName: string, expectedStateName: string, nextExpectedStateName: string) {
-    return {
-      red: currentStateName === expectedStateName && nextExpectedStateName === 'RETURN_REQUESTED',
-      grey: currentStateName !== expectedStateName,
-      disabled: currentStateName !== expectedStateName
-    };
-  }
-
   onLoanReturnRequest(equipmentCode: string) {
     this.userService.returnLoan(equipmentCode)
       .pipe(

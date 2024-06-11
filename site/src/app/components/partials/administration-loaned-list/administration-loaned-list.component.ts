@@ -43,16 +43,6 @@ export class AdministrationLoanedListComponent implements OnInit {
     return returnDateObj < currentDate;
   }
 
-  getButtonClasses(currentStateName: string, expectedStateName: string, nextExpectedStateName: string) {
-    return {
-      green: currentStateName === expectedStateName && nextExpectedStateName === 'LOANED',
-      yellow: currentStateName === expectedStateName && nextExpectedStateName === 'RETURNED',
-      red: currentStateName === expectedStateName && nextExpectedStateName === 'REFUSED',
-      grey: currentStateName !== expectedStateName,
-      disabled: currentStateName !== expectedStateName
-    };
-  }
-
   onLoanStateUpdate(equipmentCode: string, stateName: string) {
     this.referentialAdministrationService.updateLoanState(equipmentCode, stateName)
       .pipe(

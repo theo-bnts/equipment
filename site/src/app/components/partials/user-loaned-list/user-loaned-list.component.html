@@ -36,16 +36,13 @@
       <td>{{ loan.room.name }}</td>
       <td>{{ loan.equipment.stockage_room.name }}</td>
       <td class="actions">
-        <div
-          class="button red"
-          [ngClass]="getButtonClasses(loan.state.name, 'LOANED', 'RETURN_REQUESTED')"
-          (click)="
-            loan.state.name === 'LOANED' &&
-              onLoanReturnRequest(loan.equipment.code)
-          "
+        <button
+          class="red"
+          (click)="onLoanReturnRequest(loan.equipment.code)"
+          [disabled]="loan.state.name !== 'LOANED'"
         >
           Demander un retour
-        </div>
+        </button>
       </td>
     </tr>
   </tbody>
