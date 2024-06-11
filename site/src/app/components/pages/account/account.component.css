@@ -1,13 +1,4 @@
 .account-page {
   flex-direction: column;
-}
-
-.logout-button {
-  padding: 0.7em;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 1em;
-  max-width: 400px;
+  gap: 1em;
 }

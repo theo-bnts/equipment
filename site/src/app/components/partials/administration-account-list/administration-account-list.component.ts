@@ -42,12 +42,4 @@ export class AdministrationAccountListComponent implements OnInit {
       )
       .subscribe();
   }
-
-  getButtonClasses(roleName: string) {
-    return {
-      red: roleName !== 'ADMINISTRATOR',
-      grey: roleName === 'ADMINISTRATOR',
-      disabled: roleName === 'ADMINISTRATOR'
-    };
-  }
 }

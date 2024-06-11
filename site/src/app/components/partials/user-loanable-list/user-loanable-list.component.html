@@ -19,8 +19,8 @@
       </td>
       <td>{{ availableEquipment.stockage_room.name }}</td>
       <td class="actions">
-        <div
-          class="button green"
+        <button
+          class="green"
           (click)="
             onLoanRequest(
               availableEquipment.reference.type.organization_only,
@@ -29,7 +29,7 @@
           "
         >
           Demander un emprunt
-        </div>
+        </button>
       </td>
     </tr>
   </tbody>

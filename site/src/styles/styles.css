@@ -27,6 +27,24 @@ body {
   font-weight: 400;
 }
 
+button {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.7em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  background-color: var(--grey);
+}
+
+button:hover:disabled {
+  background-color: var(--grey);
+}
+
 .blue {
   background-color: var(--blue);
 }

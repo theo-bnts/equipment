@@ -15,13 +15,13 @@
       <td>{{ account.last_name.toUpperCase() }}</td>
       <td>{{ account.role.display_name_french }}</td>
       <td class="actions">
-        <div
-          class="button"
-          [ngClass]="getButtonClasses(account.role.name)"
-          (click)="account.role.name !== 'ADMINISTRATOR' && onAccountDelete(account.email_address)"
+        <button
+          class="red"
+          (click)="onAccountDelete(account.email_address)"
+          [disabled]="account.role.name === 'ADMINISTRATOR'"
         >
           Supprimer
-        </div>
+        </button>
       </td>
     </tr>
   </tbody>
