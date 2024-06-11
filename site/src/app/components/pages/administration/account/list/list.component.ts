@@ -13,7 +13,7 @@ import { AdministrationAccountListComponent } from '../../../../partials/adminis
 export class AdministrationAccountListPageComponent { 
   constructor(private router: Router) {}
 
-  navigateToAddAccount() {
-    this.router.navigate(['/administration/account/add']);
+  navigateTo(route: string) {
+    this.router.navigate([route]);
   }
 }
