@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -16,7 +15,7 @@ import { AccountAdministrationService } from '../../../services/account.administ
 export class AdministrationAccountListComponent implements OnInit {
   accounts: any[] = [];
 
-  constructor(private accountAdministrationService: AccountAdministrationService, private router: Router) {}
+  constructor(private accountAdministrationService: AccountAdministrationService) {}
 
   ngOnInit() {
     this.accountAdministrationService.getAccounts()
@@ -42,5 +41,13 @@ export class AdministrationAccountListComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  getButtonClasses(roleName: string) {
+    return {
+      red: roleName !== 'ADMINISTRATOR',
+      grey: roleName === 'ADMINISTRATOR',
+      disabled: roleName === 'ADMINISTRATOR'
+    };
   }
 }
