@@ -8,6 +8,7 @@
         'invalid-input': submitted && formControls['loanType'].invalid
       }"
     >
+      <option value="" disabled hidden selected>Choisir une option</option>
       <option value="INDIVIDUAL">Pour moi</option>
       <option value="ORGANIZATION">Pour une organisation</option>
     </select>
@@ -15,7 +16,7 @@
       *ngIf="submitted && formControls['loanType'].invalid"
       class="invalid-indicator"
     >
-      <div>Ce champ est requis</div>
+      <div>Le type d'emprunt est requis</div>
     </div>
   </div>
 
@@ -27,6 +28,7 @@
         'invalid-input': submitted && formControls['organization'].invalid
       }"
     >
+      <option value="" disabled hidden selected>Choisir une organisation</option>
       <option
         *ngFor="let organization of userOrganizations"
         [value]="organization.name"
@@ -38,7 +40,7 @@
       *ngIf="submitted && formControls['organization'].invalid"
       class="invalid-indicator"
     >
-      <div>Ce champ est requis</div>
+      <div>L'organisation est requise</div>
     </div>
   </div>
 
@@ -50,6 +52,7 @@
         'invalid-input': submitted && formControls['room'].invalid
       }"
     >
+      <option value="" disabled hidden selected>Choisir une salle</option>
       <option *ngFor="let room of rooms" [value]="room.name">
         {{ room.name }}
       </option>
@@ -58,7 +61,7 @@
       *ngIf="submitted && formControls['room'].invalid"
       class="invalid-indicator"
     >
-      <div>Ce champ est requis</div>
+      <div>La salle est requise</div>
     </div>
   </div>
 
