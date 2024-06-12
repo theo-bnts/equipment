@@ -18,10 +18,12 @@
       <td [ngClass]="{ red: isEndOfLifeExceeded(equipment.end_of_life_date) }">
         {{ equipment.end_of_life_date | date : "dd/MM/yyyy" }}
       </td>
-      <td class="actions">
-        <button class="red" (click)="onEquipmentDelete(equipment.code)">
-          Supprimer
-        </button>
+      <td>
+        <div class="actions">
+          <button class="red" (click)="onEquipmentDelete(equipment.code)">
+            Supprimer
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>

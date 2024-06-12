@@ -14,20 +14,22 @@
       <td>{{ account.first_name }}</td>
       <td>{{ account.last_name.toUpperCase() }}</td>
       <td>{{ account.role.display_name_french }}</td>
-      <td class="actions">
-        <button
-          class="blue"
-          (click)="navigateToOrganizations(account.email_address)"
-        >
-          Gérer les organisations
-        </button>
-        <button
-          class="red"
-          (click)="onAccountDelete(account.email_address)"
-          [disabled]="account.role.name === 'ADMINISTRATOR'"
-        >
-          Supprimer
-        </button>
+      <td>
+        <div class="actions">
+          <button
+            class="blue"
+            (click)="navigateToOrganizations(account.email_address)"
+          >
+            Gérer les organisations
+          </button>
+          <button
+            class="red"
+            (click)="onAccountDelete(account.email_address)"
+            [disabled]="account.role.name === 'ADMINISTRATOR'"
+          >
+            Supprimer
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>
