@@ -10,10 +10,12 @@
     <tr *ngFor="let reference of references">
       <td>{{ reference.name }}</td>
       <td>{{ reference.type.name }}</td>
-      <td class="actions">
-        <button class="red" (click)="onReferenceDelete(reference.code)">
-          Supprimer
-        </button>
+      <td>
+        <div class="actions">
+          <button class="red" (click)="onReferenceDelete(reference.code)">
+            Supprimer
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>

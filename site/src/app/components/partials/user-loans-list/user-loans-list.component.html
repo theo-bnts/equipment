@@ -35,14 +35,16 @@
       <td>{{ loan.organization?.name || "-" }}</td>
       <td>{{ loan.room.name }}</td>
       <td>{{ loan.equipment.stockage_room.name }}</td>
-      <td class="actions">
-        <button
-          class="red"
-          (click)="onLoanReturnRequest(loan.equipment.code)"
-          [disabled]="loan.state.name !== 'LOANED'"
-        >
-          Demander un retour
-        </button>
+      <td>
+        <div class="actions">
+          <button
+            class="red"
+            (click)="onLoanReturnRequest(loan.equipment.code)"
+            [disabled]="loan.state.name !== 'LOANED'"
+          >
+            Demander un retour
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>

@@ -18,18 +18,20 @@
         }}
       </td>
       <td>{{ availableEquipment.stockage_room.name }}</td>
-      <td class="actions">
-        <button
-          class="green"
-          (click)="
-            onLoanRequest(
-              availableEquipment.reference.type.organization_only,
-              availableEquipment.code
-            )
-          "
-        >
-          Demander un emprunt
-        </button>
+      <td>
+        <div class="actions">
+          <button
+            class="green"
+            (click)="
+              onLoanRequest(
+                availableEquipment.reference.type.organization_only,
+                availableEquipment.code
+              )
+            "
+          >
+            Demander un emprunt
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>

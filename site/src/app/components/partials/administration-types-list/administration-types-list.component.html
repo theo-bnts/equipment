@@ -10,10 +10,12 @@
     <tr *ngFor="let type of types">
       <td>{{ type.name }}</td>
       <td>{{ type.organization_only ? "Oui" : "Non" }}</td>
-      <td class="actions">
-        <button class="red" (click)="onTypeDelete(type.code)">
-          Supprimer
-        </button>
+      <td>
+        <div class="actions">
+          <button class="red" (click)="onTypeDelete(type.code)">
+            Supprimer
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>

@@ -39,37 +39,39 @@
       <td>{{ loan.organization?.name || "-" }}</td>
       <td>{{ loan.room.name }}</td>
       <td>{{ loan.equipment.stockage_room.name }}</td>
-      <td class="actions">
-        <button
-          class="green"
-          (click)="onLoanStateUpdate(loan.equipment.code, 'LOANED')"
-          [disabled]="loan.state.name !== 'REQUESTED'"
-        >
-          Accepter la demande d'emprunt
-        </button>
-        
-        <button
-          class="red"
-          (click)="onLoanStateUpdate(loan.equipment.code, 'REFUSED')"
-          [disabled]="loan.state.name !== 'RETURN_REQUESTED'"
-        >
-          Refuser la demande d'emprunt
-        </button>
+      <td>
+        <div class="actions">
+          <button
+            class="green"
+            (click)="onLoanStateUpdate(loan.equipment.code, 'LOANED')"
+            [disabled]="loan.state.name !== 'REQUESTED'"
+          >
+            Accepter la demande d'emprunt
+          </button>
+          
+          <button
+            class="red"
+            (click)="onLoanStateUpdate(loan.equipment.code, 'REFUSED')"
+            [disabled]="loan.state.name !== 'RETURN_REQUESTED'"
+          >
+            Refuser la demande d'emprunt
+          </button>
 
-        <button
-          class="yellow"
-          (click)="onLoanStateUpdate(loan.equipment.code, 'RETURNED')"
-          [disabled]="loan.state.name !== 'RETURN_REQUESTED'"
-        >
-          Accepter la demande de retour
-        </button>
+          <button
+            class="yellow"
+            (click)="onLoanStateUpdate(loan.equipment.code, 'RETURNED')"
+            [disabled]="loan.state.name !== 'RETURN_REQUESTED'"
+          >
+            Accepter la demande de retour
+          </button>
 
-        <button
-          class="red"
-          (click)="onLoanDelete(loan.equipment.code)"
-        >
-          Supprimer
-        </button>
+          <button
+            class="red"
+            (click)="onLoanDelete(loan.equipment.code)"
+          >
+            Supprimer
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>
