@@ -52,7 +52,7 @@
           <button
             class="red"
             (click)="onLoanStateUpdate(loan.equipment.code, 'REFUSED')"
-            [disabled]="loan.state.name !== 'RETURN_REQUESTED'"
+            [disabled]="loan.state.name !== 'REQUESTED'"
           >
             Refuser la demande d'emprunt
           </button>
