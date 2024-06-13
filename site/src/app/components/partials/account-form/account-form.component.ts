@@ -22,7 +22,7 @@ export class AccountFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private accountService: AccountService) {
     this.changePasswordForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       oldPassword: ['', [Validators.required, Validators.minLength(8)]],
       newPassword: ['', [Validators.required, Validators.minLength(8)]]
     });
