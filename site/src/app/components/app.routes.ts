@@ -19,6 +19,7 @@ import { AdministrationLoansListPageComponent } from './pages/administration/loa
 import { AdministrationNewAccountPageComponent } from './pages/administration/accounts/new/new.component';
 import { AdministrationReferencesListPageComponent } from './pages/administration/references/list/list.component';
 import { AdministrationTypesListPageComponent } from './pages/administration/types/list/list.component';
+import { AdministrationTypesNewPageComponent } from './pages/administration/types/new/new.component';
 import { AdministrationUserOrganizationsListPageComponent } from './pages/administration/users/organizations/list/list.component';
 
 export const routes: Routes = [
@@ -37,6 +38,7 @@ export const routes: Routes = [
   { path: 'administration/equipments/list', pathMatch: 'full', component: AdministrationEquipmentsListPageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/references/list', pathMatch: 'full', component: AdministrationReferencesListPageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/types/list', pathMatch: 'full', component: AdministrationTypesListPageComponent, canActivate: [AdministratorAuthGuard] },
+  { path: 'administration/types/new', pathMatch: 'full', component: AdministrationTypesNewPageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/accounts/list', pathMatch: 'full', component: AdministrationAccountsListPageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/accounts/new', pathMatch: 'full', component: AdministrationNewAccountPageComponent, canActivate: [AdministratorAuthGuard] },
   { path: 'administration/users/organizations/list', pathMatch: 'full', component: AdministrationUserOrganizationsListPageComponent, canActivate: [AdministratorAuthGuard] }

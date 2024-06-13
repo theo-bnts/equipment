@@ -47,7 +47,7 @@ export class AccountService {
       );
   }
 
-  getUserInfo(): Observable<any> {
+  getUser(): Observable<any> {
     const headers = AccountService.getAuthHeaders();
 
     return this.http.get<{ datas: any }>(`${environment.API_BASE_URL}/account/user`, { headers })

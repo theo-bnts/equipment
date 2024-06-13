@@ -12,7 +12,7 @@ export class AdministratorAuthGuard implements CanActivate {
   private router = inject(Router);
 
   canActivate(): Observable<boolean> {
-    return this.authService.getUserInfo().pipe(
+    return this.authService.getUser().pipe(
       map(user => {
         if (user && user.role.name === 'ADMINISTRATOR') {
           return true;

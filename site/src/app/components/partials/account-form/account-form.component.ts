@@ -15,13 +15,13 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['../../../../styles/form.css']
 })
 export class AccountFormComponent implements OnInit {
-  changePasswordForm: FormGroup;
+  formGroup: FormGroup;
   submitted = false;
 
-  get formControls() { return this.changePasswordForm.controls; }
+  get formControls() { return this.formGroup.controls; }
 
   constructor(private formBuilder: FormBuilder, private accountService: AccountService) {
-    this.changePasswordForm = this.formBuilder.group({
+    this.formGroup = this.formBuilder.group({
       email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
       oldPassword: ['', [Validators.required, Validators.minLength(8)]],
       newPassword: ['', [Validators.required, Validators.minLength(8)]]
@@ -29,19 +29,23 @@ export class AccountFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accountService.getUserInfo().subscribe(userInfo => {
-      this.changePasswordForm.patchValue({ email: userInfo.email_address });
-    });
+    this.accountService.getUser()
+    .pipe(
+      tap(user => {
+        this.formGroup.patchValue({ email: user.email_address });
+      }),
+      catchError(() => of())
+    );
   }
 
   onSubmit() {
     this.submitted = true;
 
-    if (this.changePasswordForm.invalid) {
+    if (this.formGroup.invalid) {
       return;
     }
 
-    const { email, oldPassword, newPassword } = this.changePasswordForm.getRawValue();
+    const { email, oldPassword, newPassword } = this.formGroup.getRawValue();
     this.accountService
       .changePassword(email, oldPassword, newPassword)
       .pipe(

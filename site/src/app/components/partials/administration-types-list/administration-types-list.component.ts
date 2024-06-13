@@ -30,8 +30,8 @@ export class AdministrationTypesListComponent implements OnInit {
       .subscribe();
   }
 
-  onTypeDelete(typeCode: string) {
-    this.referentialAdministrationService.deleteType(typeCode)
+  onTypeDelete(typeName: string) {
+    this.referentialAdministrationService.deleteType(typeName)
       .pipe(
         tap(() => location.reload()),
         catchError(() => {
