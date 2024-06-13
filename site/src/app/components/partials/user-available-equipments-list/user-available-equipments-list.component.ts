@@ -31,6 +31,6 @@ export class UserAvailableEquipmentsListComponent implements OnChanges {
   }
 
   onLoanRequest(organizationOnly: boolean, equipmentCode: string) {
-    this.router.navigate(['/user/loan/request'], { queryParams: { organizationOnly, equipmentCode } });
+    this.router.navigate(['/user/loans/request'], { queryParams: { organizationOnly, equipmentCode } });
   }
 }
