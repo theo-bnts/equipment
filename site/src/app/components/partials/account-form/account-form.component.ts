@@ -34,8 +34,12 @@ export class AccountFormComponent implements OnInit {
       tap(user => {
         this.formGroup.patchValue({ email: user.email_address });
       }),
-      catchError(() => of())
-    );
+      catchError(() => {
+        alert('Failed to load user');
+        return of();
+      })
+    )
+    .subscribe();
   }
 
   onSubmit() {
