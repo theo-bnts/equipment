@@ -6,7 +6,8 @@
     <label for="name">Nom</label>
     <input
       formControlName="name"
-      [ngClass]="{ 'red': submitted && formControls['name'].errors }"
+      placeholder="Nom"
+      [ngClass]="{ 'invalid-input': submitted && formControls['name'].errors }"
     />
     <div
       *ngIf="submitted && formControls['name'].errors"

@@ -29,8 +29,8 @@ export class AdministrationReferencesListComponent implements OnInit {
       .subscribe();
   }
 
-  onReferenceDelete(referenceCode: string) {
-    this.referentialAdministrationService.deleteReference(referenceCode)
+  onReferenceDelete(referenceName: string) {
+    this.referentialAdministrationService.deleteReference(referenceName)
       .pipe(
         tap(() => location.reload()),
         catchError(() => {

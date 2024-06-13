@@ -1,0 +1,51 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+>
+  <div>
+    <label for="name">Nom</label>
+    <input
+      formControlName="name"
+      placeholder="Nom"
+      [ngClass]="{ 'invalid-input': submitted && formControls['name'].errors }"
+    />
+    <div
+      *ngIf="submitted && formControls['name'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['name'].errors?.['required']">
+        Le nom est requis
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="typeName">Type</label>
+    <select
+      formControlName="typeName"
+      [ngClass]="{ 'invalid-input': submitted && formControls['typeName'].errors }"
+    >
+      <option value="" disabled selected>
+        Sélectionner un type
+      </option>
+      <option
+        *ngFor="let type of types"
+        [value]="type.name"
+      >
+        {{ type.name }}
+      </option>
+    </select>
+    <div
+      *ngIf="submitted && formControls['typeName'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['typeName'].errors?.['required']">
+        Le type est requis
+      </div>
+    </div>
+  </div>
+
+  <button class="blue" type="submit">
+    Ajouter
+  </button>
+</form>
