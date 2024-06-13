@@ -1,4 +1,4 @@
-<table class="table">
+<table>
   <thead>
     <tr>
       <th>État</th>
@@ -13,6 +13,9 @@
     </tr>
   </thead>
   <tbody>
+    <tr *ngIf="loans.length === 0">
+      <td colspan="9">Aucun emprunt</td>
+    </tr>
     <tr *ngFor="let loan of loans">
       <td
         [ngClass]="{

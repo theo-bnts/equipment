@@ -1,4 +1,4 @@
-<table class="table">
+<table>
   <thead>
     <tr>
       <th>Code</th>
@@ -9,6 +9,9 @@
     </tr>
   </thead>
   <tbody>
+    <tr *ngIf="availableEquipments.length === 0">
+      <td colspan="5">Aucun équipement disponible</td>
+    </tr>
     <tr *ngFor="let availableEquipment of availableEquipments">
       <td>{{ availableEquipment.code }}</td>
       <td>{{ availableEquipment.reference.name }}</td>

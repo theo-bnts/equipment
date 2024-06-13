@@ -1,4 +1,4 @@
-<table class="table">
+<table>
   <thead>
     <tr>
       <th>Référence</th>
@@ -7,6 +7,9 @@
     </tr>
   </thead>
   <tbody>
+    <tr *ngIf="references.length === 0">
+      <td colspan="3">Aucune référence</td>
+    </tr>
     <tr *ngFor="let reference of references">
       <td>{{ reference.name }}</td>
       <td>{{ reference.type.name }}</td>
