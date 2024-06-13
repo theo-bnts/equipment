@@ -17,30 +17,33 @@ import { ReferentialService } from '../../../services/referential.service';
   styleUrls: ['../../../../styles/form.css']
 })
 export class UserLoanRequestFormComponent {
-  loanRequestForm: FormGroup;
+  formGroup: FormGroup;
   submitted = false;
+
   organizationOnly = false;
   equipmentCode: string | null = null;
+  
   userOrganizations: any[] = [];
   rooms: any[] = [];
+
   isOrganizationSelected = false;
 
-  get formControls() { return this.loanRequestForm.controls; }
+  get formControls() { return this.formGroup.controls; }
 
   constructor(private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private referentialService: ReferentialService, private userService: UserService) {
-    this.loanRequestForm = this.formBuilder.group({
+    this.formGroup = this.formBuilder.group({
       loanType: ['', Validators.required],
       organization: [''],
       room: ['', Validators.required],
     });
 
-    this.loanRequestForm.get('loanType')?.valueChanges.subscribe(loanType => {
+    this.formGroup.get('loanType')?.valueChanges.subscribe(loanType => {
       if (loanType === 'ORGANIZATION') {
-        this.loanRequestForm.get('organization')?.setValidators(Validators.required);
+        this.formGroup.get('organization')?.setValidators(Validators.required);
       } else {
-        this.loanRequestForm.get('organization')?.clearValidators();
+        this.formGroup.get('organization')?.clearValidators();
       }
-      this.loanRequestForm.get('organization')?.updateValueAndValidity();
+      this.formGroup.get('organization')?.updateValueAndValidity();
     });
   }
 
@@ -50,7 +53,7 @@ export class UserLoanRequestFormComponent {
       this.equipmentCode = params.get('equipmentCode');
 
       if (this.organizationOnly) {
-        this.loanRequestForm.patchValue({ loanType: 'ORGANIZATION' });
+        this.formGroup.patchValue({ loanType: 'ORGANIZATION' });
       }
       
       if (this.equipmentCode === null) {
@@ -76,11 +79,11 @@ export class UserLoanRequestFormComponent {
   onSubmit() {
     this.submitted = true;
 
-    if (this.loanRequestForm.invalid) {
+    if (this.formGroup.invalid) {
       return;
     }
 
-    let { loanType, organization, room } = this.loanRequestForm.value;
+    let { loanType, organization, room } = this.formGroup.value;
 
     if (organization === undefined || loanType !== 'ORGANIZATION') {
       organization = null;

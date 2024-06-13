@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['../../../../styles/form.css']
 })
 export class AdministrationNewAccountFormComponent {
-  addAccountForm: FormGroup;
+  formGroup: FormGroup;
   submitted = false;
 
   roles = [
@@ -26,7 +26,7 @@ export class AdministrationNewAccountFormComponent {
     private accountAdministrationService: AccountAdministrationService,
     private router: Router
   ) {
-    this.addAccountForm = this.fb.group({
+    this.formGroup = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       firstName: ['', Validators.required],
@@ -36,14 +36,14 @@ export class AdministrationNewAccountFormComponent {
   }
 
   get formControls() {
-    return this.addAccountForm.controls;
+    return this.formGroup.controls;
   }
 
   onSubmit() {
     this.submitted = true;
 
-    if (this.addAccountForm.valid) {
-      const { email, password, firstName, lastName, roleName } = this.addAccountForm.value;
+    if (this.formGroup.valid) {
+      const { email, password, firstName, lastName, roleName } = this.formGroup.value;
       this.accountAdministrationService.createAccount(email, password, firstName, lastName, roleName)
         .subscribe(() => {
           alert('Compte créé avec succès');

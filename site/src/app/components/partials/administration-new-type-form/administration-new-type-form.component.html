@@ -1,0 +1,32 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+>
+  <div>
+    <label for="name">Nom</label>
+    <input
+      formControlName="name"
+      [ngClass]="{ 'red': submitted && formControls['name'].errors }"
+    />
+    <div
+      *ngIf="submitted && formControls['name'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['name'].errors?.['required']">
+        Le nom est requis
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="organizationOnly">Réservé aux organisations</label>
+    <input
+      type="checkbox"
+      formControlName="organizationOnly"
+    />
+  </div>
+
+  <button class="blue" type="submit">
+    Ajouter
+  </button>
+</form>

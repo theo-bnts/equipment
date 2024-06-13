@@ -15,7 +15,7 @@ export class HeaderComponent {
 
   navigateToHome() {
     if (this.accountService.isLoggedIn()) {
-      this.accountService.getUserInfo().subscribe(user => {
+      this.accountService.getUser().subscribe(user => {
         const roleName = user.role.name;
         if (roleName === 'ADMINISTRATOR') {
           this.router.navigate(['/administration/home']);

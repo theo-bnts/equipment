@@ -16,13 +16,13 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['../../../../styles/form.css']
 })
 export class LoginFormComponent {
-  loginForm: FormGroup;
+  formGroup: FormGroup;
   submitted = false;
 
-  get formControls() { return this.loginForm.controls; }
+  get formControls() { return this.formGroup.controls; }
 
   constructor(private router: Router, private formBuilder: FormBuilder, private authService: AccountService) {
-    this.loginForm = this.formBuilder.group({
+    this.formGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
@@ -31,11 +31,11 @@ export class LoginFormComponent {
   onSubmit() {
     this.submitted = true;
 
-    if (this.loginForm.invalid) {
+    if (this.formGroup.invalid) {
       return;
     }
 
-    const { email, password } = this.loginForm.value;
+    const { email, password } = this.formGroup.value;
     this.authService
       .login(email, password)
       .pipe(
