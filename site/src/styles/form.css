@@ -1,4 +1,4 @@
-.form {
+form {
   max-width: 400px;
   margin: auto;
   padding: 2em;
@@ -9,11 +9,11 @@
   gap: 2.5em;
 }
 
-.form select {
+select {
   all: unset;
 }
 
-.form input, .form select {
+input, select {
   background-color: white;
   border: 1px solid var(--grey);
   padding: .5em;
@@ -23,11 +23,11 @@
   box-sizing: border-box;
 }
 
-.form .invalid-input {
+.invalid-input {
   border-color: var(--red)
 }
 
-.form .invalid-indicator {
+.invalid-indicator {
   color: var(--red);
   font-size: 0.8em;
   line-height: 0;

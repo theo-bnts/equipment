@@ -1,4 +1,4 @@
-<form [formGroup]="loanRequestForm" (ngSubmit)="onSubmit()" class="form">
+<form [formGroup]="loanRequestForm" (ngSubmit)="onSubmit()">
   <div *ngIf="!organizationOnly">
     <label for="loanType">Pour qui souhaitez-vous emprunter ?</label>
     <select
