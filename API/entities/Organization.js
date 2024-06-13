@@ -40,6 +40,19 @@ class Organization {
 
     return new Organization(organization._id, organization.name);
   }
+
+  static async all() {
+    const organizations = await DatabasePool
+      .getConnection()
+      .collection('organization')
+      .find()
+      .toArray();
+
+    return organizations.map((organization) => new Organization(
+      organization._id,
+      organization.name,
+    ));
+  }
 }
 
 export default Organization;
