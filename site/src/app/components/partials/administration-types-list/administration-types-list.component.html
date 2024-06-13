@@ -1,4 +1,4 @@
-<table class="table">
+<table>
   <thead>
     <tr>
       <th>Nom</th>
@@ -7,6 +7,9 @@
     </tr>
   </thead>
   <tbody>
+    <tr *ngIf="types.length === 0">
+      <td colspan="3">Aucun type</td>
+    </tr>
     <tr *ngFor="let type of types">
       <td>{{ type.name }}</td>
       <td>{{ type.organization_only ? "Oui" : "Non" }}</td>

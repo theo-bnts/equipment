@@ -1,10 +1,13 @@
-<table class="table">
+<table>
   <thead>
     <tr>
       <th>Organisation</th>
     </tr>
   </thead>
   <tbody>
+    <tr *ngIf="organizations.length === 0">
+      <td colspan="1">Aucune organisation</td>
+    </tr>
     <tr *ngFor="let organization of organizations">
       <td>{{ organization.name }}</td>
     </tr>

@@ -1,14 +1,14 @@
-.table {
+table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.table th, .table td {
+th, td {
   border: 1px solid var(--light-grey);
   padding: .5em;
 }
 
-.table th {
+th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;

@@ -1,5 +1,5 @@
 {
-  "name": "project-aw",
+  "name": "Equipment",
   "version": "0.0.0",
   "scripts": {
     "ng": "npm install && ng",
