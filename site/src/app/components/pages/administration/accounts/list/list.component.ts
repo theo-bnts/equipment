@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AdministrationAccountsListComponent } from '../../../../partials/administration-accounts-list/administration-accounts-list.component';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-administration-accounts-list',
   standalone: true,
   imports: [AdministrationAccountsListComponent],
   templateUrl: './list.component.html',

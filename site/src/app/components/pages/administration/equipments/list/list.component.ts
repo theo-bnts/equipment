@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AdministrationEquipmentsListComponent } from '../../../../partials/administration-equipments-list/administration-equipments-list.component';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-administration-equipments-list',
   standalone: true,
   imports: [AdministrationEquipmentsListComponent],
   templateUrl: './list.component.html',
