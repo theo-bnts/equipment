@@ -3,7 +3,7 @@ import { UserAvailableEquipmentsListComponent } from '../../../../../partials/us
 import { TypesDropdownComponent } from '../../../../../partials/types-dropdown/types-dropdown.component';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-user-equipments-available-list',
   standalone: true,
   imports: [UserAvailableEquipmentsListComponent, TypesDropdownComponent],
   templateUrl: './list.component.html',

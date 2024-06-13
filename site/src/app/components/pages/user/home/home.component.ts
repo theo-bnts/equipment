@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { UserHomeTilesComponent } from '../../../partials/user-home-tiles/user-home-tiles.component';
 
 @Component({
-  selector: 'app-user-home', //?
+  selector: 'app-user-home',
   standalone: true,
   imports: [UserHomeTilesComponent],
   templateUrl: './home.component.html',
