@@ -8,7 +8,7 @@ import { AccountFormComponent } from '../../partials/account-form/account-form.c
 import { AccountService } from '../../../services/account.service';
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-account-page',
   standalone: true,
   imports: [CommonModule, AccountFormComponent],
   templateUrl: './account.component.html',
