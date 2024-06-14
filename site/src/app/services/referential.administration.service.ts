@@ -112,12 +112,12 @@ export class ReferentialAdministrationService {
       );
   }
 
-  createEquipment(equipmentCode: string, referenceName: string, stockageRoomName: string, endOfLifeDate?: string): Observable<void> {
+  createEquipment(code: string, referenceName: string, stockageRoomName: string, endOfLifeDate?: string): Observable<void> {
     const headers = AccountService.getAuthHeaders();
     
     const body = {
       equipment: {
-        code: equipmentCode,
+        code,
         reference: {
           name: referenceName
         },
