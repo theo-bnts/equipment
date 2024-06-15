@@ -26,6 +26,7 @@ import { AdministrationUserOrganizationsListPageComponent } from './pages/admini
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full' , redirectTo: '/account'},
+  
   { path: 'login', pathMatch: 'full', component: LoginPageComponent },
   { path: 'account', pathMatch: 'full', component: AccountPageComponent, canActivate: [UserAuthGuard] },
 

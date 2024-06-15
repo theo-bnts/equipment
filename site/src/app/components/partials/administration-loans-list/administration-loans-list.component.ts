@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 import { ReferentialAdministrationService } from '../../../services/referential.administration.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-loans-list',
@@ -15,16 +15,13 @@ import { ReferentialAdministrationService } from '../../../services/referential.
 export class AdministrationLoansListComponent implements OnInit {
   loans: any[] = [];
 
-  constructor(private referentialAdministrationService: ReferentialAdministrationService) {}
+  constructor(private frontendService: FrontendService, private referentialAdministrationService: ReferentialAdministrationService) {}
 
   ngOnInit() {
     this.referentialAdministrationService.getLoans()
       .pipe(
         tap(data => this.loans = data),
-        catchError(() => {
-          alert('Failed to load loans');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe(() => this.sortLoans());
   }
@@ -47,10 +44,7 @@ export class AdministrationLoansListComponent implements OnInit {
     this.referentialAdministrationService.updateLoanState(equipmentCode, stateName)
       .pipe(
         tap(() => location.reload()),
-        catchError(() => {
-          alert('Failed to update loan state');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }
@@ -59,10 +53,7 @@ export class AdministrationLoansListComponent implements OnInit {
     this.referentialAdministrationService.deleteLoan(equipmentCode)
       .pipe(
         tap(() => location.reload()),
-        catchError(() => {
-          alert('Failed to delete loan');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }

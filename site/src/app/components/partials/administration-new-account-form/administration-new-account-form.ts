@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountAdministrationService } from '../../../services/account.administration.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { tap, catchError } from 'rxjs/operators';
+
+import { AccountAdministrationService } from '../../../services/account.administration.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-new-account-form',
@@ -22,11 +25,12 @@ export class AdministrationNewAccountFormComponent {
   ];
 
   constructor(
-    private fb: FormBuilder,
-    private accountAdministrationService: AccountAdministrationService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private frontendService: FrontendService,
+    private accountAdministrationService: AccountAdministrationService
   ) {
-    this.formGroup = this.fb.group({
+    this.formGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       firstName: ['', Validators.required],
@@ -42,15 +46,17 @@ export class AdministrationNewAccountFormComponent {
   onSubmit() {
     this.submitted = true;
 
-    if (this.formGroup.valid) {
-      const { email, password, firstName, lastName, roleName } = this.formGroup.value;
-      this.accountAdministrationService.createAccount(email, password, firstName, lastName, roleName)
-        .subscribe(() => {
-          alert('Compte créé avec succès');
-          this.router.navigate(['/administration/account/list']);
-        }, error => {
-          alert('Échec de la création du compte');
-        });
+    if (this.formGroup.invalid) {
+      return;
     }
+
+    const { email, password, firstName, lastName, roleName } = this.formGroup.getRawValue();
+
+    this.accountAdministrationService.createAccount(email, password, firstName, lastName, roleName)
+      .pipe(
+        tap(() => this.router.navigate(['/administration/account/list'])),
+        catchError(error => this.frontendService.catchError(error)),
+      )
+      .subscribe();
   }
 }

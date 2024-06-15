@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 import { AccountService } from '../../../services/account.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-login-form',
@@ -21,7 +21,7 @@ export class LoginFormComponent {
 
   get formControls() { return this.formGroup.controls; }
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AccountService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private frontendService: FrontendService, private authService: AccountService) {
     this.formGroup = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
@@ -35,21 +35,19 @@ export class LoginFormComponent {
       return;
     }
 
-    const { email, password } = this.formGroup.value;
-    this.authService
-      .login(email, password)
+    const { email, password } = this.formGroup.getRawValue();
+
+    this.authService.login(email, password)
       .pipe(
         tap(user => {
           if (user.role.name === 'ADMINISTRATOR') {
             this.router.navigate(['/administration/home']);
-          } else if (user.role.name === 'USER') {
+          }
+          else {
             this.router.navigate(['/user/home']);
           }
         }),
-        catchError(() => {
-          alert('Login failed');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }

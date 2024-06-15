@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 import { ReferentialAdministrationService } from '../../../services/referential.administration.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-equipments-list',
@@ -15,16 +15,13 @@ import { ReferentialAdministrationService } from '../../../services/referential.
 export class AdministrationEquipmentsListComponent implements OnInit {
   equipments: any[] = [];
 
-  constructor(private referentialAdministrationService: ReferentialAdministrationService) {}
+  constructor(private frontendService: FrontendService, private referentialAdministrationService: ReferentialAdministrationService) {}
 
   ngOnInit() {
     this.referentialAdministrationService.getEquipments()
       .pipe(
         tap(data => this.equipments = data),
-        catchError(() => {
-          alert('Failed to load equipments');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe(() => this.sortEquipments());
   }
@@ -47,10 +44,7 @@ export class AdministrationEquipmentsListComponent implements OnInit {
     this.referentialAdministrationService.deleteEquipment(equipmentCode)
       .pipe(
         tap(() => location.reload()),
-        catchError(() => {
-          alert('Failed to delete equipment');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }

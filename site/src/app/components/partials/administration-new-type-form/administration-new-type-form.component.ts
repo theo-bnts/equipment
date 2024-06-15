@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { ReferentialAdministrationService } from '../../../services/referential.administration.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-new-type-form',
@@ -21,7 +21,7 @@ export class AdministrationNewTypeFormComponent implements OnInit {
 
   get formControls() { return this.formGroup.controls; }
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private referentialAdministrationService: ReferentialAdministrationService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private frontendService: FrontendService, private referentialAdministrationService: ReferentialAdministrationService) {
     this.formGroup = this.formBuilder.group({
       name: ['', [Validators.required]],
       organizationOnly: [false, [Validators.required]]
@@ -39,16 +39,10 @@ export class AdministrationNewTypeFormComponent implements OnInit {
 
     const { name, organizationOnly } = this.formGroup.getRawValue();
     
-    this.referentialAdministrationService
-      .createType(name, organizationOnly)
+    this.referentialAdministrationService.createType(name, organizationOnly)
       .pipe(
-        tap(() => {
-          this.router.navigate(['/administration/types/list']);
-        }),
-        catchError(() => {
-          alert('Type creation failed');
-          return of();
-        })
+        tap(() => this.router.navigate(['/administration/types/list'])),
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }

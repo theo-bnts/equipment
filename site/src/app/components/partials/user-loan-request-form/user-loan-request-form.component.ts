@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 import { UserService } from '../../../services/user.service';
 import { ReferentialService } from '../../../services/referential.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-user-loan-request-form',
@@ -30,7 +30,7 @@ export class UserLoanRequestFormComponent {
 
   get formControls() { return this.formGroup.controls; }
 
-  constructor(private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private referentialService: ReferentialService, private userService: UserService) {
+  constructor(private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder, private frontendService: FrontendService, private referentialService: ReferentialService, private userService: UserService) {
     this.formGroup = this.formBuilder.group({
       loanType: ['', Validators.required],
       organization: [''],
@@ -61,15 +61,19 @@ export class UserLoanRequestFormComponent {
       }
     });
 
-    this.userService.getOrganizations().subscribe(
-      data => this.userOrganizations = data,
-      error => console.error('Failed to load user organizations', error)
-    );
+    this.userService.getOrganizations()
+      .pipe(
+        tap(data => this.userOrganizations = data),
+        catchError(error => this.frontendService.catchError(error)),
+      )
+      .subscribe();
 
-    this.referentialService.getRooms().subscribe(
-      data => this.rooms = data,
-      error => console.error('Failed to load rooms', error)
-    );
+    this.referentialService.getRooms()
+      .pipe(
+        tap(data => this.rooms = data),
+        catchError(error => this.frontendService.catchError(error)),
+      )
+      .subscribe();
   }
 
   onLoanTypeChange(loanType: string) {
@@ -83,7 +87,7 @@ export class UserLoanRequestFormComponent {
       return;
     }
 
-    let { loanType, organization, room } = this.formGroup.value;
+    let { loanType, organization, room } = this.formGroup.getRawValue();
 
     if (organization === undefined || loanType !== 'ORGANIZATION') {
       organization = null;
@@ -92,10 +96,7 @@ export class UserLoanRequestFormComponent {
     this.userService.createLoanRequest(this.equipmentCode!, organization, room)
       .pipe(
         tap(() => this.router.navigate(['/user/home'])),
-        catchError(() => {
-          alert('Loan request failed');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }

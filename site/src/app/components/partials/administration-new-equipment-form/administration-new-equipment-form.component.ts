@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,6 +8,7 @@ import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 import { ReferentialAdministrationService } from '../../../services/referential.administration.service';
 import { ReferentialService } from '../../../services/referential.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-new-equipment-form',
@@ -26,7 +26,7 @@ export class AdministrationNewEquipmentFormComponent implements OnInit {
 
   get formControls() { return this.formGroup.controls; }
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private referentialService: ReferentialService, private referentialAdministrationService: ReferentialAdministrationService) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private frontendService: FrontendService, private referentialService: ReferentialService, private referentialAdministrationService: ReferentialAdministrationService) {
     const currentDate = new Date();
     const nextYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1)).toISOString().split('T')[0];
     
@@ -39,29 +39,17 @@ export class AdministrationNewEquipmentFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.referentialAdministrationService
-      .getReferences()
+    this.referentialAdministrationService.getReferences()
       .pipe(
-        tap((references) => {
-          this.references = references;
-        }),
-        catchError(() => {
-          alert('Failed to get references');
-          return of();
-        })
+        tap(references => this.references = references),
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
 
-    this.referentialService
-      .getRooms()
+    this.referentialService.getRooms()
       .pipe(
-        tap((rooms) => {
-          this.rooms = rooms;
-        }),
-        catchError(() => {
-          alert('Failed to get rooms');
-          return of();
-        })
+        tap(rooms => this.rooms = rooms),
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }
@@ -88,16 +76,10 @@ export class AdministrationNewEquipmentFormComponent implements OnInit {
 
     const { code, referenceName, stockageRoomName, endOfLifeDate } = this.formGroup.getRawValue();
     
-    this.referentialAdministrationService
-      .createEquipment(code, referenceName, stockageRoomName, endOfLifeDate)
+    this.referentialAdministrationService.createEquipment(code, referenceName, stockageRoomName, endOfLifeDate)
       .pipe(
-        tap(() => {
-          this.router.navigate(['/administration/equipments/list']);
-        }),
-        catchError(() => {
-          alert('Equipment creation failed');
-          return of();
-        })
+        tap(() => this.router.navigate(['/administration/equipments/list'])),
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }
