@@ -1,6 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -12,11 +11,9 @@ import HeaderComponent from './partials/header/header.component';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
     HeaderComponent,
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent],

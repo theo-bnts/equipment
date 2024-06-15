@@ -9,6 +9,6 @@ services:
       - ../../site/:/app/
       - ./environment.ts:/app/src/environments/environment.ts
     working_dir: /app
-    command: npm run start
+    command: npm run debug
     ports:
       - "4201:4200"
