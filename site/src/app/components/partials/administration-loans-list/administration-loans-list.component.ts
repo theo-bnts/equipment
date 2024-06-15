@@ -2,29 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
 
-import { ReferentialAdministrationService } from '../../../services/referential.administration.service';
-import { FrontendService } from '../../../services/frontend.service';
+import ReferentialAdministrationService from '../../../services/referential.administration.service';
+import FrontendService from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-loans-list',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './administration-loans-list.component.html',
-  styleUrls: ['../../../../styles/table.css']
+  styleUrls: ['../../../../styles/table.css'],
 })
-export class AdministrationLoansListComponent implements OnInit {
+export default class AdministrationLoansListComponent implements OnInit {
   loans: any[] = [];
 
-  constructor(private frontendService: FrontendService, private referentialAdministrationService: ReferentialAdministrationService) {}
+  constructor(
+    private referentialAdministrationService: ReferentialAdministrationService,
+  ) {}
 
   ngOnInit() {
-    this.referentialAdministrationService.getLoans()
+    this.referentialAdministrationService
+      .getLoans()
       .pipe(
-        tap(data => {
+        tap((data) => {
           this.loans = data;
           this.sortLoans();
         }),
-        catchError(error => this.frontendService.catchError(error)),
+        catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
   }
@@ -44,19 +47,21 @@ export class AdministrationLoansListComponent implements OnInit {
   }
 
   onLoanStateUpdate(equipmentCode: string, stateName: string) {
-    this.referentialAdministrationService.updateLoanState(equipmentCode, stateName)
+    this.referentialAdministrationService
+      .updateLoanState(equipmentCode, stateName)
       .pipe(
-        tap(() => location.reload()),
-        catchError(error => this.frontendService.catchError(error)),
+        tap(() => window.location.reload()),
+        catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
   }
 
   onLoanDelete(equipmentCode: string) {
-    this.referentialAdministrationService.deleteLoan(equipmentCode)
+    this.referentialAdministrationService
+      .deleteLoan(equipmentCode)
       .pipe(
-        tap(() => location.reload()),
-        catchError(error => this.frontendService.catchError(error)),
+        tap(() => window.location.reload()),
+        catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
   }

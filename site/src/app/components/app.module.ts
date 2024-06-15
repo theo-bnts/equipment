@@ -4,23 +4,21 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { routes } from './app.routes';
-import { HeaderComponent } from './partials/header/header.component';
+import AppComponent from './app.component';
+import routes from './app.routes';
+import HeaderComponent from './partials/header/header.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    HeaderComponent
+    HeaderComponent,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export default class AppModule {}

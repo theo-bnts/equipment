@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { UserAvailableEquipmentsListComponent } from '../../../../../partials/user-available-equipments-list/user-available-equipments-list.component';
-import { TypesDropdownComponent } from '../../../../../partials/types-dropdown/types-dropdown.component';
+
+import UserAvailableEquipmentsListComponent from '../../../../../partials/user-available-equipments-list/user-available-equipments-list.component';
+import TypesDropdownComponent from '../../../../../partials/types-dropdown/types-dropdown.component';
 
 @Component({
   selector: 'app-user-equipments-available-list-page',
   standalone: true,
   imports: [UserAvailableEquipmentsListComponent, TypesDropdownComponent],
   templateUrl: './list.component.html',
-  styleUrls: ['../../../../../../../styles/page.css', './list.component.css']
+  styleUrls: ['../../../../../../../styles/page.css', './list.component.css'],
 })
-export class UserAvailableEquipmentsListPageComponent {
+export default class UserAvailableEquipmentsListPageComponent {
   selectedType: string | undefined;
 
   onTypeChange(type: string) {

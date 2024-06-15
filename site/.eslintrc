@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2023
+  },
+  "rules": {
+    "class-methods-use-this": "warn",
+    "no-console": ["error", { "allow": ["debug", "warn", "error"] }]
+  }
+}

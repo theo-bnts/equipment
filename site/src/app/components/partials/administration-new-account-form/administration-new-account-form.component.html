@@ -11,7 +11,7 @@
       *ngIf="submitted && formControls['email'].errors"
       class="invalid-indicator"
     >
-    <div *ngIf="formControls['email'].errors?.['required']">
+      <div *ngIf="formControls['email'].errors?.['required']">
         L'email est requis
       </div>
       <div *ngIf="formControls['email'].errors?.['email']">
@@ -26,9 +26,14 @@
       type="password"
       formControlName="password"
       placeholder="***********"
-      [ngClass]="{ 'invalid-input': submitted && formControls['password'].errors }"
-  />
-    <div *ngIf="submitted && formControls['password'].errors" class="invalid-indicator">
+      [ngClass]="{
+        'invalid-input': submitted && formControls['password'].errors,
+      }"
+    />
+    <div
+      *ngIf="submitted && formControls['password'].errors"
+      class="invalid-indicator"
+    >
       <div *ngIf="formControls['password'].errors?.['required']">
         Le mot de passe est requis
       </div>
@@ -40,11 +45,17 @@
 
   <div>
     <label for="firstName">Prénom</label>
-    <input 
+    <input
       formControlName="firstName"
       placeholder="Prénom"
-      [ngClass]="{ 'invalid-input': submitted && formControls['firstName'].errors }">
-    <div *ngIf="submitted && formControls['firstName'].errors" class="invalid-indicator">
+      [ngClass]="{
+        'invalid-input': submitted && formControls['firstName'].errors,
+      }"
+    />
+    <div
+      *ngIf="submitted && formControls['firstName'].errors"
+      class="invalid-indicator"
+    >
       <div *ngIf="formControls['firstName'].errors?.['required']">
         Le prénom est requis
       </div>
@@ -53,11 +64,17 @@
 
   <div>
     <label for="lastName">Nom</label>
-    <input 
+    <input
       formControlName="lastName"
       placeholder="Nom"
-      [ngClass]="{ 'invalid-input': submitted && formControls['lastName'].errors }">
-    <div *ngIf="submitted && formControls['lastName'].errors" class="invalid-indicator">
+      [ngClass]="{
+        'invalid-input': submitted && formControls['lastName'].errors,
+      }"
+    />
+    <div
+      *ngIf="submitted && formControls['lastName'].errors"
+      class="invalid-indicator"
+    >
       <div *ngIf="formControls['lastName'].errors?.['required']">
         Le nom est requis
       </div>
@@ -68,12 +85,20 @@
     <label for="roleName">Rôle</label>
     <select
       placeholder="Rôle"
-      formControlName="roleName" 
-      [ngClass]="{ 'invalid-input': submitted && formControls['roleName'].errors }">
+      formControlName="roleName"
+      [ngClass]="{
+        'invalid-input': submitted && formControls['roleName'].errors,
+      }"
+    >
       <option value="" disabled hidden selected>Sélectionner un rôle</option>
-      <option *ngFor="let role of roles" [value]="role.name">{{ role.displayName }}</option>
+      <option *ngFor="let role of roles" [value]="role.name">
+        {{ role.displayName }}
+      </option>
     </select>
-    <div *ngIf="submitted && formControls['roleName'].errors" class="invalid-indicator">
+    <div
+      *ngIf="submitted && formControls['roleName'].errors"
+      class="invalid-indicator"
+    >
       <div *ngIf="formControls['roleName'].errors?.['required']">
         Le rôle est requis
       </div>

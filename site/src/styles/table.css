@@ -3,9 +3,10 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
   border: 1px solid var(--light-grey);
-  padding: .5em;
+  padding: 0.5em;
 }
 
 th {
