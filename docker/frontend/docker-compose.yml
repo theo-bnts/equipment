@@ -2,13 +2,15 @@ version: '3'
 
 services:
   angular:
-    restart: always
     container_name: equipment_angular
     image: node:20
     volumes:
       - ../../site/:/app/
       - ./environment.ts:/app/src/environments/environment.ts
+      - equipment_angular_dist:/app/dist/browser
     working_dir: /app
-    command: npm run debug
-    ports:
-      - "4201:4200"
+    command: npm run build
+
+volumes:
+  equipment_angular_dist:
+    external: true
