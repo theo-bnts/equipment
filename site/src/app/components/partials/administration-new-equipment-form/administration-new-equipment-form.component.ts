@@ -1,19 +1,15 @@
+import { catchError, tap } from 'rxjs/operators';
+
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-  AbstractControl,
-  ValidationErrors,
+    AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators
 } from '@angular/forms';
-import { tap, catchError } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
+import FrontendService from '../../../services/frontend.service';
 import ReferentialAdministrationService from '../../../services/referential.administration.service';
 import ReferentialService from '../../../services/referential.service';
-import FrontendService from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-new-equipment-form',

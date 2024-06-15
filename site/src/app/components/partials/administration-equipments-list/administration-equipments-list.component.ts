@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
-import ReferentialAdministrationService from '../../../services/referential.administration.service';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+
 import FrontendService from '../../../services/frontend.service';
+import ReferentialAdministrationService from '../../../services/referential.administration.service';
 
 @Component({
   selector: 'app-administration-equipments-list',

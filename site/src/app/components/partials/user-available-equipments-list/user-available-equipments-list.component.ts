@@ -1,12 +1,11 @@
-import {
-  Component, Input, OnChanges, SimpleChanges,
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 
-import ReferentialService from '../../../services/referential.service';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
+
 import FrontendService from '../../../services/frontend.service';
+import ReferentialService from '../../../services/referential.service';
 
 @Component({
   selector: 'app-user-available-equipments-list',

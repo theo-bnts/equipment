@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { catchError, tap } from 'rxjs/operators';
+
 import { CommonModule } from '@angular/common';
-import { tap, catchError } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import AccountAdministrationService from '../../../services/account.administration.service';

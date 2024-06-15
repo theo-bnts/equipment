@@ -1,10 +1,11 @@
+import { catchError, tap } from 'rxjs/operators';
+
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { tap, catchError } from 'rxjs/operators';
 
-import UserAdministrationService from '../../../services/user.administration.service';
 import FrontendService from '../../../services/frontend.service';
+import UserAdministrationService from '../../../services/user.administration.service';
 
 @Component({
   selector: 'app-administration-user-organizations-list',

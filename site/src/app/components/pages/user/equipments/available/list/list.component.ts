@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import UserAvailableEquipmentsListComponent from '../../../../../partials/user-available-equipments-list/user-available-equipments-list.component';
 import TypesDropdownComponent from '../../../../../partials/types-dropdown/types-dropdown.component';
+import UserAvailableEquipmentsListComponent from '../../../../../partials/user-available-equipments-list/user-available-equipments-list.component';
 
 @Component({
   selector: 'app-user-equipments-available-list-page',

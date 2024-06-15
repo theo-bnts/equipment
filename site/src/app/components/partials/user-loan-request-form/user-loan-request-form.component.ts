@@ -1,18 +1,14 @@
-import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { catchError, tap } from 'rxjs/operators';
+
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { tap, catchError } from 'rxjs/operators';
 
-import UserService from '../../../services/user.service';
-import ReferentialService from '../../../services/referential.service';
 import FrontendService from '../../../services/frontend.service';
+import ReferentialService from '../../../services/referential.service';
+import UserService from '../../../services/user.service';
 
 @Component({
   selector: 'app-user-loan-request-form',
