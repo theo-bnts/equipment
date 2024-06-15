@@ -1,7 +1,9 @@
 import { catchError, tap } from 'rxjs/operators';
 
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component, Input, OnChanges, SimpleChanges,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import FrontendService from '../../../services/frontend.service';
