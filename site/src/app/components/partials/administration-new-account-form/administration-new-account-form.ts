@@ -62,7 +62,7 @@ export default class AdministrationNewAccountFormComponent {
     this.accountAdministrationService
       .createAccount(email, password, firstName, lastName, roleName)
       .pipe(
-        tap(() => this.router.navigate(['/administration/account/list'])),
+        tap(() => this.router.navigate(['/administration/accounts/list'])),
         catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
