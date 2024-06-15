@@ -20,10 +20,13 @@ export class AdministrationLoansListComponent implements OnInit {
   ngOnInit() {
     this.referentialAdministrationService.getLoans()
       .pipe(
-        tap(data => this.loans = data),
+        tap(data => {
+          this.loans = data;
+          this.sortLoans();
+        }),
         catchError(error => this.frontendService.catchError(error)),
       )
-      .subscribe(() => this.sortLoans());
+      .subscribe();
   }
 
   sortLoans() {

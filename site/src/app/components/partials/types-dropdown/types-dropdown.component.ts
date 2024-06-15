@@ -23,10 +23,13 @@ export class TypesDropdownComponent {
   ngOnInit() {
     this.referentialService.getTypes()
       .pipe(
-        tap(data => this.types = data),
+        tap(data => {
+          this.types = data;
+          this.typeSelected.emit(this.types[0].name);
+        }),
         catchError(error => this.frontendService.catchError(error)),
       )
-      .subscribe(() => this.typeSelected.emit(this.types[0].name));
+      .subscribe();
   }
 
   onTypeChange(selectedTypeName: string) {
