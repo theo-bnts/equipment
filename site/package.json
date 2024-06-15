@@ -1,6 +1,5 @@
 {
-  "name": "Equipment",
-  "version": "0.0.0",
+  "name": "equipment_angular",
   "scripts": {
     "ng": "npm install && ng",
     "start": "npm install && ng serve --host 0.0.0.0 --port 4200",
@@ -8,7 +7,6 @@
     "watch": "npm install && ng build --watch",
     "test": "npm install && ng test"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^17.3.0",
     "@angular/common": "^17.3.0",
