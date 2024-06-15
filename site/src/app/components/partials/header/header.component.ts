@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { catchError, tap } from 'rxjs/operators';
+
 import { AccountService } from '../../../services/account.service';
 
 @Component({
@@ -15,16 +17,21 @@ export class HeaderComponent {
 
   navigateToHome() {
     if (this.accountService.isLoggedIn()) {
-      this.accountService.getUser().subscribe(user => {
-        const roleName = user.role.name;
-        if (roleName === 'ADMINISTRATOR') {
-          this.router.navigate(['/administration/home']);
-        } else if (roleName === 'USER') {
-          this.router.navigate(['/user/home']);
-        }
-      });
-    } else {
-      this.router.navigate(['/login']);
-    }
+      this.accountService.getUser()
+        .pipe(
+          tap(user => {
+            const roleName = user.role.name;
+
+            if (roleName === 'ADMINISTRATOR') {
+              this.router.navigate(['/administration/home']);
+            }
+            else {
+              this.router.navigate(['/user/home']);
+            }
+          }),
+          catchError(() => this.router.navigate(['/login']))
+        )
+        .subscribe();
+      }
   }
 }

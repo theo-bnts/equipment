@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 import { ReferentialAdministrationService } from '../../../services/referential.administration.service';
 import { ReferentialService } from '../../../services/referential.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-types-list',
@@ -16,16 +16,13 @@ import { ReferentialService } from '../../../services/referential.service';
 export class AdministrationTypesListComponent implements OnInit {
   types: any[] = [];
 
-  constructor(private referentialAdministrationService: ReferentialAdministrationService, private referentialService: ReferentialService) {}
+  constructor(private frontendService: FrontendService, private referentialAdministrationService: ReferentialAdministrationService, private referentialService: ReferentialService) {}
 
   ngOnInit() {
     this.referentialService.getTypes()
       .pipe(
         tap(data => this.types = data),
-        catchError(() => {
-          alert('Failed to load types');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }
@@ -34,10 +31,7 @@ export class AdministrationTypesListComponent implements OnInit {
     this.referentialAdministrationService.deleteType(typeName)
       .pipe(
         tap(() => location.reload()),
-        catchError(() => {
-          alert('Failed to delete type');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }

@@ -1,8 +1,10 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { catchError, tap } from 'rxjs/operators';
 
 import { ReferentialService } from '../../../services/referential.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-user-available-equipments-list',
@@ -15,7 +17,7 @@ export class UserAvailableEquipmentsListComponent implements OnChanges {
   @Input() selectedType: string | undefined;
   availableEquipments: any[] = [];
 
-  constructor(private router: Router, private referentialService: ReferentialService) {}
+  constructor(private router: Router, private frontendService: FrontendService, private referentialService: ReferentialService) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['selectedType'] && changes['selectedType'].currentValue) {
@@ -24,10 +26,12 @@ export class UserAvailableEquipmentsListComponent implements OnChanges {
   }
 
   loadEquipments(type: string) {
-    this.referentialService.getAvailableEquipments(type).subscribe(
-      data => this.availableEquipments = data,
-      error => console.error('Failed to load available equipments', error)
-    );
+    this.referentialService.getAvailableEquipments(type)
+      .pipe(
+        tap(data => this.availableEquipments = data),
+        catchError(error => this.frontendService.catchError(error)),
+      )
+      .subscribe();
   }
 
   onLoanRequest(organizationOnly: boolean, equipmentCode: string) {

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 import { AccountFormComponent } from '../../partials/account-form/account-form.component';
 import { AccountService } from '../../../services/account.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-account-page',
@@ -15,17 +15,13 @@ import { AccountService } from '../../../services/account.service';
   styleUrls: ['../../../../styles/page.css', './account.component.css']
 })
 export class AccountPageComponent {
-  constructor(private router: Router, private accountService: AccountService) {}
+  constructor(private router: Router, private frontendService: FrontendService, private accountService: AccountService) {}
 
   logout() {
-    this.accountService
-      .logout()
+    this.accountService.logout()
       .pipe(
         tap(() => this.router.navigate(['/login'])),
-        catchError(() => {
-          alert('Logout failed');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }

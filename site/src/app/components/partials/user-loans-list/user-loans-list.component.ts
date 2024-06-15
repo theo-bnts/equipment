@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { tap, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 import { UserService } from '../../../services/user.service';
+import { FrontendService } from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-user-loaned-list',
@@ -16,16 +15,15 @@ import { UserService } from '../../../services/user.service';
 export class UserLoansListComponent implements OnInit {
   loans: any[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private frontendService: FrontendService, private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getLoans().subscribe(
-      data => {
-        this.loans = data;
-        this.sortLoans();
-      },
-      error => console.error('Failed to load loans', error)
-    );
+    this.userService.getLoans()
+      .pipe(
+        tap(data => this.loans = data),
+        catchError(error => this.frontendService.catchError(error)),
+      )
+      .subscribe(() => this.sortLoans());
   }
 
   sortLoans() {
@@ -46,10 +44,7 @@ export class UserLoansListComponent implements OnInit {
     this.userService.returnLoan(equipmentCode)
       .pipe(
         tap(() => location.reload()),
-        catchError(() => {
-          alert('Failed to ask for loan return');
-          return of();
-        })
+        catchError(error => this.frontendService.catchError(error)),
       )
       .subscribe();
   }
