@@ -22,9 +22,7 @@ function createValidationRule(validations, isOptional = false) {
       validationCopy = validationCopy.optional();
     }
 
-    return validationCopy
-      .withMessage(`${validationCopy.builder.fields[0]} ${validationCopy.builder.message}`)
-      .bail();
+    return validationCopy.bail();
   });
 }
 
@@ -33,9 +31,9 @@ const validationRules = {
     [
       header(`${prefix}authorization`)
         .isString()
-        .withMessage('Authorization header must be a string')
+        .withMessage('AUTHORIZATION_HEADER_MUST_BE_A_STRING')
         .matches(new RegExp(`^${process.env.TOKEN_TYPE} [a-f0-9]{${process.env.TOKEN_LENGTH}}$`))
-        .withMessage('Authorization header must be in the correct format'),
+        .withMessage('AUTHORIZATION_HEADER_HAS_WRONG_FORMAT'),
     ],
     isOptional,
   ),
@@ -43,9 +41,9 @@ const validationRules = {
     [
       body(`${prefix}email_address`)
         .isEmail()
-        .withMessage('Email address must be valid')
+        .withMessage('EMAIL_ADDRESS_HAS_WRONG_FORMAT')
         .isLength({ max: parseInt(process.env.USER_EMAIL_ADDRESS_MAX_LENGTH, 10) })
-        .withMessage(`Email address must be at most ${process.env.USER_EMAIL_ADDRESS_MAX_LENGTH} characters`),
+        .withMessage('EMAIL_ADDRESS_TOO_LONG'),
     ],
     isOptional,
   ),
@@ -53,9 +51,9 @@ const validationRules = {
     [
       body(`${prefix}password`)
         .isString()
-        .withMessage('Password must be a string')
+        .withMessage('PASSWORD_MUST_BE_A_STRING')
         .isLength({ min: parseInt(process.env.USER_PASSWORD_MIN_LENGTH, 10) })
-        .withMessage(`Password must be at least ${process.env.USER_PASSWORD_MIN_LENGTH} characters`),
+        .withMessage('PASSWORD_TOO_SHORT'),
     ],
     isOptional,
   ),
@@ -63,9 +61,9 @@ const validationRules = {
     [
       body(`${prefix}old_password`)
         .isString()
-        .withMessage('Old password must be a string')
+        .withMessage('OLD_PASSWORD_MUST_BE_A_STRING')
         .isLength({ min: parseInt(process.env.USER_PASSWORD_MIN_LENGTH, 10) })
-        .withMessage(`Old password must be at least ${process.env.USER_PASSWORD_MIN_LENGTH} characters`),
+        .withMessage('OLD_PASSWORD_TOO_SHORT'),
     ],
     isOptional,
   ),
@@ -73,12 +71,12 @@ const validationRules = {
     [
       body(`${prefix}first_name`)
         .isString()
-        .withMessage('First name must be a string')
+        .withMessage('FIRST_NAME_MUST_BE_A_STRING')
         .isLength({
           min: parseInt(process.env.USER_FIRST_NAME_MIN_LENGTH, 10),
           max: parseInt(process.env.USER_FIRST_NAME_MAX_LENGTH, 10),
         })
-        .withMessage(`First name must be at least ${process.env.USER_FIRST_NAME_MIN_LENGTH} characters and at most ${process.env.USER_FIRST_NAME_MAX_LENGTH} characters`),
+        .withMessage('FIRST_NAME_TOO_SHORT_OR_TOO_LONG'),
     ],
     isOptional,
   ),
@@ -86,12 +84,12 @@ const validationRules = {
     [
       body(`${prefix}last_name`)
         .isString()
-        .withMessage('Last name must be a string')
+        .withMessage('LAST_NAME_MUST_BE_A_STRING')
         .isLength({
           min: parseInt(process.env.USER_LAST_NAME_MIN_LENGTH, 10),
           max: parseInt(process.env.USER_LAST_NAME_MAX_LENGTH, 10),
         })
-        .withMessage(`Last name must be at least ${process.env.USER_LAST_NAME_MIN_LENGTH} characters and at most ${process.env.USER_LAST_NAME_MAX_LENGTH} characters`),
+        .withMessage('LAST_NAME_TOO_SHORT_OR_TOO_LONG'),
     ],
     isOptional,
   ),
@@ -99,9 +97,9 @@ const validationRules = {
     [
       body(`${prefix}name`)
         .isString()
-        .withMessage('Name must be a string')
+        .withMessage('NAME_MUST_BE_A_STRING')
         .isLength({ min: 1 })
-        .withMessage('Name must be at least 1 character'),
+        .withMessage('NAME_TOO_SHORT'),
     ],
     isOptional,
   ),
@@ -109,9 +107,9 @@ const validationRules = {
     [
       body(`${prefix}code`)
         .isString()
-        .withMessage('Code must be a string')
+        .withMessage('CODE_MUST_BE_A_STRING')
         .matches(/^FR[0-9]{5}$/)
-        .withMessage('Code must be in the correct format'),
+        .withMessage('CODE_HAS_WRONG_FORMAT'),
     ],
     isOptional,
   ),
@@ -119,7 +117,7 @@ const validationRules = {
     [
       body(`${prefix}organization_only`)
         .isBoolean()
-        .withMessage('Organization only must be a boolean'),
+        .withMessage('ORGANIZATION_ONLY_MUST_BE_A_BOOLEAN'),
     ],
     isOptional,
   ),
@@ -127,10 +125,10 @@ const validationRules = {
     [
       body(`${prefix}end_of_life_date`)
         .isDate()
-        .withMessage('End of life date must be a date')
+        .withMessage('END_OF_LIFE_DATE_MUST_BE_A_DATE')
         .custom((value) => {
           if (new Date(value) < new Date()) {
-            throw new Error('End of life date must be in the future');
+            throw new Error('END_OF_LIFE_DATE_MUST_BE_IN_THE_FUTURE');
           }
           return true;
         }),
@@ -141,9 +139,9 @@ const validationRules = {
     [
       query(`${prefix}email_address`)
         .isEmail()
-        .withMessage('Email address must be valid')
+        .withMessage('EMAIL_ADDRESS_HAS_WRONG_FORMAT')
         .isLength({ max: parseInt(process.env.USER_EMAIL_ADDRESS_MAX_LENGTH, 10) })
-        .withMessage(`Email address must be at most ${process.env.USER_EMAIL_ADDRESS_MAX_LENGTH} characters`),
+        .withMessage('EMAIL_ADDRESS_TOO_LONG'),
     ],
     isOptional,
   ),
@@ -151,9 +149,9 @@ const validationRules = {
     [
       query(`${prefix}name`)
         .isString()
-        .withMessage('Category name must be a string')
+        .withMessage('NAME_MUST_BE_A_STRING')
         .isLength({ min: 1 })
-        .withMessage('Category name must be at least 1 character'),
+        .withMessage('NAME_TOO_SHORT'),
     ],
     isOptional,
   ),
