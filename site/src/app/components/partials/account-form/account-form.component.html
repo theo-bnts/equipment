@@ -1,13 +1,10 @@
-<form
-  [formGroup]="formGroup"
-  (ngSubmit)="onSubmit()"
->
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <div>
     <label for="email">E-Mail</label>
     <input
       type="email"
       formControlName="email"
-      [ngClass]="{ 'red': submitted && formControls['email'].errors }"
+      [ngClass]="{ red: submitted && formControls['email'].errors }"
     />
     <div
       *ngIf="submitted && formControls['email'].errors"
@@ -29,7 +26,7 @@
       formControlName="oldPassword"
       placeholder="***********"
       [ngClass]="{
-        'invalid-input': submitted && formControls['oldPassword'].errors
+        'invalid-input': submitted && formControls['oldPassword'].errors,
       }"
     />
     <div
@@ -49,7 +46,7 @@
       formControlName="newPassword"
       placeholder="***********"
       [ngClass]="{
-        'invalid-input': submitted && formControls['newPassword'].errors
+        'invalid-input': submitted && formControls['newPassword'].errors,
       }"
     />
     <div
@@ -64,7 +61,5 @@
       </div>
     </div>
   </div>
-  <button class="blue" type="submit">
-    Changer le mot de passe
-  </button>
+  <button class="blue" type="submit">Changer le mot de passe</button>
 </form>

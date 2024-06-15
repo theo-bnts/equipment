@@ -2,29 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
 
-import { UserService } from '../../../services/user.service';
-import { FrontendService } from '../../../services/frontend.service';
+import UserService from '../../../services/user.service';
+import FrontendService from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-user-loaned-list',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './user-loans-list.component.html',
-  styleUrls: ['../../../../styles/table.css']
+  styleUrls: ['../../../../styles/table.css'],
 })
-export class UserLoansListComponent implements OnInit {
+export default class UserLoansListComponent implements OnInit {
   loans: any[] = [];
 
-  constructor(private frontendService: FrontendService, private userService: UserService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.userService.getLoans()
+    this.userService
+      .getLoans()
       .pipe(
-        tap(data => {
+        tap((data) => {
           this.loans = data;
           this.sortLoans();
         }),
-        catchError(error => this.frontendService.catchError(error)),
+        catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
   }
@@ -44,10 +45,11 @@ export class UserLoansListComponent implements OnInit {
   }
 
   onLoanReturnRequest(equipmentCode: string) {
-    this.userService.returnLoan(equipmentCode)
+    this.userService
+      .returnLoan(equipmentCode)
       .pipe(
-        tap(() => location.reload()),
-        catchError(error => this.frontendService.catchError(error)),
+        tap(() => window.location.reload()),
+        catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
   }

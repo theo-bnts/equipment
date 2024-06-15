@@ -6,31 +6,69 @@
       placeholder="Code"
       [ngClass]="{ 'invalid-input': submitted && formControls['code'].errors }"
     />
-    <div *ngIf="submitted && formControls['code'].errors" class="invalid-indicator">
-      <div *ngIf="formControls['code'].errors?.['required']">Le code est requis</div>
-      <div *ngIf="!formControls['code'].errors?.['required'] && formControls['code'].errors?.['format']">Le code doit être au format FR00000</div>
+    <div
+      *ngIf="submitted && formControls['code'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['code'].errors?.['required']">
+        Le code est requis
+      </div>
+      <div
+        *ngIf="
+          !formControls['code'].errors?.['required'] &&
+          formControls['code'].errors?.['format']
+        "
+      >
+        Le code doit être au format FR00000
+      </div>
     </div>
   </div>
 
   <div>
     <label for="referenceName">Référence</label>
-    <select formControlName="referenceName" [ngClass]="{ 'invalid-input': submitted && formControls['referenceName'].errors }">
+    <select
+      formControlName="referenceName"
+      [ngClass]="{
+        'invalid-input': submitted && formControls['referenceName'].errors,
+      }"
+    >
       <option value="" disabled hidden selected>Choisir une référence</option>
-      <option *ngFor="let reference of references" [value]="reference.name">{{ reference.name }}</option>
+      <option *ngFor="let reference of references" [value]="reference.name">
+        {{ reference.name }}
+      </option>
     </select>
-    <div *ngIf="submitted && formControls['referenceName'].errors" class="invalid-indicator">
-      <div *ngIf="formControls['referenceName'].errors?.['required']">La référence est requise</div>
+    <div
+      *ngIf="submitted && formControls['referenceName'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['referenceName'].errors?.['required']">
+        La référence est requise
+      </div>
     </div>
   </div>
 
   <div>
     <label for="stockageRoomName">Salle de stockage</label>
-    <select formControlName="stockageRoomName" [ngClass]="{ 'invalid-input': submitted && formControls['stockageRoomName'].errors }">
-      <option value="" disabled hidden selected>Choisir une salle de stockage</option>
-      <option *ngFor="let room of rooms" [value]="room.name">{{ room.name }}</option>
+    <select
+      formControlName="stockageRoomName"
+      [ngClass]="{
+        'invalid-input': submitted && formControls['stockageRoomName'].errors,
+      }"
+    >
+      <option value="" disabled hidden selected>
+        Choisir une salle de stockage
+      </option>
+      <option *ngFor="let room of rooms" [value]="room.name">
+        {{ room.name }}
+      </option>
     </select>
-    <div *ngIf="submitted && formControls['stockageRoomName'].errors" class="invalid-indicator">
-      <div *ngIf="formControls['stockageRoomName'].errors?.['required']">La salle de stockage est requise</div>
+    <div
+      *ngIf="submitted && formControls['stockageRoomName'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['stockageRoomName'].errors?.['required']">
+        La salle de stockage est requise
+      </div>
     </div>
   </div>
 
@@ -39,11 +77,20 @@
     <input
       type="date"
       formControlName="endOfLifeDate"
-      [ngClass]="{ 'invalid-input': submitted && formControls['endOfLifeDate'].errors }"
+      [ngClass]="{
+        'invalid-input': submitted && formControls['endOfLifeDate'].errors,
+      }"
     />
-    <div *ngIf="submitted && formControls['endOfLifeDate'].errors" class="invalid-indicator">
-      <div *ngIf="formControls['endOfLifeDate'].errors?.['required']">La date de fin de vie est requise</div>
-      <div *ngIf="formControls['endOfLifeDate'].errors?.['inPastOrPresent']">La date de fin de vie doit être dans le futur</div>
+    <div
+      *ngIf="submitted && formControls['endOfLifeDate'].errors"
+      class="invalid-indicator"
+    >
+      <div *ngIf="formControls['endOfLifeDate'].errors?.['required']">
+        La date de fin de vie est requise
+      </div>
+      <div *ngIf="formControls['endOfLifeDate'].errors?.['inPastOrPresent']">
+        La date de fin de vie doit être dans le futur
+      </div>
     </div>
   </div>
 

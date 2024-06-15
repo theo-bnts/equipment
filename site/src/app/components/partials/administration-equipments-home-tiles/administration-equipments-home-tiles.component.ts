@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './administration-equipments-home-tiles.component.html',
-  styleUrls: ['./administration-equipments-home-tiles.component.css']
+  styleUrls: ['./administration-equipments-home-tiles.component.css'],
 })
-export class AdministrationEquipmentsHomeTilesComponent {
+export default class AdministrationEquipmentsHomeTilesComponent {
   constructor(private router: Router) {}
 
   navigateTo(route: string) {

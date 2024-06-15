@@ -2,29 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { tap, catchError } from 'rxjs/operators';
 
-import { ReferentialAdministrationService } from '../../../services/referential.administration.service';
-import { FrontendService } from '../../../services/frontend.service';
+import ReferentialAdministrationService from '../../../services/referential.administration.service';
+import FrontendService from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-equipments-list',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './administration-equipments-list.component.html',
-  styleUrls: ['../../../../styles/table.css']
+  styleUrls: ['../../../../styles/table.css'],
 })
-export class AdministrationEquipmentsListComponent implements OnInit {
+export default class AdministrationEquipmentsListComponent implements OnInit {
   equipments: any[] = [];
 
-  constructor(private frontendService: FrontendService, private referentialAdministrationService: ReferentialAdministrationService) {}
+  constructor(
+    private referentialAdministrationService: ReferentialAdministrationService,
+  ) {}
 
   ngOnInit() {
-    this.referentialAdministrationService.getEquipments()
+    this.referentialAdministrationService
+      .getEquipments()
       .pipe(
-        tap(data => {
+        tap((data) => {
           this.equipments = data;
           this.sortEquipments();
         }),
-        catchError(error => this.frontendService.catchError(error)),
+        catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
   }
@@ -44,10 +47,11 @@ export class AdministrationEquipmentsListComponent implements OnInit {
   }
 
   onEquipmentDelete(equipmentCode: string) {
-    this.referentialAdministrationService.deleteEquipment(equipmentCode)
+    this.referentialAdministrationService
+      .deleteEquipment(equipmentCode)
       .pipe(
-        tap(() => location.reload()),
-        catchError(error => this.frontendService.catchError(error)),
+        tap(() => window.location.reload()),
+        catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
   }

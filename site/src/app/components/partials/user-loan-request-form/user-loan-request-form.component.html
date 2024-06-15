@@ -5,7 +5,7 @@
       formControlName="loanType"
       (change)="onLoanTypeChange($any($event.target).value)"
       [ngClass]="{
-        'invalid-input': submitted && formControls['loanType'].invalid
+        'invalid-input': submitted && formControls['loanType'].invalid,
       }"
     >
       <option value="" disabled hidden selected>Choisir une option</option>
@@ -25,10 +25,12 @@
     <select
       formControlName="organization"
       [ngClass]="{
-        'invalid-input': submitted && formControls['organization'].invalid
+        'invalid-input': submitted && formControls['organization'].invalid,
       }"
     >
-      <option value="" disabled hidden selected>Choisir une organisation</option>
+      <option value="" disabled hidden selected>
+        Choisir une organisation
+      </option>
       <option
         *ngFor="let organization of userOrganizations"
         [value]="organization.name"
@@ -49,7 +51,7 @@
     <select
       formControlName="room"
       [ngClass]="{
-        'invalid-input': submitted && formControls['room'].invalid
+        'invalid-input': submitted && formControls['room'].invalid,
       }"
     >
       <option value="" disabled hidden selected>Choisir une salle</option>
