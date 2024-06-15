@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 
-import ReferentialService from '../../../services/referential.service';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import FrontendService from '../../../services/frontend.service';
+import ReferentialService from '../../../services/referential.service';
 
 @Component({
   selector: 'app-types-dropdown',

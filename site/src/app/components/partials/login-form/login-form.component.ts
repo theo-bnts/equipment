@@ -1,14 +1,10 @@
-import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { catchError, tap } from 'rxjs/operators';
+
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { tap, catchError } from 'rxjs/operators';
 
 import AccountService from '../../../services/account.service';
 import FrontendService from '../../../services/frontend.service';

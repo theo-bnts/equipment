@@ -1,17 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import FrontendService from '../../../services/frontend.service';
 import ReferentialAdministrationService from '../../../services/referential.administration.service';
 import ReferentialService from '../../../services/referential.service';
-import FrontendService from '../../../services/frontend.service';
 
 @Component({
   selector: 'app-administration-new-reference-form',

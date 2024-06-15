@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
-import UserService from '../../../services/user.service';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+
 import FrontendService from '../../../services/frontend.service';
+import UserService from '../../../services/user.service';
 
 @Component({
   selector: 'app-user-loaned-list',

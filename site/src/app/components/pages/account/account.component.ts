@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 
-import AccountFormComponent from '../../partials/account-form/account-form.component';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 import AccountService from '../../../services/account.service';
 import FrontendService from '../../../services/frontend.service';
+import AccountFormComponent from '../../partials/account-form/account-form.component';
 
 @Component({
   selector: 'app-account-page',
