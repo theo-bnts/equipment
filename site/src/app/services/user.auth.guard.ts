@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -9,8 +9,7 @@ import { AccountService } from './account.service';
   providedIn: 'root'
 })
 export class UserAuthGuard implements CanActivate {
-  private router = inject(Router);
-  private accountService = inject(AccountService);
+  constructor(private router: Router, private accountService: AccountService) {}
 
   canActivate(): Observable<boolean> {
     if (!this.accountService.isLoggedIn()) {
