@@ -42,7 +42,7 @@ export default function route(app) {
         req.body.equipment.code,
         await Reference.fromName(req.body.equipment.reference.name),
         await Room.fromName(req.body.equipment.stockage_room.name),
-        new Date(req.body.equipment.end_of_life),
+        new Date(req.body.equipment.end_of_life_date),
       );
 
       await equipment.insert();
