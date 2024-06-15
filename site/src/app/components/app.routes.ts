@@ -129,4 +129,6 @@ export default [
     component: AdministrationUserOrganizationsListPageComponent,
     canActivate: [AdministratorAuthGuard],
   },
+
+  { path: '**', pathMatch: 'full', redirectTo: '/account' },
 ] as Routes;
