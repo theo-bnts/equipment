@@ -48,9 +48,12 @@ export class AccountFormComponent implements OnInit {
 
     this.accountService.changePassword(email, oldPassword, newPassword)
       .pipe(
-        tap(() => alert('PASSWORD_CHANGED')),
+        tap(() => {
+          alert('PASSWORD_CHANGED');
+          location.reload();
+        }),
         catchError(error => this.frontendService.catchError(error)),
       )
-      .subscribe(() => location.reload());
+      .subscribe();
   }
 }

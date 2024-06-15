@@ -20,10 +20,13 @@ export class AdministrationEquipmentsListComponent implements OnInit {
   ngOnInit() {
     this.referentialAdministrationService.getEquipments()
       .pipe(
-        tap(data => this.equipments = data),
+        tap(data => {
+          this.equipments = data;
+          this.sortEquipments();
+        }),
         catchError(error => this.frontendService.catchError(error)),
       )
-      .subscribe(() => this.sortEquipments());
+      .subscribe();
   }
 
   sortEquipments() {
