@@ -97,6 +97,18 @@ export default class ReferentialAdministrationService {
       .pipe(map((response) => response.datas));
   }
 
+  getOrganizations(): Observable<any> {
+    const headers = AccountService.getAuthHeaders();
+
+    return this.http
+      .get<{
+      datas: any;
+    }>(`${environment.API_BASE_URL}/administration/organizations`, {
+      headers,
+    })
+      .pipe(map((response) => response.datas));
+  }
+
   createReference(referenceName: string, typeName: string): Observable<void> {
     const headers = AccountService.getAuthHeaders();
 

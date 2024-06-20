@@ -1,0 +1,22 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="selectedOrganization">Organisation</label>
+      <select
+        formControlName="selectedOrganization"
+        [ngClass]="{ 'invalid-input': submitted && formControls['selectedOrganization'].errors }"
+      >
+        <option value="" disabled hidden selected>Sélectionner une organisation</option>
+        <option *ngFor="let org of availableOrganizations" [value]="org.name">
+          {{ org.name }}
+        </option>
+      </select>
+      <div *ngIf="submitted && formControls['selectedOrganization'].errors" class="invalid-indicator">
+        <div *ngIf="formControls['selectedOrganization'].errors?.['required']">
+          L'organisation est requise
+        </div>
+      </div>
+    </div>
+  
+    <button class="blue" type="submit">Ajouter</button>
+  </form>
+  
