@@ -3,7 +3,6 @@
     <tr>
       <th>Organisation</th>
       <th *ngIf="organizations.length > 0">Actions</th>
-      <th>Ajouter une organisation</th>
     </tr>
   </thead>
   <tbody>
@@ -16,29 +15,6 @@
         <button class="red" (click)="onOrganizationDelete(organization.name)">
           Supprimer
         </button>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"></td>
-      <td>
-        <select
-          formControlName="selectedOrganization"
-          [ngClass]="{ 'invalid-input': submitted && !selectedOrganization }"
-        >
-          <option value="" disabled hidden selected>
-            Ajouter une organisation
-          </option>
-          <option *ngFor="let org of availableOrganizations" [value]="org.name">
-            {{ org.name }}
-          </option>
-        </select>
-        <button class="blue" (click)="onOrganizationAdd()">Ajouter</button>
-        <div
-          *ngIf="submitted && !selectedOrganization"
-          class="invalid-indicator"
-        >
-          L'organisation est requise
-        </div>
       </td>
     </tr>
   </tbody>
