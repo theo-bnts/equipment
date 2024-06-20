@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import AdministrationUserOrganizationsListComponent from '../../../../../partials/administration-user-organizations-list/administration-user-organizations-list.component';
 
@@ -9,4 +10,11 @@ import AdministrationUserOrganizationsListComponent from '../../../../../partial
   templateUrl: './list.component.html',
   styleUrls: ['../../../../../../../styles/page.css', './list.component.css'],
 })
-export default class AdministrationUserOrganizationsListPageComponent {}
+export default class AdministrationUserOrganizationsListPageComponent {
+  constructor(private router: Router) {}
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
+  }
+
+}

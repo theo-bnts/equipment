@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import FrontendService from '../../../services/frontend.service';
 import ReferentialAdministrationService from '../../../services/referential.administration.service';
 import UserAdministrationService from '../../../services/user.administration.service';
-
 @Component({
   selector: 'app-administration-user-organizations-list',
   standalone: true,
@@ -19,12 +18,10 @@ import UserAdministrationService from '../../../services/user.administration.ser
 export default class AdministrationUserOrganizationsListComponent
 implements OnInit {
   organizations: any[] = [];
-
   availableOrganizations: any[] = [];
-
   selectedOrganization: string = '';
-
   submitted: boolean = false;
+  userEmail: string | null = null;
 
   constructor(
     private router: Router,
@@ -36,6 +33,7 @@ implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       const email = params.get('email');
+      this.userEmail = email;
 
       if (email === null) {
         this.router.navigate(['/administration/accounts/list']);
@@ -85,26 +83,9 @@ implements OnInit {
       .subscribe();
   }
 
-  onOrganizationAdd() {
-    this.submitted = true;
-    if (!this.selectedOrganization) {
-      return;
-    }
-
-    const email = this.route.snapshot.queryParamMap.get('email')!;
-    this.userAdministrationService
-      .addUserToOrganization(email, this.selectedOrganization)
-      .pipe(
-        tap(() => {
-          this.organizations.push({ name: this.selectedOrganization });
-          this.selectedOrganization = '';
-          this.submitted = false;
-        }),
-        catchError((error) => {
-          console.error('Failed to add organization', error);
-          return of();
-        }),
-      )
-      .subscribe();
+  navigateTo(route: string) {
+    this.router.navigate([route], {
+      queryParams: { email: this.userEmail },
+    });
   }
 }
