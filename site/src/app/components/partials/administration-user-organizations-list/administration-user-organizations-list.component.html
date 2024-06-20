@@ -2,20 +2,18 @@
   <thead>
     <tr>
       <th>Organisation</th>
-      <th *ngIf="organizations.length > 0">Actions</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngIf="organizations.length === 0">
-      <td colspan="3">Aucune organisation</td>
+      <td colspan="2">Aucune organisation</td>
     </tr>
     <tr *ngFor="let organization of organizations">
       <td>{{ organization.name }}</td>
-      <td *ngIf="organizations.length > 0">
-        <button class="red" (click)="onOrganizationDelete(organization.name)">
-          Supprimer
-        </button>
-      </td>
+      <button class="red" (click)="onOrganizationDelete(organization.name)">
+        Supprimer
+      </button>
     </tr>
   </tbody>
 </table>
