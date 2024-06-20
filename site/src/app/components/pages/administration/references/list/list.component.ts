@@ -13,7 +13,7 @@ import AdministrationReferencesListComponent from '../../../../partials/administ
 export default class AdministrationReferencesListPageComponent {
   constructor(private router: Router) {}
 
-  public navigateTo(route: string): void {
+  navigateTo(route: string) {
     this.router.navigate([route]);
   }
 }

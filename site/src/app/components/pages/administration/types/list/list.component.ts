@@ -13,7 +13,7 @@ import AdministrationTypesListComponent from '../../../../partials/administratio
 export default class AdministrationTypesListPageComponent {
   constructor(private router: Router) {}
 
-  public navigateTo(route: string): void {
+  navigateTo(route: string) {
     this.router.navigate([route]);
   }
 }

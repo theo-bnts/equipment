@@ -14,7 +14,6 @@ export default class AdministrationUserOrganizationsListPageComponent {
   constructor(private router: Router) {}
 
   navigateTo(route: string) {
-    this.router.navigate([route]);
+    this.router.navigate([route], { queryParamsHandling: 'preserve' });
   }
-
 }

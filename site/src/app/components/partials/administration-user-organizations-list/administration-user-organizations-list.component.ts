@@ -1,4 +1,3 @@
-import { of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { CommonModule } from '@angular/common';
@@ -8,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import FrontendService from '../../../services/frontend.service';
 import ReferentialAdministrationService from '../../../services/referential.administration.service';
 import UserAdministrationService from '../../../services/user.administration.service';
+
 @Component({
   selector: 'app-administration-user-organizations-list',
   standalone: true,
@@ -18,9 +18,13 @@ import UserAdministrationService from '../../../services/user.administration.ser
 export default class AdministrationUserOrganizationsListComponent
 implements OnInit {
   organizations: any[] = [];
+
   availableOrganizations: any[] = [];
+
   selectedOrganization: string = '';
+
   submitted: boolean = false;
+
   userEmail: string | null = null;
 
   constructor(
@@ -53,11 +57,10 @@ implements OnInit {
       this.referentialAdministrationService
         .getOrganizations()
         .pipe(
-          tap((data) => (this.availableOrganizations = data)),
-          catchError((error) => {
-            console.error('Failed to load available organizations', error);
-            return of();
+          tap((data) => {
+            this.availableOrganizations = data;
           }),
+          catchError((error) => FrontendService.catchError(error)),
         )
         .subscribe();
     });
@@ -70,22 +73,13 @@ implements OnInit {
         organizationName,
       )
       .pipe(
-        tap(
-          () => (this.organizations = this.organizations.filter(
+        tap(() => {
+          this.organizations = this.organizations.filter(
             (organization) => organization.name !== organizationName,
-          )),
-        ),
-        catchError((error) => {
-          console.error('Failed to delete organization', error);
-          return of();
+          );
         }),
+        catchError((error) => FrontendService.catchError(error)),
       )
       .subscribe();
-  }
-
-  navigateTo(route: string) {
-    this.router.navigate([route], {
-      queryParams: { email: this.userEmail },
-    });
   }
 }

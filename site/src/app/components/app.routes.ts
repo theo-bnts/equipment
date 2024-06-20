@@ -15,7 +15,7 @@ import AdministrationReferencesNewPageComponent from './pages/administration/ref
 import AdministrationTypesListPageComponent from './pages/administration/types/list/list.component';
 import AdministrationTypesNewPageComponent from './pages/administration/types/new/new.component';
 import AdministrationUserOrganizationsListPageComponent from './pages/administration/users/organizations/list/list.component';
-import AdministrationUserOrganizationsAddPageComponent from './pages/administration/users/organizations/add/add.component';
+import AdministrationUserOrganizationsNewPageComponent from './pages/administration/users/organizations/new/new.component';
 import LoginPageComponent from './pages/login/login.component';
 import UserAvailableEquipmentsListPageComponent from './pages/user/equipments/available/list/list.component';
 import UserHomePageComponent from './pages/user/home/home.component';
@@ -131,9 +131,9 @@ export default [
     canActivate: [AdministratorAuthGuard],
   },
   {
-    path: 'administration/users/organizations/add',
+    path: 'administration/users/organizations/new',
     pathMatch: 'full',
-    component: AdministrationUserOrganizationsAddPageComponent,
+    component: AdministrationUserOrganizationsNewPageComponent,
     canActivate: [AdministratorAuthGuard],
   },
   { path: '**', pathMatch: 'full', redirectTo: '/account' },

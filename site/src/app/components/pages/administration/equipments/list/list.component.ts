@@ -13,7 +13,7 @@ import AdministrationEquipmentsListComponent from '../../../../partials/administ
 export default class AdministrationEquipmentsListPageComponent {
   constructor(private router: Router) {}
 
-  public navigateTo(route: string): void {
+  navigateTo(route: string) {
     this.router.navigate([route]);
   }
 }
