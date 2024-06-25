@@ -11,11 +11,13 @@
     </tr>
     <tr *ngFor="let organization of organizations">
       <td>{{ organization.name }}</td>
-      <div class="actions">
-        <button class="red" (click)="onOrganizationDelete(organization.name)">
-          Supprimer
-        </button>
-      </div>
+      <td>
+        <div class="actions">
+          <button class="red" (click)="onOrganizationDelete(organization.name)">
+            Supprimer
+          </button>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>
