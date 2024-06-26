@@ -1,4 +1,4 @@
-Le rapport complet sur le projet est disponible [ici](./blob/main/res/Rapport.pdf).
+Le rapport complet sur le projet est disponible [ici](./res/Rapport.pdf).
 
 # Quelques captures
 ## Utilisateur
