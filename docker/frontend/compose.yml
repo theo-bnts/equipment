@@ -1,16 +1,14 @@
-version: '3'
-
 services:
   angular:
-    container_name: equipment_angular
     image: node:20
+    container_name: equipment_angular
     volumes:
       - ../../site/:/app/
       - ./environment.ts:/app/src/environments/environment.ts
-      - equipment_angular_dist:/app/dist/browser
+      - volume:/app/dist/browser
     working_dir: /app
     command: npm run build
 
 volumes:
-  equipment_angular_dist:
-    external: true
+  volume:
+    name: equipment_angular_data
