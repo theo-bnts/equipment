@@ -46,7 +46,7 @@ services:
     volumes:
       - ./site:/app:ro
       - angular_node_modules_volume:/app/node_modules:rw
-      - angular_dist_volume:/app/dist:rw
+      - angular_browser_volume:/app/dist/browser:rw
 
 networks:
   network:
@@ -60,5 +60,5 @@ volumes:
     name: equipment_express_node_modules_volume
   angular_node_modules_volume:
     name: equipment_angular_node_modules_volume
-  angular_dist_volume:
-    name: equipment_angular_dist_volume
+  angular_browser_volume:
+    name: equipment_angular_browser_volume
