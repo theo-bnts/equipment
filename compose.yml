@@ -1,0 +1,64 @@
+services:
+  mongo:
+    image: mongo:7-jammy
+    container_name: equipment_mongo
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Paris
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=equipment
+    networks:
+      - network
+    volumes:
+      - mongo_data_volume:/data/db:rw
+      - ./database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  express:
+    depends_on:
+      - mongo
+    image: node:22-alpine
+    container_name: equipment_express
+    restart: unless-stopped
+    working_dir: /app
+    command: >
+      sh -c "
+        npm install --no-save &&
+        npm run start
+      "
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - network
+    volumes:
+      - ./API/:/app/:ro
+      - express_node_modules_volume:/app/node_modules:rw
+  angular:
+    image: node:22-alpine
+    container_name: equipment_angular
+    working_dir: /app
+    command: >
+      sh -c "
+        npm install --no-save &&
+        npm run build
+      "
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - ./site:/app:ro
+      - angular_node_modules_volume:/app/node_modules:rw
+      - angular_dist_volume:/app/dist:rw
+
+networks:
+  network:
+    driver: bridge
+    name: equipment_network
+
+volumes:
+  mongo_data_volume:
+    name: equipment_mongo_data_volume
+  express_node_modules_volume:
+    name: equipment_express_node_modules_volume
+  angular_node_modules_volume:
+    name: equipment_angular_node_modules_volume
+  angular_dist_volume:
+    name: equipment_angular_dist_volume
