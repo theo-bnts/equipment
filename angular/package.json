@@ -1,5 +1,6 @@
 {
   "name": "angular",
+  "private": true,
   "scripts": {
     "lint": "eslint --ext .ts .",
     "format": "eslint --fix --ext .ts .",
@@ -38,6 +39,5 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.2"
-  },
-  "private": true
+  }
 }

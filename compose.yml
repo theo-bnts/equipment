@@ -5,11 +5,11 @@ services:
     restart: unless-stopped
     env_file:
       - ./mongo/.env
-    networks:
-      - mongo_network
     volumes:
       - mongo_data_volume:/data/db:rw
       - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - mongo_network
   express:
     depends_on:
       - mongo
@@ -22,12 +22,12 @@ services:
         npm install --no-save &&
         npm run start
       "
-    networks:
-      - express_network
-      - mongo_network
     volumes:
       - ./express/:/app/:ro
       - express_node_modules_volume:/app/node_modules:rw
+    networks:
+      - express_network
+      - mongo_network
   angular:
     image: node:22-alpine
     container_name: equipment_angular
@@ -43,14 +43,6 @@ services:
       - angular_dist_volume:/app/dist:rw
       - angular_browser_volume:/app/dist/browser:rw
 
-networks:
-  mongo_network:
-    driver: bridge
-    name: equipment_mongo_network
-  express_network:
-    driver: bridge
-    name: equipment_express_network
-
 volumes:
   mongo_data_volume:
     name: equipment_mongo_data_volume
@@ -62,3 +54,11 @@ volumes:
     name: equipment_angular_dist_volume
   angular_browser_volume:
     name: equipment_angular_browser_volume
+
+networks:
+  mongo_network:
+    driver: bridge
+    name: equipment_mongo_network
+  express_network:
+    driver: bridge
+    name: equipment_express_network

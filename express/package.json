@@ -1,5 +1,6 @@
 {
   "name": "express",
+  "private": true,
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -23,6 +24,5 @@
     "eslint-config-airbnb-base": "15",
     "eslint-plugin-import": "2",
     "nodemon": "3"
-  },
-  "private": true
+  }
 }
